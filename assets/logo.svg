@@ -147,57 +147,70 @@
   </g>
 </svg>
 
-// Estilo cartoon: contorno oscuro y símbolo $ 
-<linearGradient id="faceGold" x1="0" x2="0" y1="0" y2="1">
-<stop offset="0%" stop-color="#ffe98a"/>
-<stop offset="55%" stop-color="#ffc94d"/>
-<stop offset="100%" stop-color="#d39a2f"/>
-</linearGradient>
-<linearGradient id="rimGold" x1="0" x2="1" y1="0" y2="0">
-<stop offset="0%" stop-color="#ffef9f"/>
-<stop offset="60%" stop-color="#e0b84a"/>
-<stop offset="100%" stop-color="#9a7a1f"/>
-</linearGradient>
-<!-- Monedas estilo cartoon como la imagen: 4 en pila + 1 inclinada -->
-<g transform="translate(520,46)" filter="url(#shadow)">
-<!-- pila vertical (4 monedas) -->
-<!-- moneda base -->
+// Monedas estilo cartoon: dos pilas + moneda inclinada (como la imagen) 
+<g transform="translate(518,44)" filter="url(#shadow)">
+// sombra base amplia 
+<ellipse cx="30" cy="94" rx="72" ry="16" fill="#000" opacity="0.12"/>
+
+// pila izquierda (4 monedas) 
+<g transform="translate(-14,0)">
+// base 
 <rect x="5" y="68" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
 <rect x="5" y="68" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
 <ellipse cx="30" cy="84" rx="24" ry="10" fill="url(#coinShadow)"/>
 <ellipse cx="30" cy="76" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
 <ellipse cx="30" cy="76" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
 <text x="30" y="80" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-weight="800" font-size="16" text-anchor="middle" fill="#fff" opacity="0.9">$</text>
-
-<!-- moneda 2 -->
+// segundo nivel -->
 <rect x="5" y="54" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
 <rect x="5" y="54" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
 <ellipse cx="30" cy="70" rx="24" ry="10" fill="url(#coinShadow)"/>
 <ellipse cx="30" cy="62" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
 <ellipse cx="30" cy="62" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
-
-<!-- moneda 3 -->
+// tercer nivel -->
 <rect x="5" y="40" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
 <rect x="5" y="40" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
 <ellipse cx="30" cy="56" rx="24" ry="10" fill="url(#coinShadow)"/>
 <ellipse cx="30" cy="48" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
 <ellipse cx="30" cy="48" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
-
-<!-- moneda 4 (arriba de la pila) -->
+// cuarto nivel (arriba) -->
 <rect x="5" y="26" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
 <rect x="5" y="26" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
 <ellipse cx="30" cy="42" rx="24" ry="10" fill="url(#coinShadow)"/>
 <ellipse cx="30" cy="34" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
 <ellipse cx="30" cy="34" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
+</g>
 
-<!-- moneda inclinada al frente -->
-<g transform="translate(78,54) rotate(-20)">
+// pila trasera (3 monedas, ligeramente desplazada a la derecha) -->
+<g transform="translate(18,-6)" opacity="0.98">
+<rect x="5" y="62" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
+<rect x="5" y="62" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
+<ellipse cx="30" cy="78" rx="24" ry="10" fill="url(#coinShadow)"/>
+<ellipse cx="30" cy="70" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
+<ellipse cx="30" cy="70" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
+
+<rect x="5" y="48" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
+<rect x="5" y="48" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
+<ellipse cx="30" cy="64" rx="24" ry="10" fill="url(#coinShadow)"/>
+<ellipse cx="30" cy="56" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
+<ellipse cx="30" cy="56" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
+
+<rect x="5" y="34" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
+<rect x="5" y="34" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
+<ellipse cx="30" cy="50" rx="24" ry="10" fill="url(#coinShadow)"/>
+<ellipse cx="30" cy="42" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
+<ellipse cx="30" cy="42" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
+</g>
+
+// moneda inclinada al frente (derecha) -->
+<g transform="translate(92,54) rotate(-22)">
 <rect x="-25" y="-8" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
 <rect x="-25" y="-8" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
 <ellipse cx="0" cy="8" rx="24" ry="10" fill="url(#coinShadow)"/>
 <ellipse cx="0" cy="0" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
 <ellipse cx="0" cy="0" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
 <text x="0" y="4" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-weight="800" font-size="16" text-anchor="middle" fill="#fff" opacity="0.95">$</text>
+</g>
 </g>
 
 <!-- brillo lateral global -->
