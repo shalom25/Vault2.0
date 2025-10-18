@@ -22,6 +22,12 @@
       <stop offset="50%" stop-color="#d4af37"/>
       <stop offset="100%" stop-color="#b38f2f"/>
     </linearGradient>
+    <!-- Gradiente para monedas de oro -->
+    <linearGradient id="coin" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fff3a3"/>
+      <stop offset="45%" stop-color="#ffd24d"/>
+      <stop offset="100%" stop-color="#caa132"/>
+    </linearGradient>
   </defs>
 
   <rect x="40" y="40" width="880" height="160" rx="24" fill="url(#g)" filter="url(#shadow)"/>
@@ -46,7 +52,27 @@
 
   <g fill="#ffffff">
     <text x="190" y="118" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="700" font-size="64" letter-spacing="1.5">VAULT</text>
-    <text x="190" y="168" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="500" font-size="36" opacity="0.9">Internal Economy · v2.0.0</text>
+    <text x="190" y="168" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="500" font-size="36" opacity="0.9">Internal Economy · Plugins</text>
     <text x="720" y="118" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="700" font-size="64" text-anchor="end">2.0</text>
+    <!-- Monedas apiladas entre VAULT y 2.0 -->
+    <g transform="translate(520,76)" filter="url(#shadow)">
+      <!-- pila izquierda -->
+      <circle cx="0" cy="38" r="12" fill="url(#coin)" stroke="#7a6115" stroke-width="2"/>
+      <circle cx="4" cy="30" r="12" fill="url(#coin)" stroke="#7a6115" stroke-width="2"/>
+      <circle cx="-3" cy="22" r="12" fill="url(#coin)" stroke="#7a6115" stroke-width="2"/>
+      <circle cx="2" cy="14" r="12" fill="url(#coin)" stroke="#7a6115" stroke-width="2"/>
+      <!-- pila central -->
+      <circle cx="28" cy="46" r="12" fill="url(#coin)" stroke="#7a6115" stroke-width="2"/>
+      <circle cx="31" cy="38" r="12" fill="url(#coin)" stroke="#7a6115" stroke-width="2"/>
+      <circle cx="25" cy="30" r="12" fill="url(#coin)" stroke="#7a6115" stroke-width="2"/>
+      <circle cx="32" cy="22" r="12" fill="url(#coin)" stroke="#7a6115" stroke-width="2"/>
+      <circle cx="27" cy="14" r="12" fill="url(#coin)" stroke="#7a6115" stroke-width="2"/>
+      <!-- pila derecha -->
+      <circle cx="56" cy="42" r="12" fill="url(#coin)" stroke="#7a6115" stroke-width="2"/>
+      <circle cx="60" cy="34" r="12" fill="url(#coin)" stroke="#7a6115" stroke-width="2"/>
+      <circle cx="55" cy="26" r="12" fill="url(#coin)" stroke="#7a6115" stroke-width="2"/>
+      <!-- brillo simple -->
+      <ellipse cx="28" cy="22" rx="6" ry="3" fill="#fff" opacity="0.35"/>
+    </g>
   </g>
 </svg>
