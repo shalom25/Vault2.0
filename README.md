@@ -1,6 +1,6 @@
 # Vault 2.0
 
-[![CI](https://github.com/shalom25/https-github.com-shalom25-Vault2.0/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/shalom25/https-github.com-shalom25-Vault2.0/actions/workflows/build.yml) [![Release](https://img.shields.io/github/v/release/shalom25/https-github.com-shalom25-Vault2.0?display_name=tag)](https://github.com/shalom25/https-github.com-shalom25-Vault2.0/releases/latest) [![Downloads](https://img.shields.io/github/downloads/shalom25/https-github.com-shalom25-Vault2.0/total)](https://github.com/shalom25/https-github.com-shalom25-Vault2.0/releases)
+[![CI](https://github.com/shalom25/Vault2.0/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/shalom25/Vault2.0/actions/workflows/build.yml) [![Release](https://img.shields.io/github/v/release/shalom25/Vault2.0?display_name=tag)](https://github.com/shalom25/Vault2.0/releases/latest) [![Downloads](https://img.shields.io/github/downloads/shalom25/Vault2.0/total)](https://github.com/shalom25/Vault2.0/releases)
 
 An internal economy provider compatible with the Vault API (no external `Vault.jar` required). It registers a Bukkit `Economy` service via the `ServicesManager`.
 
@@ -23,7 +23,7 @@ An internal economy provider compatible with the Vault API (no external `Vault.j
 2. Start the server. No official `Vault.jar` or external economy plugin is required.
 
 ## Download
-- Latest JAR: https://github.com/shalom25/https-github.com-shalom25-Vault2.0/releases/latest/download/vault-2.0.jar
+- Latest JAR: https://github.com/shalom25/Vault2.0/releases/latest/download/vault-2.0.jar
 
 ## Configuration
 - File: `plugins/Vault 2.0/config.yml` (auto-generated on first start via `saveDefaultConfig()`).
