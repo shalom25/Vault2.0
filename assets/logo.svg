@@ -49,6 +49,16 @@
       <stop offset="60%" stop-color="#000" stop-opacity="0.06"/>
       <stop offset="100%" stop-color="#000" stop-opacity="0"/>
     </radialGradient>
+    <!-- Gradiente de borde del anillo interno y brillo especular -->
+    <linearGradient id="rimStroke" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#ffeaa0"/>
+      <stop offset="50%" stop-color="#e0b84a"/>
+      <stop offset="100%" stop-color="#9a7a1f"/>
+    </linearGradient>
+    <radialGradient id="specHighlight" cx="50%" cy="50%" r="85%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
 
   <rect x="40" y="40" width="880" height="160" rx="24" fill="url(#g)" filter="url(#shadow)"/>
@@ -97,8 +107,8 @@
     </g>
     <!-- brillo lateral -->
     <ellipse cx="40" cy="30" rx="6" ry="3" fill="#fff" opacity="0.30"/>
-    <!-- Monedas apiladas con mayor espesor y realismo -->
-    <g transform="translate(520,54)" filter="url(#shadow)">
+    <!-- Monedas apiladas con mayor espesor y realismo (subidas ligeramente) -->
+    <g transform="translate(520,48)" filter="url(#shadow)">
       <!-- moneda 1 (abajo) -->
       <rect x="5" y="65" width="46" height="16" rx="23" ry="10.5" fill="url(#coinEdge)" stroke="#8a6d1a" stroke-width="1.8"/>
       <rect x="5" y="65" width="46" height="16" fill="url(#reedPattern)" opacity="0.6"/>
@@ -130,7 +140,7 @@
       <ellipse cx="28" cy="24" rx="23" ry="10.5" fill="url(#coinTop)" stroke="#7a6115" stroke-width="3"/>
   
       <!-- brillo lateral global -->
-      <rect x="40" y="14" width="6" height="72" fill="#fff" opacity="0.12"/>
+      <rect x="40" y="12" width="6" height="76" fill="#fff" opacity="0.12"/>
     </g>
     <!-- brillo lateral -->
     <ellipse cx="40" cy="30" rx="6" ry="3" fill="#fff" opacity="0.30"/>
