@@ -28,6 +28,17 @@
       <stop offset="50%" stop-color="#ffd24d"/>
       <stop offset="100%" stop-color="#caa132"/>
     </linearGradient>
+    <!-- Gradientes adicionales para volumen real -->
+    <radialGradient id="coinTop" cx="35%" cy="30%" r="85%">
+      <stop offset="0%" stop-color="#fff6b7"/>
+      <stop offset="55%" stop-color="#ffd24d"/>
+      <stop offset="100%" stop-color="#b38f2f"/>
+    </radialGradient>
+    <linearGradient id="coinEdge" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ffe47a"/>
+      <stop offset="35%" stop-color="#e0b84a"/>
+      <stop offset="100%" stop-color="#8b6f1a"/>
+    </linearGradient>
   </defs>
 
   <rect x="40" y="40" width="880" height="160" rx="24" fill="url(#g)" filter="url(#shadow)"/>
@@ -54,16 +65,27 @@
     <text x="190" y="118" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="700" font-size="64" letter-spacing="1.5">VAULT</text>
     <text x="190" y="168" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="500" font-size="36" opacity="0.9">Internal Economy · Plugins</text>
     <text x="720" y="118" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="700" font-size="64" text-anchor="end">2.0</text>
-    <!-- Monedas apiladas entre VAULT y 2.0 (vista lateral, más densas) -->
+    <!-- Monedas apiladas entre VAULT y 2.0 (vista lateral, con espesor real) -->
     <g transform="translate(520,56)" filter="url(#shadow)">
-      <ellipse cx="28" cy="72" rx="22" ry="9.5" fill="url(#coinSide)" stroke="#7a6115" stroke-width="2.5"/>
-      <ellipse cx="28" cy="60" rx="22" ry="9.5" fill="url(#coinSide)" stroke="#7a6115" stroke-width="2.5"/>
-      <ellipse cx="28" cy="48" rx="22" ry="9.5" fill="url(#coinSide)" stroke="#7a6115" stroke-width="2.5"/>
-      <ellipse cx="28" cy="36" rx="22" ry="9.5" fill="url(#coinSide)" stroke="#7a6115" stroke-width="2.5"/>
-      <ellipse cx="28" cy="24" rx="22" ry="9.5" fill="url(#coinSide)" stroke="#7a6115" stroke-width="2.5"/>
-      <!-- brillo lateral -->
-      <ellipse cx="40" cy="30" rx="6" ry="3" fill="#fff" opacity="0.30"/>
+      <!-- moneda 1 (abajo) -->
+      <rect x="6" y="72" width="44" height="10" rx="22" ry="9.5" fill="url(#coinEdge)" stroke="#8a6d1a" stroke-width="1.6"/>
+      <ellipse cx="28" cy="72" rx="22" ry="9.5" fill="url(#coinTop)" stroke="#7a6115" stroke-width="2.6"/>
+      <!-- moneda 2 -->
+      <rect x="6" y="60" width="44" height="10" rx="22" ry="9.5" fill="url(#coinEdge)" stroke="#8a6d1a" stroke-width="1.6"/>
+      <ellipse cx="28" cy="60" rx="22" ry="9.5" fill="url(#coinTop)" stroke="#7a6115" stroke-width="2.6"/>
+      <!-- moneda 3 -->
+      <rect x="6" y="48" width="44" height="10" rx="22" ry="9.5" fill="url(#coinEdge)" stroke="#8a6d1a" stroke-width="1.6"/>
+      <ellipse cx="28" cy="48" rx="22" ry="9.5" fill="url(#coinTop)" stroke="#7a6115" stroke-width="2.6"/>
+      <!-- moneda 4 -->
+      <rect x="6" y="36" width="44" height="10" rx="22" ry="9.5" fill="url(#coinEdge)" stroke="#8a6d1a" stroke-width="1.6"/>
+      <ellipse cx="28" cy="36" rx="22" ry="9.5" fill="url(#coinTop)" stroke="#7a6115" stroke-width="2.6"/>
+      <!-- moneda 5 (arriba) -->
+      <rect x="6" y="24" width="44" height="10" rx="22" ry="9.5" fill="url(#coinEdge)" stroke="#8a6d1a" stroke-width="1.6"/>
+      <ellipse cx="28" cy="24" rx="22" ry="9.5" fill="url(#coinTop)" stroke="#7a6115" stroke-width="2.6"/>
+      <!-- brillo sutil vertical para dar volumen -->
+      <rect x="38" y="20" width="6" height="56" fill="#fff" opacity="0.15"/>
     </g>
-    <ellipse cx="28" cy="20" rx="6" ry="3" fill="#fff" opacity="0.35"/>
+    <!-- brillo lateral -->
+    <ellipse cx="40" cy="30" rx="6" ry="3" fill="#fff" opacity="0.30"/>
   </g>
 </svg>
