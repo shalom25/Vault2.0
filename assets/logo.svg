@@ -8,13 +8,45 @@
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.25"/>
     </filter>
+    <!-- Gradientes para el cofre -->
+    <linearGradient id="woodTop" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b06e2e"/>
+      <stop offset="100%" stop-color="#8b4e1f"/>
+    </linearGradient>
+    <linearGradient id="woodBase" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#a1622d"/>
+      <stop offset="100%" stop-color="#6f3d1a"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f2d16b"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#b38f2f"/>
+    </linearGradient>
   </defs>
 
   <rect x="40" y="40" width="880" height="160" rx="24" fill="url(#g)" filter="url(#shadow)"/>
 
+  <!-- Cofre estilizado al lado del nombre -->
+  <g transform="translate(90,68)" filter="url(#shadow)">
+    <!-- tapa -->
+    <rect x="0" y="0" width="76" height="34" rx="4" fill="url(#woodTop)" stroke="#3b2c20" stroke-width="2"/>
+    <!-- base -->
+    <rect x="0" y="32" width="76" height="44" rx="4" fill="url(#woodBase)" stroke="#3b2c20" stroke-width="2"/>
+    <!-- bisagra/metálico central -->
+    <rect x="28" y="24" width="20" height="18" rx="2" fill="url(#metal)" stroke="#7a6115" stroke-width="1.5"/>
+    <rect x="34" y="28" width="8" height="6" rx="1" fill="#333333"/>
+    <!-- listones para textura -->
+    <rect x="19" y="6" width="2" height="20" fill="#6f3d1a" opacity="0.35"/>
+    <rect x="38" y="6" width="2" height="20" fill="#6f3d1a" opacity="0.35"/>
+    <rect x="57" y="6" width="2" height="20" fill="#6f3d1a" opacity="0.35"/>
+    <rect x="19" y="40" width="2" height="28" fill="#4b2a12" opacity="0.35"/>
+    <rect x="38" y="40" width="2" height="28" fill="#4b2a12" opacity="0.35"/>
+    <rect x="57" y="40" width="2" height="28" fill="#4b2a12" opacity="0.35"/>
+  </g>
+
   <g fill="#ffffff">
-    <text x="80" y="118" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="700" font-size="64" letter-spacing="1.5">VAULT</text>
-    <text x="80" y="168" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="500" font-size="36" opacity="0.9">Internal Economy · v2.0.0</text>
+    <text x="190" y="118" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="700" font-size="64" letter-spacing="1.5">VAULT</text>
+    <text x="190" y="168" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="500" font-size="36" opacity="0.9">Internal Economy · v2.0.0</text>
     <text x="720" y="118" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="700" font-size="64" text-anchor="end">2.0</text>
   </g>
 </svg>
