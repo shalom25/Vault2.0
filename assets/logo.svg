@@ -39,6 +39,16 @@
       <stop offset="35%" stop-color="#e0b84a"/>
       <stop offset="100%" stop-color="#8b6f1a"/>
     </linearGradient>
+    <!-- Patrón de estrías del canto (milling) y sombra inferior -->
+    <pattern id="reedPattern" patternUnits="userSpaceOnUse" width="4" height="16">
+      <rect x="0" y="0" width="1" height="16" fill="#e4c064" opacity="0.25"/>
+      <rect x="2" y="0" width="1" height="16" fill="#7d6518" opacity="0.18"/>
+    </pattern>
+    <radialGradient id="coinShadow" cx="50%" cy="70%" r="90%">
+      <stop offset="0%" stop-color="#000" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#000" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
   </defs>
 
   <rect x="40" y="40" width="880" height="160" rx="24" fill="url(#g)" filter="url(#shadow)"/>
@@ -84,6 +94,43 @@
       <ellipse cx="28" cy="24" rx="22" ry="9.5" fill="url(#coinTop)" stroke="#7a6115" stroke-width="2.6"/>
       <!-- brillo sutil vertical para dar volumen -->
       <rect x="38" y="20" width="6" height="56" fill="#fff" opacity="0.15"/>
+    </g>
+    <!-- brillo lateral -->
+    <ellipse cx="40" cy="30" rx="6" ry="3" fill="#fff" opacity="0.30"/>
+    <!-- Monedas apiladas con mayor espesor y realismo -->
+    <g transform="translate(520,54)" filter="url(#shadow)">
+      <!-- moneda 1 (abajo) -->
+      <rect x="5" y="65" width="46" height="16" rx="23" ry="10.5" fill="url(#coinEdge)" stroke="#8a6d1a" stroke-width="1.8"/>
+      <rect x="5" y="65" width="46" height="16" fill="url(#reedPattern)" opacity="0.6"/>
+      <ellipse cx="28" cy="80" rx="23" ry="10" fill="url(#coinShadow)"/>
+      <ellipse cx="28" cy="72" rx="23" ry="10.5" fill="url(#coinTop)" stroke="#7a6115" stroke-width="3"/>
+  
+      <!-- moneda 2 -->
+      <rect x="5" y="53" width="46" height="16" rx="23" ry="10.5" fill="url(#coinEdge)" stroke="#8a6d1a" stroke-width="1.8"/>
+      <rect x="5" y="53" width="46" height="16" fill="url(#reedPattern)" opacity="0.6"/>
+      <ellipse cx="28" cy="68" rx="23" ry="10" fill="url(#coinShadow)"/>
+      <ellipse cx="28" cy="60" rx="23" ry="10.5" fill="url(#coinTop)" stroke="#7a6115" stroke-width="3"/>
+  
+      <!-- moneda 3 -->
+      <rect x="5" y="41" width="46" height="16" rx="23" ry="10.5" fill="url(#coinEdge)" stroke="#8a6d1a" stroke-width="1.8"/>
+      <rect x="5" y="41" width="46" height="16" fill="url(#reedPattern)" opacity="0.6"/>
+      <ellipse cx="28" cy="56" rx="23" ry="10" fill="url(#coinShadow)"/>
+      <ellipse cx="28" cy="48" rx="23" ry="10.5" fill="url(#coinTop)" stroke="#7a6115" stroke-width="3"/>
+  
+      <!-- moneda 4 -->
+      <rect x="5" y="29" width="46" height="16" rx="23" ry="10.5" fill="url(#coinEdge)" stroke="#8a6d1a" stroke-width="1.8"/>
+      <rect x="5" y="29" width="46" height="16" fill="url(#reedPattern)" opacity="0.6"/>
+      <ellipse cx="28" cy="44" rx="23" ry="10" fill="url(#coinShadow)"/>
+      <ellipse cx="28" cy="36" rx="23" ry="10.5" fill="url(#coinTop)" stroke="#7a6115" stroke-width="3"/>
+  
+      <!-- moneda 5 (arriba) -->
+      <rect x="5" y="17" width="46" height="16" rx="23" ry="10.5" fill="url(#coinEdge)" stroke="#8a6d1a" stroke-width="1.8"/>
+      <rect x="5" y="17" width="46" height="16" fill="url(#reedPattern)" opacity="0.6"/>
+      <ellipse cx="28" cy="32" rx="23" ry="10" fill="url(#coinShadow)"/>
+      <ellipse cx="28" cy="24" rx="23" ry="10.5" fill="url(#coinTop)" stroke="#7a6115" stroke-width="3"/>
+  
+      <!-- brillo lateral global -->
+      <rect x="40" y="14" width="6" height="72" fill="#fff" opacity="0.12"/>
     </g>
     <!-- brillo lateral -->
     <ellipse cx="40" cy="30" rx="6" ry="3" fill="#fff" opacity="0.30"/>
