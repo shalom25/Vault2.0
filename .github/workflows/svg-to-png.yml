@@ -25,7 +25,7 @@ jobs:
         run: |
           mkdir -p assets
           rsvg-convert -w 1920 -h 480 assets/logo.svg > assets/logo.png
-          rsvg-convert -w 1920 -h 480 assets/plugins.svg > assets/plugins.png
+          rsvg-convert -w 1200 -h 628 assets/plugins.svg > assets/plugins.png
       - name: Install ImageMagick
         run: |
           sudo apt-get update
