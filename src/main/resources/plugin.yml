@@ -1,6 +1,6 @@
 name: "Vault"
 main: com.example.vault.VaultPlugin
-version: 2.0.0
+version: v1.3
 api-version: 1.13
 description: Internal Economy provider like Vault 2.0 (no Vault.jar dependency)
 softdepend: [LuckPerms, PlaceholderAPI]
@@ -14,7 +14,7 @@ commands:
     aliases: [pagar]
   vault:
     description: Admin command for Vault
-    usage: /vault reload
+    usage: /vault reload|update
 permissions:
   vault.balance:
     description: Allows using /balance
