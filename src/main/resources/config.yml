@@ -5,6 +5,13 @@
 # Message language ('en' or 'es')
 language: en
 
+# Storage configuration
+storage:
+  # Autosave interval in seconds (0 disables periodic autosave)
+  autosave_seconds: 30
+  # Save on each deposit/withdraw operation
+  save_on_transaction: true
+
 # UUID resolution for offline-mode servers
 # true: allow operations with unseen players by generating offline UUIDs
 offline-uuid-fallback: true
@@ -80,5 +87,5 @@ docs:
       overview: "Open /pay to list players. Click a player to open the submenu."
       actions: ["Pay", "Charge", "View balance"]
       navigation: "Use Previous/Next to move between pages."
-      titles_and_labels: "Menu titles and item names are defined in messages_en.yml/messages_es.yml."
+      titles_and_labels: "Menu titles and item names are defined in messages/messages_en.yml and messages/messages_es.yml."
       config_keys: "Uses pay_menu.size and pay_menu.show_self from config."
