@@ -1,0 +1,511 @@
+
+
+
+
+
+prefix: "&b星星金库&r "
+
+cmd:
+  vault:
+    no_permission: |
+      
+      无权重载
+  pay:
+    only_players: "Only players can use /pay."
+    no_permission: "You do not have permission to use /pay."
+    usage: "Usage: /pay <player> <amount> (or /pay to open menu, /pay <player> opens submenu)"
+    player_not_found: "Player not found: %player%"
+    invalid_amount: "Invalid amount: %amount%"
+    positive_only: "Amount must be positive."
+  balance:
+    only_players: "This command is for players only."
+    no_permission: "You do not have permission to use /balance."
+    your_balance: "Your balance: %amount%"
+
+plugin:
+  enabled: "Internal economy registered without depending on Vault.jar"
+  disabled: "Vault (internal economy) disabled."
+  reloaded: |
+    
+    重载成功 %lang%
+
+vault:
+  menu:
+    title: "&4金库主菜单"
+    item:
+      pay: "&F选择主菜单"
+      loan: "&F贷款主菜单"
+      settings: "&F设置主菜单"
+      reload: "&F重载"
+      update: "&F更新"
+    lore:
+      pay:
+        - "&F"
+        - "&F选择一个目标"
+        - "&F"
+      loan:
+        - "&F"
+        - "&F贷款 查询 还款"
+        - "&F"
+      settings:
+        - "&F"
+        - "&F管理员专属"
+        - "&F"
+        - "&F设置功能限制"
+        - "&F"
+      reload:
+        - "&F"
+        - "&F管理员专属"
+        - "&F"
+        - "&F重载配置和语言"
+        - "&F"
+      update:
+        - "&F"
+        - "&F管理员专属"
+        - "&F"
+        - "&F检查更新"
+        - "&F"
+
+menu:
+  title_main: "选择一个目标"
+  title_player: "当前目标 %player%"
+  target_player: "Select target"
+  target_player_lore: "Click to choose a player"
+  enter_amount: "Enter amount"
+  enter_amount_lore: "Type the amount in chat"
+
+pay:
+  only_players: |
+    
+    付款失败
+    控制台无效
+    仅玩家 /pay
+  invalid_amount: |
+    
+    付款失败
+    输入非阿拉伯数字0-9
+  amount_too_small: |
+    
+    付款失败
+    金额最低 %min%
+  amount_too_large: |
+    
+    付款失败
+    金额最高 %max%
+  not_enough_money: |
+    
+    付款失败
+    你没有足够的钱支付给对方
+  sent_ok: |
+    
+    你付款给
+    %player%
+    %amount%
+  received_ok: |
+    
+    从
+    %player%
+    收款
+    %amount%
+  no_permission: "You do not have permission to use /pay."
+  player_offline: "Player %player% is offline; request not delivered."
+  withdraw_failed: "Could not withdraw."
+  menu:
+    title_main: "Select player"
+    title_player: "Actions: %player%"
+    nav:
+      prev_name: "&aPrevious page"
+      next_name: "&aNext page"
+    item:
+      pay: "付款"
+      view_balance: "查看余额"
+      view_balance_lore: "目标余额 %vault_balance_formatted%"
+      charge: "收款"
+      loan: "贷款"
+      settings: "&cSettings"
+    lore:
+      pay:
+        - "&F"
+        - "&F付款给此目标"
+        - "&F"
+      view_balance:
+        - "&F"
+        - "&F查看目标当前余额"
+        - "&F"
+      charge:
+        - "&F"
+        - "&F发送收款请求"
+        - "&F"
+      loan:
+        - "&F"
+        - "&F打开你的贷款主菜单"
+        - "&F"
+      settings:
+        - "&7Open Vault settings."
+  prompt:
+    cancel_words: "cancel,cancelar,quit,exit,取消,退出"
+    enter_amount_pay: |
+      
+      你想付款给
+      %player%
+      多少
+      取消 %cancel%
+    enter_amount_charge: |
+      
+      你想从
+      %player%
+      收款多少
+      取消 %cancel%
+  error:
+    player_not_found: "Player not found: %player%"
+    invalid_amount: "Invalid amount."
+    positive_only: "Amount must be positive."
+    min_amount: "Amount must be at least %min%"
+    max_amount: "Amount must be at most %max%"
+    insufficient_funds: "Insufficient funds."
+    withdraw_error: "Could not withdraw: %error%"
+    deposit_error: "Could not deposit: %error%"
+    player_offline: "Player %player% is offline; request not delivered."
+  success:
+    sender: "You paid %amount% to %player%"
+  view:
+    balance: |
+      
+      查询
+      %player%
+      余额
+      %amount%
+    money_label: "Money"
+  request:
+    prefix: |
+      
+      你收到 收款 请求
+    click: |
+      
+      点击付款给
+      %player%
+      %amount_formatted%
+    hover: |
+      
+      点击付款给
+      %player%
+      %amount%
+    sent: |
+      
+      你发送请求给
+      %player%
+      要求对方付款
+      %amount_formatted%
+    stored: "Request stored; will be delivered when %player% joins."
+  pending:
+    header: "You have %count% pending payment requests."
+    limit_notice: "Showing %shown% of %total%; remaining will be delivered later."
+
+loan:
+  cancelled: |
+    
+    贷款操作取消
+  none: |
+    
+    你目前没有贷款
+  created: |
+    
+    成功贷款 %amount%
+    自动扣 %installments% 期
+    每期自动扣 %installment_amount%
+    下次自动扣款 %interval_hours% 小时
+  status: |
+    
+    余额 %principal%
+    还欠 %remaining%
+    每期自动扣 %installment%
+    自动扣 %installments_left% 期
+    下次自动扣款 %next_in_minutes% 分钟
+  no_permission: "You do not have permission to use loans."
+  already_active: "You already have an active loan."
+  paid: "Your loan is fully paid."
+  menu:
+    title: "&4贷款主菜单"
+    item:
+      request: "&F申请"
+      status: "&F状态"
+      pay: "&F还款"
+      settings: "&cSettings"
+    lore:
+      request:
+        - "&F"
+        - "&F申请新贷款"
+        - "&F"
+      status:
+        - "&F"
+        - "&F查看当前贷款状态"
+        - "&F"
+      pay:
+        - "&F"
+        - "&F偿还贷款"
+        - "&F"
+      settings:
+        - "&7Open loan settings."
+  request:
+    title:
+      type: "&0贷款申请 主菜单"
+      installments_mode: "&0分期模式 菜单"
+      delay: "&0一期贷 总间隔 菜单"
+      installments_count: "&0分期贷 固定分期 分期数 菜单"
+      interval: "&0分期贷 自定分期 自动扣款间隔 菜单"
+      first_delay: "&0分期贷 自定分期 首期 自动扣款间隔 菜单"
+    item:
+      total: "&F申请一期贷"
+      installments: "&F申请分期贷"
+      back: "&F贷款返回"
+      cancel: "&F贷款取消"
+      mode_count: "&F固定分期"
+      mode_amount: "&F自定还款"
+      same_as_interval: "&F与 后期 自动扣款间隔 相同"
+    lore:
+      total:
+        - "&F"
+        - "&F一次还清"
+        - "&F"
+      installments:
+        - "&F"
+        - "&F分期还清"
+        - "&F"
+      back:
+        - "&F"
+        - "&F贷款 返回上一操作"
+        - "&F"
+      cancel:
+        - "&F"
+        - "&F取消贷款"
+        - "&F"
+      delay:
+        - "&F"
+        - "&F选择在多少小时内还款"
+        - "&F"
+      mode_count:
+        - "&F"
+        - "&F固定分期"
+        - "&F"
+      mode_amount:
+        - "&F"
+        - "&F自定还款"
+        - "&F最多20期"
+        - "&F"
+      installments_count:
+        - "&F"
+        - "&F选择 分期 期数"
+        - "&F"
+      interval:
+        - "&F"
+        - "&F选择两次之间自动扣款间隔"
+        - "&F"
+      first_delay:
+        - "&F"
+        - "&F首次自动扣款倒计时"
+        - "&F"
+  prompt:
+    cancel_words: "cancel,cancelar,quit,exit,取消,退出"
+    amount: |
+      
+      输入贷款金额
+      取消 %cancel%
+    installment_amount: |
+      
+      输入还款金额
+      取消 %cancel%
+    pay_amount: |
+      
+      输入还款金额
+      全还 all
+      还欠 %remaining%
+      取消 %cancel%
+    type: "Type 'total' (pay once) or 'cuotas' (installments), or '%cancel%'."
+    total_delay_hours: "In how many hours should the server collect the total payment? (example: 24) Or '%cancel%'."
+    installments_mode: "Type 'cantidad' (enter installments count) or 'monto' (enter installment amount), or '%cancel%'."
+    installments_count: "How many installments? Or '%cancel%'."
+    interval_hours: "Interval between installments in hours (0 = default %default_hours%). Or '%cancel%'."
+    first_delay_hours: "First installment in how many hours? (0 = same as interval %default_hours%). Or '%cancel%'."
+  error:
+    invalid_number: |
+      
+      贷款失败
+      输入金额未大于0
+    installment_too_small: |
+      
+      要贷
+      %loan_amount%
+      每期最少还款
+      %min_installment%
+    invalid_type: "Invalid type. Use 'total' or 'cuotas'."
+    invalid_installments_mode: "Invalid option. Use 'cantidad' or 'monto'."
+    too_small: "Loan amount must be at least %min%."
+    too_large: "Loan amount must be at most %max%."
+    too_many_installments: "Too many installments. Max: %max%."
+    not_enough_money: "Insufficient funds to pay."
+    deposit_failed: "Could not create the loan (deposit failed)."
+  pay:
+    success: |
+      
+      成功还款 %amount%
+      还欠 %remaining%
+  charge:
+    success: "Installment charged: %amount%. Remaining: %remaining%."
+    missed: "Installment not charged (%amount%). Missed %missed%/%max_missed%."
+    defaulted: "Loan defaulted. Remaining: %remaining%."
+
+balance:
+  no_permission: "You do not have permission to use /balance."
+  your_balance: |
+    
+    余额
+    %amount%
+
+top:
+  unknown_player: "查无此人"
+
+settings:
+  title: "&0设置主菜单"
+  title_loans: "&0设置贷款主菜单"
+  title_pay: "&0设置付款主菜单"
+  title_texts: "&0设置文字主菜单"
+  item:
+    loans: "&F设置贷款"
+    pay: "&F设置付款"
+    texts: "&F设置文字"
+    back: "&F设置返回"
+  lore:
+    loans:
+      - "&F"
+      - "&F设置贷款限制"
+      - "&F"
+    pay:
+      - "&F"
+      - "&F设置付款限制"
+      - "&F"
+    texts:
+      - "&F"
+      - "&F设置菜单文字"
+      - "&F"
+    back:
+      - "&F"
+      - "&F设置 返回上一操作"
+      - "&F"
+    loans_enabled:
+      - "&F"
+      - "&F切换贷款系统"
+      - "&F"
+    loans_min:
+      - "&F"
+      - "&F最小允许贷款金额"
+      - "&F"
+    loans_max:
+      - "&F"
+      - "&F最大允许贷款金额"
+      - "&F"
+    loans_max_installments:
+      - "&F"
+      - "&F最大 分期贷 固定分期 期数"
+      - "&F"
+    loans_default_interval_hours:
+      - "&F"
+      - "&F贷款默认间隔 小时"
+      - "&F"
+    loans_charge_check_seconds:
+      - "&F"
+      - "&F贷款还款检查 秒钟"
+      - "&F"
+    loans_max_missed:
+      - "&F"
+      - "&F违约前可逾期次数"
+      - "&F"
+    pay_min:
+      - "&F"
+      - "&F最小允许付款金额"
+      - "&F"
+    pay_max:
+      - "&F"
+      - "&F最大允许付款金额"
+      - "&F"
+    pay_menu_size:
+      - "&F"
+      - "&F付款菜单尺寸"
+      - "&F9的倍数"
+      - "&F9 18 27 36 45 54"
+      - "&F"
+    pay_show_self:
+      - "&F"
+      - "&F付款显示自己"
+      - "&F"
+  loans:
+    enabled: "&F贷款"
+    min: "&F最小贷款"
+    max: "&F最大贷款"
+    max_installments: "&F最大期数"
+    default_interval_hours: "&F默认间隔 时"
+    charge_check_seconds: "&F还款检查 秒"
+    max_missed: "&F最大逾期"
+  pay:
+    min: "&F最小支付"
+    max: "&F最大支付"
+    menu_size: "&F支付菜单尺寸"
+    show_self: "&F显示自己"
+  prompt:
+    value: |
+      
+      输入
+      %key%
+      新值
+      取消
+      %cancel%
+    text: |
+      
+      输入菜单文字
+      %key%
+      新值
+      取消
+      %cancel%
+  cancelled: |
+    
+    编辑取消
+  invalid_number: "Invalid number."
+  saved: "Saved: %key%"
+  save_failed: "Could not save the file."
+
+economy:
+  eco:
+    usage: |
+      
+      给目标钱 /eco give 玩家 金额
+      拿目标钱 /eco take 玩家 金额
+    invalid_amount: |
+      
+      非阿拉伯数字
+      %amount%
+    positive_only: |
+      
+      需大于0
+    no_permission: |
+      
+      无权 /eco
+    deposit_ok: |
+      
+      给
+      %amount%
+      %player%
+    withdraw_ok: |
+      
+      拿
+      %amount%
+      %player%
+    deposit_error: "Could not deposit: %error%"
+    withdraw_error: |
+      
+      无法拿
+      %error%
+    player_not_found: "Player not found: %player%"
+  bank_not_supported: "Bank support not implemented"
+
+
+
+
