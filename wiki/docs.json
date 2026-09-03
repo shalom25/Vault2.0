@@ -22,112 +22,111 @@
       "keywords": "Vault Economy, Minecraft plugin, Spigot economy, multi-currency, bank interest, physical notes, HMAC anti-dupe, loans, PlaceholderAPI, Java 17, Java 21, Modrinth rj9SgaYL"
     }
   },
-  "favicon": "/assets/logo.png",
+  "logo": {
+    "light": "https://i.imgur.com/HxgguHP.png",
+    "dark": "https://i.imgur.com/HxgguHP.png"
+  },
+  "favicon": "https://i.imgur.com/HxgguHP.png",
   "navigation": {
     "tabs": [
       {
         "tab": "Wiki",
         "groups": [
           {
-            "group": "Information",
-            "icon": "circle-question",
+            "group": "Home",
+            "icon": "house",
             "pages": [
               "index",
-              {
-                "group": "Frequently Asked Questions",
-                "icon": "circle-question",
-                "pages": [
-                  "faq/installation-errors",
-                  "faq/players-cant-pay",
-                  "faq/balances-reset",
-                  "faq/bank-interest-disabled",
-                  "faq/physical-note-invalid"
-                ]
-              },
-              {
-                "group": "Compatibility",
-                "icon": "square-check",
-                "pages": [
-                  "compatibility/placeholders",
-                  "compatibility/skinsrestorer",
-                  "compatibility/luckperms",
-                  "compatibility/mysql"
-                ]
-              }
+              "first-install"
             ]
           },
           {
-            "group": "Plugin Usage",
-            "icon": "pen-to-square",
+            "group": "Beginners",
+            "icon": "hand-wave",
             "pages": [
-              "first-install",
-              {
-                "group": "Beginners",
-                "icon": "hand-wave",
-                "pages": [
-                  "beginners/getting-started",
-                  "beginners/faq-basics"
-                ]
-              },
-              {
-                "group": "Currency",
-                "icon": "coins",
-                "pages": [
-                  "currency/format",
-                  "currency/multi-currency",
-                  "currency/abbreviation"
-                ]
-              },
+              "beginners/getting-started",
+              "beginners/faq-basics"
+            ]
+          },
+          {
+            "group": "Currency & Format",
+            "icon": "coins",
+            "pages": [
+              "currency/format",
+              "currency/multi-currency",
+              "currency/abbreviation"
+            ]
+          },
+          {
+            "group": "Commands & Permissions",
+            "icon": "terminal",
+            "pages": [
               "commands",
               "permissions",
               "config-reference",
-              {
-                "group": "Economic Features",
-                "icon": "chart-line-up-down",
-                "pages": [
-                  "features/player-pay",
-                  "features/bank",
-                  "features/physical-notes",
-                  "features/loans",
-                  "features/transactions",
-                  "features/top-players",
-                  "features/offline-pay",
-                  "features/charge-requests",
-                  "features/discord-webhook"
-                ]
-              },
-              {
-                "group": "Multi-world",
-                "icon": "globe",
-                "pages": [
-                  "multiworld/world-balances",
-                  "multiworld/migration-essentials"
-                ]
-              },
               "languages",
-              {
-                "group": "Scripting",
-                "icon": "code",
-                "pages": [
-                  "scripting/placeholders"
-                ]
-              },
               "updater"
             ]
           },
           {
-            "group": "Developers",
-            "icon": "terminal",
+            "group": "Economic Features",
+            "icon": "chart-line-up-down",
             "pages": [
-              {
-                "group": "Java API",
-                "icon": "network-wired",
-                "pages": [
-                  "dev/java/getting-started",
-                  "dev/java/tx-events",
-                  "dev/java/simple-economy-hooks"
-                ]
-              },
+              "features/player-pay",
+              "features/bank",
+              "features/physical-notes",
+              "features/loans",
+              "features/transactions",
+              "features/top-players",
+              "features/offline-pay",
+              "features/charge-requests",
+              "features/discord-webhook"
+            ]
+          },
+          {
+            "group": "FAQ / Troubleshooting",
+            "icon": "circle-question",
+            "pages": [
+              "faq/installation-errors",
+              "faq/players-cant-pay",
+              "faq/balances-reset",
+              "faq/bank-interest-disabled",
+              "faq/physical-note-invalid",
+              "other/troubleshooting"
+            ]
+          },
+          {
+            "group": "Multiworld",
+            "icon": "globe",
+            "pages": [
+              "multiworld/world-balances",
+              "multiworld/migration-essentials"
+            ]
+          },
+          {
+            "group": "Compatibility",
+            "icon": "square-check",
+            "pages": [
+              "compatibility/placeholders",
+              "compatibility/skinsrestorer",
+              "compatibility/luckperms",
+              "compatibility/mysql"
+            ]
+          },
+          {
+            "group": "Scripting & Placeholders",
+            "icon": "code",
+            "pages": [
+              "scripting/placeholders"
+            ]
+          },
+          {
+            "group": "Developers",
+            "icon": "tool",
+            "pages": [
+              "dev/java/getting-started",
+              "dev/java/tx-events",
+              "dev/java/simple-economy-hooks",
               "dev/skript",
               "dev/contribute"
             ]
@@ -137,17 +136,12 @@
             "icon": "bell",
             "pages": [
               "other/changelog",
-              "other/troubleshooting",
               "other/support"
             ]
           }
         ]
       }
     ]
-  },
-  "logo": {
-    "light": "/assets/logo.png",
-    "dark": "/assets/logo.png"
   },
   "navbar": {
     "links": [
@@ -162,7 +156,7 @@
       },
       {
         "label": "Discord",
-        "href": "https://discord.gg/invite/vault-economy",
+        "href": "https://discord.gg/SfKvR4CbUj",
         "icon": "discord"
       }
     ]
