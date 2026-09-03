@@ -1,20 +1,155 @@
 # Vault 2.0 — internal economy compatible with the Vault API
 # Provides balance, player-to-player payments, and config/message reload.
 # Commands: /balance, /pay, /vault reload. No external Vault.jar required.
-
-# Message language ('en' or 'es')
+plugin_version: v2.1.0
+# languages_supported: ["en", "es", "fr", "de", "nl", "pl", "zh_CN", "zh_TW", "ru", "pt", "hi"]
 language: en
-
-# Storage configuration
+# Vault 2.0 — internal economy compatible with the Vault API
+# Commands: /balance, /vault reload.
+# currency: global configuration for how money is displayed when the plugin formats amounts (when it uses economy.format()).
+# - You can also use text, for example "coins" or "€".
+# - Supports colors using & if you want (example: "&6$").
+# - position: suffix
+#   - Controls where the symbol is placed relative to the number.
+#   - suffix = after the number → 10 $
+#   - prefix = before the number → $ 10
+# PlaceholderAPI:
+# - %vault_balance_formatted% uses this currency format automatically
+# - %vault_currency_symbol% returns currency.symbol
+currency:
+  symbol: "$"
+  position: suffix
+  space: true
+  format: auto
+  # Number format style / locale for thousands and decimal separators.
+  # Presets (recommended):
+  #   us  -> 1,000.00  (English / US style)
+  #   eu  -> 1.000,00  (European / Spanish / German style)
+  #   uk  -> 1,000.00  (same as us)
+  #   in  -> 1,00,000.00  (Indian grouping)
+  #   ch  -> 1'000.00  (Swiss / apostrophe thousands)
+  #   fr  -> 1 000,00  (French / thin-space thousands)
+  # Also accepts BCP-47 tags like "es-ES", "de-DE", "it-IT", "pt-BR", "fr-FR".
+  # Leave empty "" or "auto" to use the host JVM default locale.
+  locale: "auto"
+  abbreviate:
+    decimals: 1
+    suffix:
+      k: "k"
+      m: "m"
+      b: "b"
+      t: "t"
 storage:
-  # Autosave interval in seconds (0 disables periodic autosave)
-  autosave_seconds: 30
-  # Save on each deposit/withdraw operation
-  save_on_transaction: true
+  # MySQL storage (set use_mysql: true to enable)
+  use_mysql: false
+  mysql:
+    host: localhost
+    port: 3306
+    database: vault
+    username: root
+    password: ""
+    pool_size: 10
+    # params: "useSSL=false&serverTimezone=UTC"
+    # pool:
+    #   max: 10
+    #   min_idle: 2
+    #   connection_timeout_ms: 10000
+    #   idle_timeout_ms: 600000
+    #   max_lifetime_ms: 1800000
+
+# ------------------------------
+# Multi-currency (v2.1+)
+# ------------------------------
+# Define multiple currencies here. The first one (default) is what the Vault API legacy
+# (net.milkbowl.vault.economy.Economy) exposes and what ShopGUIPlus / other plugins use by default.
+# Extra currencies (e.g. gems) are stored ONLY in balances.yml (NOT in MySQL in this release).
+# Remove or comment out this entire section to keep single-currency behaviour.
+currencies:
+  # Default currency — MUST be named "default" or the first entry will automatically become default.
+  default:
+    symbol: "$"
+    position: suffix
+    space: true
+    # format/locale/abbreviate can be overridden per-currency. If omitted, they fall back to
+    # the top-level "currency:" settings above.
+    # locale: "us"
+    # abbreviate:
+    #   decimals: 1
+    #   suffix: {k: "k", m: "m", b: "b", t: "t"}
+  # Example extra currency:
+  # gems:
+  #   symbol: "💎"
+  #   position: suffix
+  #   space: false
+  #   # NOTE: gems values live in balances.yml only (currencies.gems.balances.<uuid>)
+
+# ------------------------------
+# /vault top cache (v2.1+)
+# ------------------------------
+top:
+  # Refresh the top-players cache every N seconds asynchronously (in background).
+  # Lower values = more CPU, higher values = slightly stale top list.
+  refresh_seconds: 300
+  # Only recompute the top manually (via /eco set, etc.) when a balance change exceeds this amount.
+  # Leave 0 to always invalidate on admin ops.
+  change_threshold: 0
+
+# ------------------------------
+# Bank + Interest + Tax (v2.1+)
+# ------------------------------
+# A second, independent bank_balance per player. Players can deposit/withdraw to earn interest.
+bank:
+  interest:
+    # Master switch for interest. false = interest is never applied regardless of %.
+    enabled: true
+    # Apply interest every N minutes to all bank_balance > 0.
+    every_minutes: 60
+    # Percentage per period. 0.5 = +0.5% per hour on the whole bank balance.
+    percent_per_period: 0.5
+  tax:
+    # Master switch for tax. false = tax is never applied regardless of threshold/%.
+    enabled: false
+    # Apply the tax every N minutes.
+    every_minutes: 180
+    # Tax only applies to the PART of the balance strictly ABOVE threshold.
+    # Example: threshold = 1,000,000 ; balance = 1,500,000 → tax on 500,000 only.
+    threshold: 1000000
+    # Percentage per period (on the exceed-over-threshold slice). 0.1 = 0.1% per tax cycle.
+    percent_per_period: 0.1
+
+# ------------------------------
+# Discord webhook notifications (v2.1+)
+# ------------------------------
+# Leave webhook_url empty or commented to disable. Fires when a single transaction
+# is above threshold_amount, and on critical anti-dupe / error events.
+discord:
+  webhook_url: ""
+  threshold_amount: 100000
+  username: "Vault Bot"
+  avatar_url: ""
+
+# Worlds listed here use their own separate balances in the plugin's player-facing features.
+# Global economy calls without a world keep using the main balance for compatibility.
+world_balances:
+  separate_worlds:
+  # Example:
+  # separate_worlds:
+  #   - world_nether
+  #   - minas
+
+import:
+  essentials:
+    enabled: false
+    replace: false  # true = overwrite existing balances; false = only create when missing
+    # target: file  # Optional: "file" forces saving to balances.yml even if MySQL is enabled
 
 # UUID resolution for offline-mode servers
 # true: allow operations with unseen players by generating offline UUIDs
 offline-uuid-fallback: true
+
+# Check for updates on startup and notify OPs
+update_check: true
+update_check_debug: false
 
 # /pay menu configuration
 pay_menu:
@@ -30,62 +165,110 @@ pay_pending:
 
 # Amount limits for pay/charge (≤0 disables)
 pay_limits:
-  min: 1.0
-  max: 100000.0
+  min: 1
+  max: 100000
 
-# Documentation (not used by code)
-docs:
-  commands:
-    pay:
-      usage: "/pay <player> <amount> | /pay | /pay <player>"
-      description: "Send money, charge (request payment), and open the menu/player submenu."
-      permission_required: "no"
-      actions: ["Pay", "Charge (request payment)", "View target balance"]
-    balance:
-      usage: "/balance"
-      description: "Show your current balance."
-      permission_required: "no"
-    vault:
-      usage: "/vault reload"
-      description: "Reload configuration and messages (OP only)."
-      permission_required: "op"
-  permissions:
-    notes: "The /pay and /balance commands do not require permissions; these nodes exist for integrations and are granted by default."
-    vault.balance:
-      default: "true"
-      description: "Optional node; granted to everyone by default."
-    vault.pay:
-      default: "true"
-      description: "Optional node; granted to everyone by default."
-    vault.pay.bypass_min:
-      default: "op"
-      description: "Allows ignoring the configured minimum amount."
-    vault.pay.bypass_max:
-      default: "op"
-      description: "Allows ignoring the configured maximum amount."
-    vault.pay.bypass_limits:
-      default: "op"
-      description: "Allows ignoring limits in the chat flow (requests/charges)."
-  guides:
-    pay:
-      summary: "Select Pay in /pay (or player submenu) and type an amount."
-      online_flow: "Money is transferred instantly to the online target."
-      offline_flow: "Direct pay to offline targets is not available; use Charge."
-      chat_commands:
-        cancel: "Type 'cancel' to abort while entering the amount."
-      limits:
-        description: "The configured pay_limits apply; bypass nodes can ignore them."
-    charge:
-      summary: "Select Charge in /pay (or player submenu) and type an amount."
-      online_flow: "The target receives a clickable message to pay."
-      offline_flow: "The request is stored and delivered when the player joins."
-      chat_commands:
-        cancel: "Type 'cancel' to abort while entering the amount."
-      limits:
-        description: "The configured pay_limits apply; 'vault.pay.bypass_limits' can ignore them in chat flow."
-    menu:
-      overview: "Open /pay to list players. Click a player to open the submenu."
-      actions: ["Pay", "Charge", "View balance"]
-      navigation: "Use Previous/Next to move between pages."
-      titles_and_labels: "Menu titles and item names are defined in messages/messages_en.yml and messages/messages_es.yml."
-      config_keys: "Uses pay_menu.size and pay_menu.show_self from config."
+# Loan system configuration
+# Used to enable player loans and control limits, installments, and automatic charge checks.
+loans:
+  # Enables or disables the entire loan system.
+  enabled: true
+  # Maximum number of active loans a player can have at the same time.
+  max_active_per_player: 1
+  # Minimum amount a player can request as a loan.
+  min_amount: 1
+  # Maximum amount a player can request as a loan.
+  max_amount: 100000
+  # Minimum installment allowed for any loan.
+  min_installment: 1
+  # Raises the minimum installment based on the total loan amount.
+  # Format: loan_amount: minimum_installment
+  min_installment_by_amount:
+    1000: 50
+    5000: 250
+  # Maximum number of installments allowed when creating a loan.
+  max_installments: 60
+  # Default time between installments in hours.
+  default_interval_hours: 24
+  # How often the plugin checks if an installment should be charged.
+  charge_check_seconds: 60
+  # Maximum failed automatic charges before the loan is marked as defaulted.
+  max_missed_payments: 3
+  # Effects applied to players whose loan is DEFAULTED (mora). Refreshed periodically so it persists.
+  defaulted_effects:
+    enabled: true
+    refresh_seconds: 5
+    duration_seconds: 8
+    # Format: EFFECT_NAME:LEVEL (LEVEL is 1-based)
+    # Examples: SLOW:2, SLOW_DIGGING:1 (fatigue)
+    effects:
+      - "SLOW:1"
+      - "SLOW_DIGGING:1"
+
+# docs (information only; not used by code)
+#
+# Commands
+# - /pay <player> <amount> | /pay | /pay <player>
+#   - Send money, charge (request payment), and open the menu/player submenu.
+#   - Actions: Pay, Charge (request payment), View target balance
+# - /balance
+#   - Show your current balance.
+# - /vaultop [page]
+#   - Show the top players with the most money.
+# - /vault | /vault reload | /vault update | /vault loan
+#   - Open the Vault menu. Admin actions: reload/update (OP only). Loans: /vault loan.
+# - /vault loan
+#   - Open the loan menu (request, status, pay).
+# - /eco give <player> <amount> | /eco take <player> <amount>
+#   - Give or take money from a player (admin only).
+#   - permission_required: op
+#   - notes: Supports subcommands: give and take. Example: /eco take <player> <amount>
+#   - permissions:
+#     - vault.eco (default: op) — Allows using /eco including give and take subcommands.
+#
+# Placeholders
+# - %vault_balance% - Current player's raw balance.
+# - %vault_balance_formatted% - Current player's balance formatted with the plugin's economy format.
+# - %vault_eco_balance% - Current player's raw economy balance.
+# - %vault_eco_balance_formatted% - Current player's formatted economy balance.
+# - %vault_eco_balance_fixed% - Current player's balance with exactly 2 decimal places.
+# - %vault_eco_balance_commas% - Current player's balance with comma thousand separators.
+# - %vault_eco_balance_short% - Current player's abbreviated balance, such as 1.2k or 3.4m.
+# - %vault_currency_symbol% - Currency symbol from the plugin config.
+# - %vault_balance_<player>% - Raw balance of the specified player.
+# - %vault_balance_formatted_<player>% - Formatted balance of the specified player.
+# - %vault_ecobalance<0-8>dp% - Current player's balance with a custom number of decimal places.
+# - %vault_top% - Top 10 richest players as a multiline list.
+# - %vault_top_<n>% - Full top entry for rank n.
+# - %vault_top_name_<n>% - Player name at rank n.
+# - %vault_top_amount_<n>% - Formatted balance at rank n.
+#
+# Guides
+# - Pay
+#   - Select Pay in /pay (or player submenu) and type an amount.
+#   - Online: Money is transferred instantly to the online target.
+#   - Offline: Direct pay to offline targets is not available; use Charge.
+#   - Chat: Type 'cancel' to abort while entering the amount.
+#   - Limits: pay_limits apply; bypass nodes can ignore them.
+# - Charge
+#   - Select Charge in /pay (or player submenu) and type an amount.
+#   - Online: The target receives a clickable message to pay.
+#   - Offline: The request is stored and delivered when the player joins.
+#   - Chat: Type 'cancel' to abort while entering the amount.
+#   - Limits: pay_limits apply; bypass nodes can ignore them in chat flow.
+# - Menu
+#   - Open /pay to list players. Click a player to open the submenu.
+#   - Navigation: Use Previous/Next to move between pages.
+#   - Texts: Menu titles and item names are defined in messages/messages_*.yml.
+#   - Config keys: pay_menu.size and pay_menu.show_self
+# - Eco
+#   - Use /eco to give or take money from a player.
+#   - Online: Balance is updated instantly for online targets.
+#   - Offline: Works for offline players; accounts are created automatically if needed.
+#   - Limits: Pay limits do not apply; operator-only administration command.
+
+# permissions:
+#   vault.pay      # use /pay and open the payment menu (default: op)
+#   vault.eco      # give and take money (default: op)
+#   vault.balance  # use /balance (default: op)
+#   vault.loan     # use /vault loan and open the loan menu (default: true)

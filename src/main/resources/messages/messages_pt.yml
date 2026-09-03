@@ -1,0 +1,641 @@
+# Portuguese messages (Português)
+pay:
+  # Command messages expected by code
+  only_players: "&cApenas jogadores podem usar /pay."
+  no_permission: "&cVocê não tem permissão para usar /pay."
+  invalid_amount: "&cValor inválido."
+  player_offline: "&cO jogador &f%player% está offline; solicitação não entregue."
+  amount_too_small: "&cO valor deve ser pelo menos &6%min%"
+  amount_too_large: "&cO valor deve ser no máximo &6%max%"
+  not_enough_money: "&cFundos insuficientes."
+  withdraw_failed: "&cNão foi possível sacar."
+  sent_ok: "&aVocê pagou &6%amount% para &f%player%"
+  received_ok: "&aVocê recebeu &6%amount% de &f%player%"
+  cancelled: "&cSolicitacao de pagamento cancelada."
+
+  # UI/menu and other messages
+  menu:
+    title_main: "&8&lSelecionar jogador"
+    title_player: "&8&lAções: &f%player%"
+    title_quick_pay: "&8&lPagamento rápido: &f%player%"
+    nav:
+      prev_name: "&aPágina anterior"
+      next_name: "&aPróxima página"
+    item:
+      pay: "&6&lPagar"
+      loan: "&e&lEmpréstimo"
+      view_balance: "&e&lDinheiro"
+      view_balance_lore: "Saldo: %vault_eco_balance_short%"
+      charge: "&6&lCobrar"
+      settings: "&c&lAjustes"
+      manual_amount: "&a&lValor personalizado"
+      back: "&c&lVoltar"
+    lore:
+      settings:
+        - "&7Abrir ajustes do Vault."
+      pay:
+        - "&7Pagar este jogador."
+      quick_pay:
+        - "&7Pague este valor instantaneamente."
+      loan:
+        - "&7Abrir o menu de empréstimos."
+      view_balance:
+        - "&7Mostra o saldo atual de %player%."
+      charge:
+        - "&7Enviar uma solicitação de pagamento."
+      manual_amount:
+        - "&7Digite o valor no chat."
+      back:
+        - "&7Voltar ao menu anterior."
+  prompt:
+    enter_amount_pay: "&aDigite o valor a pagar para &f%player% no chat, ou &c%cancel%."
+    enter_amount_charge: "&aDigite o valor que deseja cobrar de &f%player% no chat, ou &c%cancel%."
+    cancel_words: "&ccancelar,cancel,cancelar"
+  error:
+    player_not_found: "&cJogador não encontrado: &f%player%"
+    invalid_amount: "&cValor inválido."
+    positive_only: "&cO valor deve ser positivo."
+    min_amount: "&cO valor deve ser pelo menos &6%min%"
+    max_amount: "&cO valor deve ser no máximo &6%max%"
+    insufficient_funds: "&cFundos insuficientes."
+    withdraw_error: "&cNão foi possível sacar: &4%error%"
+    deposit_error: "&cNão foi possível depositar: &4%error%"
+    player_offline: "&cO jogador %player% está offline; solicitação não entregue."
+  success:
+    sender: "&aVocê pagou &6%amount% para &f%player%"
+
+  view:
+    balance: "&aSaldo de &f%player%: &6%amount%"
+    money_label: "&eDinheiro"
+  request:
+    prefix: "&eSolicitação de pagamento preparada: "
+    click: "&aClique aqui para pagar &6%amount_formatted% a &f%player%"
+    hover: "Executar /pay &f%player% &6%amount%"
+    sent: "&aSolicitação enviada para &f%player% no valor de &6%amount_formatted%."
+    stored: "&aSolicitação armazenada; será entregue quando &f%player% entrar."
+  pending:
+    header: "&aVocê tem &e%count% solicitações de pagamento pendentes."
+    limit_notice: "Mostrando %shown% de %total%; o restante será entregue mais tarde."
+
+cmd:
+  pay:
+    only_players: "Apenas jogadores podem usar /pay."
+    no_permission: "Você não tem permissão para usar /pay."
+    usage: "Uso: /pay <jogador> <valor> (ou /pay para abrir o menu, /pay <jogador> abre o submenu)"
+    player_not_found: "Jogador não encontrado: &f%player%"
+    invalid_amount: "Valor inválido: &6%amount%"
+    positive_only: "O valor deve ser positivo."
+  balance:
+    only_players: "&cEste comando é apenas para jogadores."
+    no_permission: "&cVocê não tem permissão para usar /balance."
+    your_balance: "Seu saldo: &6%amount%"
+  vault:
+    no_permission: "&cVocê não tem permissão para recarregar o plugin."
+
+# Keys expected by menu service (top-level)
+menu:
+  title_main: "&8&lSelecionar jogador"
+  title_player: "&8&lAções: &f%player%"
+  target_player: "&8&lSelecionar alvo"
+  target_player_lore: "&aClique para escolher um jogador"
+  enter_amount: "&aInserir valor"
+  enter_amount_lore: "&aDigite o valor no chat"
+
+# Keys expected by balance command (top-level)
+balance:
+  no_permission: "&cVocê não tem permissão para usar /balance."
+  your_balance: "&6Seu saldo: %amount%"
+
+  only_players: "&cEste comando é apenas para jogadores."
+plugin:
+  enabled: "Economia interna registrada sem depender do Vault.jar"
+  disabled: "Vault (economia interna) desativado."
+  reloaded: "Configuração e mensagens recarregadas (idioma: %lang%)."
+
+prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
+
+top:
+  unknown_player: "Jogador"
+
+vaultop:
+  no_permission: "&cVocê não tem permissão para usar /vaultop."
+  top_unavailable: "&cTop não está disponível com o provedor de economia atual."
+  top_header: "&6Top dinheiro &7(Página %page%/%pages%):"
+  no_data: "&7Ainda não há dados de saldo."
+
+vault:
+  menu:
+    title: "&bMenu Vault"
+    item:
+      pay: "&aPagar"
+      loan: "&aEmprestimo"
+      settings: "&cAjustes"
+      reload: "&eRecarregar"
+      update: "&bAtualizar"
+    lore:
+      pay:
+        - "&7Abrir o menu de pagamentos."
+      loan:
+        - "&7Solicitar, ver e pagar empréstimos."
+      settings:
+        - "&7Editar ajustes do plugin."
+      reload:
+        - "&7Recarregar config e mensagens."
+      update:
+        - "&7Verificar atualizações."
+
+settings:
+  title: "&cAjustes"
+  title_loans: "&cAjustes de Empréstimo"
+  title_pay: "&cAjustes de Pagamento"
+  title_texts: "&cAjustes de Textos"
+  item:
+    loans: "&aEmpréstimos"
+    pay: "&aPagamentos"
+    texts: "&aTextos"
+    back: "&7Voltar"
+  lore:
+    loans:
+      - "&7Configurar o sistema de empréstimos."
+    pay:
+      - "&7Configurar limites e menu de /pay."
+    texts:
+      - "&7Editar textos do menu."
+    back:
+      - "&7Voltar."
+    loans_enabled:
+      - "&7Ativar/desativar empréstimos."
+    loans_min:
+      - "&7Valor mínimo do empréstimo."
+    loans_max:
+      - "&7Valor máximo do empréstimo."
+    loans_max_installments:
+      - "&7Máximo de parcelas."
+    loans_default_interval_hours:
+      - "&7Horas padrão entre parcelas."
+    loans_charge_check_seconds:
+      - "&7Com que frequência processar cobranças."
+    loans_max_missed:
+      - "&7Quantas falhas antes de inadimplência."
+    pay_min:
+      - "&7Valor mínimo permitido."
+    pay_max:
+      - "&7Valor máximo permitido."
+    pay_menu_size:
+      - "&7Tamanho do menu /pay (múltiplo de 9)."
+    pay_show_self:
+      - "&7Mostrar você mesmo no /pay."
+  loans:
+    enabled: "&fEmpréstimos"
+    min: "&fMin empréstimo"
+    max: "&fMax empréstimo"
+    max_installments: "&fMax parcelas"
+    default_interval_hours: "&fIntervalo padrão (h)"
+    charge_check_seconds: "&fVerificação (s)"
+    max_missed: "&fMax falhas"
+  pay:
+    min: "&fMin pagamento"
+    max: "&fMax pagamento"
+    menu_size: "&fTamanho menu /pay"
+    show_self: "&fMostrar eu"
+  prompt:
+    value: "&aDigite o novo valor para &e%key% no chat, ou &c%cancel%."
+    text: "&aDigite o novo texto para &e%key% no chat, ou &c%cancel%."
+  cancelled: "&cEdição cancelada."
+  invalid_number: "&cNúmero inválido."
+  saved: "&aSalvo: &e%key%"
+  save_failed: "&cNão foi possível salvar o arquivo."
+
+loan:
+  no_permission: "&cVoce nao tem permissao para usar emprestimos."
+  none: "&aVoce nao tem um emprestimo ativo."
+  already_active: "&aVoce ja tem um emprestimo ativo."
+  cancelled: "&cAcao de emprestimo cancelada."
+  created: "&aEmprestimo criado: &6%amount% &7| parcelas: &f%installments% &7| parcela: &6%installment_amount% &7| a cada &f%interval_hours%h"
+  paid: "&2Seu emprestimo foi totalmente quitado."
+  status: "&2Emprestimo: principal &f%principal% &7| restante &f%remaining% &7| parcela &6%installment% &7| parcelas restantes &f%installments_left% &7| proxima cobranca em &c%next_in_minutes%m"
+  menu:
+    title: "&aEmprestimo"
+    item:
+      request: "&aSolicitar"
+      status: "&eStatus"
+      pay: "&6Pagar"
+      settings: "&cAjustes"
+    lore:
+      request:
+        - "&7Solicitar um novo empréstimo."
+      status:
+        - "&7Ver status do seu empréstimo."
+      pay:
+        - "&7Pagar seu empréstimo."
+      settings:
+        - "&7Abrir ajustes de empréstimos."
+  request:
+    title:
+      type: "&aSolicitar Empréstimo"
+      delay: "&eAtraso Total"
+      installments_mode: "&eModo de Parcelas"
+      installments_count: "&eQuantidade de Parcelas"
+      interval: "&eIntervalo"
+      first_delay: "&ePrimeira Parcela"
+    item:
+      total: "&eTotal"
+      installments: "&aParcelas"
+      mode_count: "&eQuantidade"
+      mode_amount: "&eValor"
+      same_as_interval: "&eIgual ao intervalo"
+      back: "&7Voltar"
+      cancel: "&cCancelar"
+    lore:
+      total:
+        - "&7Pagamento único."
+      installments:
+        - "&7Pagamento em parcelas."
+      mode_count:
+        - "&7Escolher quantidade de parcelas."
+      mode_amount:
+        - "&7Digitar valor da parcela no chat."
+      installments_count:
+        - "&7Selecione quantas parcelas."
+      delay:
+        - "&7Selecione em quantas horas cobrar."
+      interval:
+        - "&7Selecione horas entre parcelas."
+      first_delay:
+        - "&7Selecione atraso da primeira parcela."
+      back:
+        - "&7Voltar."
+      cancel:
+        - "&7Cancelar solicitação."
+  prompt:
+    cancel_words: "&ccancelar,&ccancel,&ccancelar"
+    amount: "&aDigite o valor do emprestimo no chat, ou &c%cancel%."
+    type: "&aDigite 'total' (pagamento unico) ou 'parcelas', ou &c%cancel%."
+    total_delay_hours: "&aEm quantas horas o servidor deve cobrar o pagamento total? (exemplo: 24) Ou &c%cancel%."
+    installments_mode: "&aDigite 'quantidade' (numero de parcelas) ou 'valor' (valor por parcela), ou &c%cancel%."
+    installments_count: "&aQuantas parcelas? Ou &c%cancel%."
+    installment_amount: "&aDigite o valor de cada parcela. Ou &c%cancel%."
+    interval_hours: "&aIntervalo entre parcelas em horas (0 = padrao &e%default_hours%). Ou &c%cancel%."
+    first_delay_hours: "&aPrimeira parcela em quantas horas? (0 = mesmo intervalo &e%default_hours%). Ou &c%cancel%."
+    pay_amount: "&aDigite quanto voce quer pagar (ou 'all'). Restante: &e%remaining%. Ou &c%cancel%."
+  error:
+    invalid_number: "&cNumero invalido."
+    invalid_type: "&cTipo invalido. Use 'total' ou 'parcelas'."
+    invalid_installments_mode: "&cOpcao invalida. Use 'quantidade' ou 'valor'."
+    too_small: "&cO emprestimo deve ser pelo menos &e%min%."
+    too_large: "&cO emprestimo deve ser no maximo &e%max%."
+    too_many_installments: "&cParcelas demais. Maximo: &e%max%."
+    not_enough_money: "&cFundos insuficientes para pagar."
+    deposit_failed: "&cNao foi possivel criar o emprestimo (falha no deposito)."
+    installment_too_small: "&cPara um empréstimo de &e%loan_amount%, a parcela mínima deve ser &e%min_installment%."
+  pay:
+    success: "&aPagamento recebido: &6%amount%. Restante: &e%remaining%."
+  charge:
+    success: "&cParcela cobrada: &6%amount%. Restante: &e%remaining%."
+    missed: "&cNao foi possivel cobrar a parcela (&6%amount%). Falhas &e%missed%/%max_missed%."
+    defaulted: "&4Emprestimo inadimplente. Restante: &e%remaining%."
+
+economy:
+  bank_not_supported: "&cSuporte bancário não implementado"
+  eco:
+    usage: "&aUso: /eco give <jogador> <valor> | /eco take <jogador> <valor>"
+    no_permission: "&cVocê não tem permissão para usar /eco."
+    player_not_found: "&cJogador não encontrado: &f%player%"
+    invalid_amount: "&cValor inválido: &6%amount%"
+    positive_only: "&cO valor deve ser positivo."
+    deposit_ok: "&cAdicionado &6%amount% para &f%player%."
+    withdraw_ok: "&cRemovido &6%amount% de &f%player%."
+    deposit_error: "&cNão foi possível depositar: &6%error%"
+    withdraw_error: "&cNão foi possível sacar: &6%error%"
+
+# ===== Discord Webhook i18n (idioma sincronizado com config.yml language) =====
+discord:
+  field:
+    txid: "ID da Transação"
+    currency: "Moeda"
+    amount: "Valor"
+    from: "De"
+    to: "Para"
+    world: "Mundo"
+    metadata: "Metadados"
+  threshold:
+    title: "💸 Transação grande (%type%)"
+    desc: "**%sign% %amount%** em %type%\nDe: `%from%` → Para: `%to%`"
+  dupe:
+    hard_label: "GRAVE"
+    soft_label: "LEVE"
+    title: "🚨 Anti-dupe detectado (%hard%)"
+    desc: "Transação duplicada rejeitada pelo AntiDupeWindow.\nTxId: `%txid%`\nSerial: `%serial%`\nTipo: `%type_key%`\nValor: `%amount_raw% %currency%`"
+    field:
+      rejections: "Rejeições totais"
+  error:
+    title: "❌ Falha ao persistir lote de transações"
+    desc: "Tamanho do lote: `%batch_size%`\nErro: `%error%`"
+  tx_type:
+    DEPOSIT: "Depósito"
+    WITHDRAW: "Saque"
+    PLAYER_PAY: "Pagamento entre jogadores"
+    NOTE_WITHDRAW: "Nota retirada"
+    NOTE_REDEEM: "Nota resgatada"
+    OFFLINE_PAY_SENT: "Pagamento offline enviado"
+    OFFLINE_PAY_CLAIMED: "Pagamento offline entregue"
+    OFFLINE_PAY_REFUNDED: "Pagamento offline reembolsado"
+    ADMIN_ADD: "Admin: adicionar"
+    ADMIN_REMOVE: "Admin: remover"
+    ADMIN_SET: "Admin: definir"
+    ADMIN_RESET: "Admin: resetar"
+    INTEREST: "Juros bancários"
+    TAX: "Imposto"
+    BANK_DEPOSIT: "Depósito bancário"
+    BANK_WITHDRAW: "Saque bancário"
+    LOAN_DISBURSE: "Empréstimo desembolsado"
+    LOAN_REPAY: "Pagamento de empréstimo"
+    LOAN_DEFAULT: "Empréstimo em inadimplência"
+    LOAN_COLLATERAL_SEIZED: "Garantia apreendida"
+    CHARGE_PAID: "Cobração paga"
+    TEAM_DEPOSIT: "Depósito da equipe"
+    TEAM_WITHDRAW: "Saque da equipe"
+    TEAM_DISBAND_REFUND: "Reembolso ao desfazer equipe"
+
+# ===== Comum (multi-comando) =====
+cmd:
+  common:
+    only_players: "&cEste comando só pode ser usado no jogo."
+    no_permission: "&cVocê não tem permissão para usar este comando."
+    invalid_amount: "&cValor inválido."
+    positive_only: "&cO valor deve ser maior que 0."
+    insufficient_funds: "&cFundos insuficientes."
+    player_not_found: "&cJogador não encontrado: &f%player%"
+    usage_prefix: "&eUso:"
+
+# ===== Notas físicas (PhysicalNoteService + /vault withdraw) =====
+note:
+  withdraw:
+    disabled: "&cAs notas físicas estão desativadas."
+    usage: "Uso: /vault withdraw <valor> [moeda]"
+    success: "&aVocê sacou &6%amount% &acomo nota física."
+  item:
+    name: "&6&lNota: &f%amount%"
+    lore:
+      currency: "&7Moeda: &b%currency%"
+      amount: "&7Valor: &e%amount%"
+      issuer: "&7Emitente: &f%issuer%"
+      serial: "&7Nº de série: &8%serial%"
+      hint: "&a» Clique direito para sacar «"
+  redeem:
+    already_redeemed: "&cEsta nota já foi sacada."
+    invalid: "&cEsta nota não pôde ser validada. Pode estar modificada ou expirada."
+    error: "&cFalha ao sacar nota: &4%error%"
+    success: "&aNota sacada: +&6%amount%"
+
+# ===== /vault history (HistoryMenuService + chat fallback) =====
+history:
+  unavailable: "&cHistórico não disponível com o provedor atual."
+  gui:
+    title: "&5&lHistórico de Transações"
+    info_name: "&e&lInformação"
+    info_lore:
+      - "&7Página &f%page% &7de &f%pages%"
+      - "&7Total de transações: &f%total%"
+      - ""
+      - "&eDica: passe o cursor sobre os itens para ver detalhes."
+    prev_name: "&e« Página anterior"
+    prev_lore: "&7Voltar para página %page%"
+    next_name: "&ePróxima página »"
+    next_lore: "&7Avançar para página %page%"
+    close_name: "&c&lFechar histórico"
+    close_lore: "&7Fecha este menu."
+    entry:
+      title_prefix_in: "&a⬆ "
+      title_prefix_out: "&c⬇ "
+      title_prefix_neutral: "&7• "
+      title: "&f%type% &8#%serial%"
+      lore:
+        amount: "  Valor: &f%sign%%amount% &7(%currency%)"
+        from: "  De: &f%from%"
+        to: "  Para: &f%to%"
+        world: "  Mundo: &f%world%"
+        time: "  Data: &f%time%"
+        txid: "  TxId: &8%txid%"
+        meta_header: "  Metadados:"
+        meta_entry: "    &8• &7%key%: &f%value%"
+        divider: "&m-------------------------------"
+  chat:
+    header_top: "&9&m--------------------------------"
+    header_title: "&b&l  Histórico de transações &7(%page%/%pages%)"
+    header_bottom: "&9&m--------------------------------"
+    footer: "&9&m--------------------------------"
+    empty: "&7  (sem transações ainda)"
+    line_format: " &8%time% %dir%%amount% &8- %type%"
+    line_meta: "      &8#%serial% &7%from%→%to%"
+
+# ===== /vault offlinepay =====
+offlinepay:
+  unavailable: "&cPagamentos offline não disponíveis."
+  list:
+    header: "&ePagamentos offline pendentes: &f%count%"
+    line: "  #%id% &f%from_name% &7→ &f%to_name% &e%amount% &7(%time_ago% atrás)"
+    empty: "&7  (sem pagamentos pendentes)"
+  refund:
+    usage: "Uso: /vault offlinepay refund <id>"
+    invalid_id: "&cID inválido."
+    success: "&aPagamento &f#%id% &areembolsado."
+    not_found: "&cPagamento &f#%id% &cnão encontrado."
+
+# ===== /eco admin =====
+eco:
+  usage: |
+    &eUso:
+    &7  /eco give|add <jogador> <valor> [moeda]
+    &7  /eco take|remove <jogador> <valor> [moeda]
+    &7  /eco set <jogador> <valor> [moeda]
+    &7  /eco reset <jogador> [moeda]
+    &7  /eco top [página] [moeda]
+  no_permission: "&cVocê não tem permissão para usar /eco."
+  give:
+    success: "&aSaldo de &f%player% &adefinido para &6%amount%"
+    error: "&cNão foi possível adicionar saldo: &4%error%"
+  take:
+    success: "&cRemovido &6%amount% &cde &f%player%"
+    error: "&cNão foi possível remover saldo: &4%error%"
+  set:
+    success: "&aSaldo de &f%player% &adefinido para &6%amount%"
+    error: "&cNão foi possível definir saldo: &4%error%"
+  reset:
+    success: "&aSaldo de &f%player% &areiniciado para 0 (era &c%old_amount%&a)"
+    error: "&cNão foi possível reiniciar saldo: &4%error%"
+
+bank:
+  unavailable: "&cO serviço bancário não está disponível no momento."
+  no_permission: "&cVocê não tem permissão para usar o banco."
+  only_players: "&cEste comando só pode ser usado no jogo."
+  invalid_amount: "&cValor inválido."
+  positive_only: "&cO valor deve ser maior que 0."
+  insufficient_funds: "&cVocê não tem saldo suficiente na carteira para depositar esse valor."
+  insufficient_bank: "&cVocê não tem saldo suficiente no banco para sacar esse valor."
+  not_found: "&cNenhuma conta bancária encontrada para %player%."
+  invalid_page: "&cPágina inválida."
+  usage: |
+    &6Comandos do Banco:
+    &e  /vault bank balance [jogador]
+    &e  /vault bank deposit <valor>
+    &e  /vault bank withdraw <valor>
+    &e  /vault bank top [página]
+  balance:
+    self_header: "&6=== &aSeu Saldo Bancário &6==="
+    self_wallet: "&7Carteira: &f%wallet%"
+    self_bank: "&7No banco: &f%bank%"
+    self_total: "&7Total: &6%total%"
+    self_interest: "&7Próximo juros: &a+%interest_next% &7(%interest_pct%% a cada %interest_min%m)"
+    self_tax: "&7Próximo imposto: &c-%tax_next% &7(%tax_pct%% sobre > %tax_threshold% a cada %tax_min%m)"
+    self_no_tax: "&7Próximo imposto: &aNenhum (seu saldo está abaixo do limite)"
+    other_header: "&6=== &aSaldo Bancário de &e%player% &6==="
+    other_wallet: "&7Carteira: &f%wallet%"
+    other_bank: "&7No banco: &f%bank%"
+    other_total: "&7Total: &6%total%"
+  deposit:
+    usage: "&cUso: /vault bank deposit <valor>"
+    success: "&aVocê depositou &6%amount% &ano banco. Agora você tem &f%bank_new% &ano banco."
+    error: "&cNão foi possível concluir o depósito: &4%error%"
+  withdraw:
+    usage: "&cUso: /vault bank withdraw <valor>"
+    success: "&aVocê sacou &6%amount% &ado banco. Agora você tem &f%wallet_new% &ana carteira."
+    error: "&cNão foi possível concluir o saque: &4%error%"
+  top:
+    header: "&6=== &aTop Bancário &7(Página %page%/%pages%) &6==="
+    empty: "&cAinda não há saldos bancários registrados."
+    line: "&7#%pos% &e%player% &8- &bBanco: &f%bank% &8| &7Total: &6%total%"
+    footer: "&7Use /vault bank top 2 para ver a próxima página."
+  gui:
+    title: "&8🏦 Banco"
+    wallet_name: "&6💳 Sua Carteira"
+    wallet_lore:
+      - "&7Fundos disponíveis no seu bolso."
+      - ""
+      - "&8• &7Atual: &f%wallet%"
+      - ""
+      - "&eSeus fundos líquidos que você pode gastar diretamente."
+    bank_name: "&a🏦 No Banco"
+    bank_lore:
+      - "&7Fundos segurados na sua conta bancária."
+      - ""
+      - "&8• &7Atual: &f%bank%"
+      - "&8• &7Juros: &a+%interest_next% &7a cada %interest_min%m"
+      - "&8• &7Imposto: &c%tax_desc%"
+      - ""
+      - "&eGanhe juros passivos sobre este saldo."
+    total_name: "&9📊 Patrimônio Total"
+    total_lore:
+      - "&7Soma da sua carteira + banco."
+      - ""
+      - "&8• &7Total: &6%total%"
+      - ""
+      - "&fSeu patrimônio líquido combinado."
+    deposit_name: "&2📥 Depositar"
+    deposit_lore:
+      - "&7Mova dinheiro da sua carteira para o banco."
+      - ""
+      - "&8• &7Atalhos:"
+      - "&a  Esq 1: %qp1%     &aShift +1: %qp10%"
+      - "&a  Esq 2: %qp2%     &aShift +2: %qp20%"
+      - "&a  Esq 3: %qp3%     &aShift +3: %qp50%"
+      - "&a  Esq 4: %qp4%     &aShift +4: TUDO"
+      - ""
+      - "&eDepósitos rendem juros automaticamente."
+    withdraw_name: "&c📤 Sacar"
+    withdraw_lore:
+      - "&7Mova dinheiro do banco para a sua carteira."
+      - ""
+      - "&8• &7Atalhos:"
+      - "&c  Esq 1: %qp1%     &cShift +1: %qp10%"
+      - "&c  Esq 2: %qp2%     &cShift +2: %qp20%"
+      - "&c  Esq 3: %qp3%     &cShift +3: %qp50%"
+      - "&c  Esq 4: %qp4%     &cShift +4: TUDO"
+      - ""
+      - "&eSaque quando precisar pagar ou comprar."
+    info_name: "&b📈 Informação"
+    info_lore:
+      - "&7Taxas atuais do seu banco."
+      - ""
+      - "&8• &aJuros: &f+%interest_pct%% &7a cada %interest_min% minutos"
+      - "&8• &cImposto: &f-%tax_pct%% &7sobre excedente > %tax_threshold%"
+      - "&8• &7Imposto a cada: &f%tax_min% minutos"
+      - ""
+      - "&eJuros são pagos automaticamente; imposto reduz inflação."
+    deposit_qp1_name: "&2+%qp1%"
+    deposit_qp1_lore:
+      - "&7Deposita &a%qp1_amount% &7no banco."
+      - ""
+      - "&8• &7Custo carteira: &c%qp1_amount%"
+      - "&8• &7Banco depois: &a%qp1_new%"
+      - ""
+      - "&eEsq = %qp1% · Shift = %qp10%"
+    deposit_qp2_name: "&2+%qp2%"
+    deposit_qp2_lore:
+      - "&7Deposita &a%qp2_amount% &7no banco."
+      - ""
+      - "&8• &7Custo carteira: &c%qp2_amount%"
+      - "&8• &7Banco depois: &a%qp2_new%"
+      - ""
+      - "&eEsq = %qp2% · Shift = %qp20%"
+    deposit_qp3_name: "&2+%qp3%"
+    deposit_qp3_lore:
+      - "&7Deposita &a%qp3_amount% &7no banco."
+      - ""
+      - "&8• &7Custo carteira: &c%qp3_amount%"
+      - "&8• &7Banco depois: &a%qp3_new%"
+      - ""
+      - "&eEsq = %qp3% · Shift = %qp50%"
+    deposit_qp4_name: "&2+%qp4%"
+    deposit_qp4_lore:
+      - "&7Deposita &a%qp4_amount% &7no banco."
+      - ""
+      - "&8• &7Custo carteira: &c%qp4_amount%"
+      - "&8• &7Banco depois: &a%qp4_new%"
+      - ""
+      - "&eEsq = %qp4% · Shift = TUDO"
+    withdraw_qp1_name: "&c-%qp1%"
+    withdraw_qp1_lore:
+      - "&7Saca &c%qp1_amount% &7do banco."
+      - ""
+      - "&8• &7Carteira depois: &a%qp1_wallet%"
+      - "&8• &7Banco depois: &c%qp1_bank%"
+      - ""
+      - "&eEsq = %qp1% · Shift = %qp10%"
+    withdraw_qp2_name: "&c-%qp2%"
+    withdraw_qp2_lore:
+      - "&7Saca &c%qp2_amount% &7do banco."
+      - ""
+      - "&8• &7Carteira depois: &a%qp2_wallet%"
+      - "&8• &7Banco depois: &c%qp2_bank%"
+      - ""
+      - "&eEsq = %qp2% · Shift = %qp20%"
+    withdraw_qp3_name: "&c-%qp3%"
+    withdraw_qp3_lore:
+      - "&7Saca &c%qp3_amount% &7do banco."
+      - ""
+      - "&8• &7Carteira depois: &a%qp3_wallet%"
+      - "&8• &7Banco depois: &c%qp3_bank%"
+      - ""
+      - "&eEsq = %qp3% · Shift = %qp50%"
+    withdraw_qp4_name: "&c-%qp4%"
+    withdraw_qp4_lore:
+      - "&7Saca &c%qp4_amount% &7do banco."
+      - ""
+      - "&8• &7Carteira depois: &a%qp4_wallet%"
+      - "&8• &7Banco depois: &c%qp4_bank%"
+      - ""
+      - "&eEsq = %qp4% · Shift = TUDO"
+    back_name: "&8◀ Voltar"
+    back_lore:
+      - "&7Volta ao menu principal do Vault."
+  menu:
+    item_name: "&6🏦 Banco"
+    item_lore:
+      - "&7Gerencia sua conta bancária."
+      - ""
+      - "&8• &7Seu saldo: &f%bank%"
+      - "&8• &7Juros: &a+%interest_next%"
+      - ""
+      - "&eClique para abrir o menu do banco."
+

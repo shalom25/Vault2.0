@@ -1,165 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 960 240" role="img" aria-label="Vault 2.0 logo">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#7C3AED"/>
-      <stop offset="50%" stop-color="#A78BFA"/>
-      <stop offset="100%" stop-color="#22D3EE"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.25"/>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c98a3e"/>
+      <stop offset="100%" stop-color="#8b5a2b"/>
+    </linearGradient>
+    <linearGradient id="woodDark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9a5a2d"/>
+      <stop offset="100%" stop-color="#5a3617"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e6e6e6"/>
+      <stop offset="100%" stop-color="#a7a7a7"/>
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.35"/>
     </filter>
-    <!-- Gradientes para el cofre -->
-    <linearGradient id="woodTop" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#b06e2e"/>
-      <stop offset="100%" stop-color="#8b4e1f"/>
-    </linearGradient>
-    <linearGradient id="woodBase" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#a1622d"/>
-      <stop offset="100%" stop-color="#6f3d1a"/>
-    </linearGradient>
-    <linearGradient id="metal" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#f2d16b"/>
-      <stop offset="50%" stop-color="#d4af37"/>
-      <stop offset="100%" stop-color="#b38f2f"/>
-    </linearGradient>
-    <!-- Gradiente lateral para monedas de oro -->
-    <linearGradient id="coinSide" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0%" stop-color="#fff3a3"/>
-      <stop offset="50%" stop-color="#ffd24d"/>
-      <stop offset="100%" stop-color="#caa132"/>
-    </linearGradient>
-    <!-- Gradientes adicionales para volumen real -->
-    <radialGradient id="coinTop" cx="35%" cy="30%" r="85%">
-      <stop offset="0%" stop-color="#fff6b7"/>
-      <stop offset="55%" stop-color="#ffd24d"/>
-      <stop offset="100%" stop-color="#b38f2f"/>
-    </radialGradient>
-    <linearGradient id="coinEdge" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#ffe47a"/>
-      <stop offset="35%" stop-color="#e0b84a"/>
-      <stop offset="100%" stop-color="#8b6f1a"/>
-    </linearGradient>
-    <!-- Patrón de estrías del canto (milling) y sombra inferior -->
-    <pattern id="reedPattern" patternUnits="userSpaceOnUse" width="4" height="16">
-      <rect x="0" y="0" width="1" height="16" fill="#e4c064" opacity="0.25"/>
-      <rect x="2" y="0" width="1" height="16" fill="#7d6518" opacity="0.18"/>
-    </pattern>
-    <radialGradient id="coinShadow" cx="50%" cy="70%" r="90%">
-      <stop offset="0%" stop-color="#000" stop-opacity="0.18"/>
-      <stop offset="60%" stop-color="#000" stop-opacity="0.06"/>
-      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
-    </radialGradient>
-    <!-- Gradiente de borde del anillo interno y brillo especular -->
-    <linearGradient id="rimStroke" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0%" stop-color="#ffeaa0"/>
-      <stop offset="50%" stop-color="#e0b84a"/>
-      <stop offset="100%" stop-color="#9a7a1f"/>
-    </linearGradient>
-    <radialGradient id="specHighlight" cx="50%" cy="50%" r="85%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="faceGold" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#ffe98a"/>
-      <stop offset="55%" stop-color="#ffc94d"/>
-      <stop offset="100%" stop-color="#d39a2f"/>
-    </linearGradient>
-    <linearGradient id="rimGold" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0%" stop-color="#ffef9f"/>
-      <stop offset="60%" stop-color="#e0b84a"/>
-      <stop offset="100%" stop-color="#9a7a1f"/>
-    </linearGradient>
   </defs>
 
-  <rect x="40" y="40" width="880" height="160" rx="24" fill="url(#g)" filter="url(#shadow)"/>
+  <!-- Fondo que llena todo el lienzo -->
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#bg)"/>
 
-  <!-- Cofre estilizado al lado del nombre -->
-  <g transform="translate(90,68)" filter="url(#shadow)">
-    <!-- tapa -->
-    <rect x="0" y="0" width="76" height="34" rx="4" fill="url(#woodTop)" stroke="#3b2c20" stroke-width="2"/>
-    <!-- base -->
-    <rect x="0" y="32" width="76" height="44" rx="4" fill="url(#woodBase)" stroke="#3b2c20" stroke-width="2"/>
-    <!-- bisagra/metálico central -->
-    <rect x="28" y="24" width="20" height="18" rx="2" fill="url(#metal)" stroke="#7a6115" stroke-width="1.5"/>
-    <rect x="34" y="28" width="8" height="6" rx="1" fill="#333333"/>
-    <!-- listones para textura -->
-    <rect x="19" y="6" width="2" height="20" fill="#6f3d1a" opacity="0.35"/>
-    <rect x="38" y="6" width="2" height="20" fill="#6f3d1a" opacity="0.35"/>
-    <rect x="57" y="6" width="2" height="20" fill="#6f3d1a" opacity="0.35"/>
-    <rect x="19" y="40" width="2" height="28" fill="#4b2a12" opacity="0.35"/>
-    <rect x="38" y="40" width="2" height="28" fill="#4b2a12" opacity="0.35"/>
-    <rect x="57" y="40" width="2" height="28" fill="#4b2a12" opacity="0.35"/>
+  <!-- Aro sutil para dar sensación de bóveda -->
+  <circle cx="512" cy="512" r="440" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="24"/>
+
+  <!-- Cofre estilo Minecraft centrado -->
+  <g id="chest" filter="url(#shadow)">
+    <!-- Cuerpo del cofre -->
+    <rect x="232" y="368" width="560" height="336" rx="18" ry="18" fill="url(#wood)" stroke="#3b2413" stroke-width="12"/>
+    <!-- Tapa del cofre -->
+    <rect x="232" y="368" width="560" height="140" rx="18" ry="18" fill="url(#woodDark)" stroke="#3b2413" stroke-width="12"/>
+    <!-- Borde horizontal de la tapa -->
+    <rect x="232" y="508" width="560" height="24" fill="#3b2413"/>
+    <!-- Listones verticales oscuros -->
+    <rect x="332" y="368" width="20" height="336" fill="#3b2413"/>
+    <rect x="672" y="368" width="20" height="336" fill="#3b2413"/>
+    <!-- Placa del candado -->
+    <rect x="492" y="504" width="40" height="90" rx="6" fill="url(#metal)" stroke="#6b7280" stroke-width="6"/>
+    <!-- Ojo de cerradura -->
+    <circle cx="512" cy="534" r="10" fill="#111827"/>
+    <rect x="507" y="544" width="10" height="22" fill="#111827"/>
+    <!-- Brillos sutiles -->
+    <rect x="244" y="382" width="536" height="12" fill="rgba(255,255,255,0.12)"/>
+    <rect x="492" y="504" width="40" height="90" rx="6" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
   </g>
 
-  <g fill="#ffffff">
-    <text x="190" y="118" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="700" font-size="64" letter-spacing="1.5">VAULT</text>
-    <text x="190" y="168" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="500" font-size="36" opacity="0.9">Internal Economy · Plugins</text>
-    <text x="720" y="118" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" font-weight="700" font-size="64" text-anchor="end">2.0</text>
-    <!-- Coins: two stacks + front tilted coin (cartoon style) -->
-    <g transform="translate(478,44)" filter="url(#shadow)">
-      <!-- base ground shadow -->
-      <ellipse cx="30" cy="94" rx="72" ry="16" fill="#000" opacity="0"/>
-
-      <!-- left stack (4 coins) -->
-      <g transform="translate(-14,0)">
-        <rect x="5" y="68" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
-        <rect x="5" y="68" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
-        <ellipse cx="30" cy="84" rx="24" ry="10" fill="url(#coinShadow)" opacity="0"/>
-        <ellipse cx="30" cy="76" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
-        <ellipse cx="30" cy="76" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
-        <text x="30" y="80" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-weight="800" font-size="16" text-anchor="middle" fill="#fff" opacity="0.9">$</text>
-
-        <rect x="5" y="54" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
-        <rect x="5" y="54" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
-        <ellipse cx="30" cy="70" rx="24" ry="10" fill="url(#coinShadow)" opacity="0"/>
-        <ellipse cx="30" cy="62" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
-        <ellipse cx="30" cy="62" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
-
-        <rect x="5" y="40" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
-        <rect x="5" y="40" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
-        <ellipse cx="30" cy="56" rx="24" ry="10" fill="url(#coinShadow)" opacity="0"/>
-        <ellipse cx="30" cy="48" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
-        <ellipse cx="30" cy="48" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
-
-        <rect x="5" y="26" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
-        <rect x="5" y="26" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
-        <ellipse cx="30" cy="42" rx="24" ry="10" fill="url(#coinShadow)" opacity="0"/>
-        <ellipse cx="30" cy="34" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
-        <ellipse cx="30" cy="34" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
-        <text x="30" y="38" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-weight="800" font-size="16" text-anchor="middle" fill="#fff" opacity="0.95">$</text>
-      </g>
-
-      <!-- back stack (3 coins, slightly right shifted) -->
-      <g transform="translate(18,-6)" opacity="0.98">
-        <rect x="5" y="62" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
-        <rect x="5" y="62" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
-        <ellipse cx="30" cy="78" rx="24" ry="10" fill="url(#coinShadow)" opacity="0"/>
-        <ellipse cx="30" cy="70" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
-        <ellipse cx="30" cy="70" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
-
-        <rect x="5" y="48" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
-        <rect x="5" y="48" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
-        <ellipse cx="30" cy="64" rx="24" ry="10" fill="url(#coinShadow)" opacity="0"/>
-        <ellipse cx="30" cy="56" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
-        <ellipse cx="30" cy="56" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
-
-        <rect x="5" y="34" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
-        <rect x="5" y="34" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
-        <ellipse cx="30" cy="50" rx="24" ry="10" fill="url(#coinShadow)" opacity="0"/>
-        <ellipse cx="30" cy="42" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
-        <ellipse cx="30" cy="42" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
-        <text x="30" y="46" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-weight="800" font-size="16" text-anchor="middle" fill="#fff" opacity="0.95">$</text>
-      </g>
-
-      <!-- front tilted coin -->
-      <g transform="translate(92,54) rotate(-22)">
-        <rect x="-25" y="-8" width="50" height="18" rx="25" ry="11" fill="url(#coinEdge)" stroke="#5a3a00" stroke-width="2.2"/>
-        <rect x="-25" y="-8" width="50" height="18" fill="url(#reedPattern)" opacity="0.45"/>
-        <ellipse cx="0" cy="8" rx="24" ry="10" fill="url(#coinShadow)" opacity="0"/>
-        <ellipse cx="0" cy="0" rx="24" ry="11" fill="url(#faceGold)" stroke="#5a3a00" stroke-width="3.2"/>
-        <ellipse cx="0" cy="0" rx="21" ry="9.5" fill="none" stroke="url(#rimGold)" stroke-width="1.4" opacity="0.95"/>
-        <text x="0" y="4" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-weight="800" font-size="16" text-anchor="middle" fill="#fff" opacity="0.95">$</text>
-      </g>
-    </g>
+  <!-- Logotipo textual 'Vault' centrado sobre el cofre -->
+  <g filter="url(#shadow)">
+    <text x="512" y="320" text-anchor="middle" dominant-baseline="middle" font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="180" fill="url(#accent)">Vault</text>
   </g>
 </svg>

@@ -1,6 +1,10 @@
 # Maven/Java
 /target/
+/target-java17/
+/target-java21/
 /.mvn/
+.dbg/
+*.class
 
 # IDEs
 /.idea/
@@ -10,6 +14,15 @@
 # OS
 .DS_Store
 Thumbs.db
+
+# Editor swap files
+.*.swp
+.*.swo
+*~
+
+# Temporary local files
+index.html
+tools/
 
 # Logs
 *.log

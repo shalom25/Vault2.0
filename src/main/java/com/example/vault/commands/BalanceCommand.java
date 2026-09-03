@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import com.example.vault.economy.SimpleEconomy;
 import com.example.vault.i18n.Messages;
 
 
@@ -37,8 +38,15 @@ public class BalanceCommand implements CommandExecutor {
                 }
             }
         }
-        economy.createPlayerAccount(player);
-        double bal = economy.getBalance(player);
+        String worldName = player.getWorld() != null ? player.getWorld().getName() : null;
+        if (economy instanceof SimpleEconomy) {
+            economy.createPlayerAccount(player, worldName);
+        } else {
+            economy.createPlayerAccount(player);
+        }
+        double bal = economy instanceof SimpleEconomy
+                ? economy.getBalance(player, worldName)
+                : economy.getBalance(player);
         player.sendMessage(messages.formatChat("balance.your_balance", java.util.Collections.singletonMap("amount", economy.format(bal))));
         return true;
     }

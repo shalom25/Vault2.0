@@ -1,0 +1,642 @@
+# English messages
+pay:
+  # Command messages expected by code
+  only_players: "&cOnly players can use /pay."
+  no_permission: "&cYou do not have permission to use /pay."
+  invalid_amount: "&cInvalid amount."
+  player_offline: "&cPlayer &f%player% is offline; request not delivered."
+  amount_too_small: "&cAmount must be at least &6%min%"
+  amount_too_large: "&cAmount must be at most &6%max%"
+  not_enough_money: "&cInsufficient funds."
+  withdraw_failed: "&cCould not withdraw."
+  sent_ok: "&aYou paid &6%amount% to &f%player%"
+  received_ok: "&aYou received &6%amount% from &f%player%"
+  cancelled: "&cPay request cancelled."
+
+  # UI/menu and other messages
+  menu:
+    title_main: "&8&lSelect player"
+    title_player: "&8&lActions: &f%player%"
+    title_quick_pay: "&8&lQuick pay: &f%player%"
+    nav:
+      prev_name: "&aPrevious page"
+      next_name: "&aNext page"
+    item:
+      pay: "&6&lPay"
+      loan: "&e&lLoan"
+      view_balance: "&e&lMoney"
+      view_balance_lore: "Balance: %vault_eco_balance_short%"
+      charge: "&6&lCharge"
+      settings: "&c&lSettings"
+      manual_amount: "&a&lCustom amount"
+      back: "&c&lBack"
+    lore:
+      settings:
+        - "&7Open Vault settings."
+      pay:
+        - "&7Pay this player."
+      quick_pay:
+        - "&7Pay this amount instantly."
+      loan:
+        - "&7Open your loan menu."
+      view_balance:
+        - "&7Shows the current balance of %player%."
+      charge:
+        - "&7Send a payment request."
+      manual_amount:
+        - "&7Type the amount in chat."
+      back:
+        - "&7Return to the previous menu."
+  prompt:
+    enter_amount_pay: "&aType the amount to pay to &f%player% in chat, or &c%cancel%."
+    enter_amount_charge: "&aType the amount you want to charge &f%player% in chat, or &c%cancel%."
+    cancel_words: "&ccancel,cancelar"
+  error:
+    player_not_found: "&cPlayer not found: &f%player%"
+    invalid_amount: "&cInvalid amount."
+    positive_only: "&cAmount must be positive."
+    min_amount: "&cAmount must be at least &6%min%"
+    max_amount: "&cAmount must be at most &6%max%"
+    insufficient_funds: "&cInsufficient funds."
+    withdraw_error: "&cCould not withdraw: &4%error%"
+    deposit_error: "&cCould not deposit: &4%error%"
+    player_offline: "&cPlayer %player% is offline; request not delivered."
+  success:
+    sender: "&aYou paid &6%amount% to &f%player%"
+
+  view:
+    balance: "&aBalance of &f%player%: &6%amount%"
+    money_label: "&eMoney"
+  request:
+    prefix: "&ePayment request prepared: "
+    click: "&aClick here to pay &f%player% &6%amount_formatted%"
+    hover: "Run /pay &f%player% &6%amount%"
+    sent: "&aRequest sent to &f%player% for &6%amount_formatted%."
+    stored: "&aRequest stored; will be delivered when &f%player% joins."
+  pending:
+    header: "&aYou have &e%count% pending payment requests."
+    limit_notice: "Showing %shown% of %total%; remaining will be delivered later."
+
+cmd:
+  pay:
+    only_players: "Only players can use /pay."
+    no_permission: "You do not have permission to use /pay."
+    usage: "Usage: /pay <player> <amount> (or /pay to open menu, /pay <player> opens submenu)"
+    player_not_found: "Player not found: &f%player%"
+    invalid_amount: "Invalid amount: &6%amount%"
+    positive_only: "Amount must be positive."
+  balance:
+    only_players: "&cThis command is for players only."
+    no_permission: "&cYou do not have permission to use /balance."
+    your_balance: "Your balance: &6%amount%"
+  vault:
+    no_permission: "&cYou do not have permission to reload the plugin."
+
+# Keys expected by menu service (top-level)
+menu:
+  title_main: "&8&lSelect player"
+  title_player: "&8&lActions: &f%player%"
+  target_player: "&8&lSelect target"
+  target_player_lore: "&aClick to choose a player"
+  enter_amount: "&aEnter amount"
+  enter_amount_lore: "&aType the amount in chat"
+
+# Keys expected by balance command (top-level)
+balance:
+  no_permission: "&cYou do not have permission to use /balance."
+  your_balance: "&6Your balance: %amount%"
+
+  only_players: "&cThis command is for players only."
+plugin:
+  enabled: "Internal economy registered without depending on Vault.jar"
+  disabled: "Vault (internal economy) disabled."
+  reloaded: "Configuration and messages reloaded (language: %lang%)."
+
+prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
+
+top:
+  unknown_player: "Player"
+
+vaultop:
+  no_permission: "&cYou do not have permission to use /vaultop."
+  top_unavailable: "&cTop is not available with the current economy provider."
+  top_header: "&6Top money &7(Page %page%/%pages%):"
+  no_data: "&7No balance data yet."
+
+vault:
+  menu:
+    title: "&bVault Menu"
+    item:
+      pay: "&aPay"
+      loan: "&aLoan"
+      settings: "&cSettings"
+      reload: "&eReload"
+      update: "&bUpdate"
+    lore:
+      pay:
+        - "&7Open the pay menu."
+      loan:
+        - "&7Request, view and pay loans."
+      settings:
+        - "&7Edit plugin settings."
+      reload:
+        - "&7Reload config and messages."
+      update:
+        - "&7Check for updates."
+
+settings:
+  title: "&cSettings"
+  title_loans: "&cLoan Settings"
+  title_pay: "&cPay Settings"
+  title_texts: "&cText Settings"
+  item:
+    loans: "&aLoans"
+    pay: "&aPay"
+    texts: "&aTexts"
+    back: "&7Back"
+  lore:
+    loans:
+      - "&7Configure loan system."
+    pay:
+      - "&7Configure /pay limits and menu."
+    texts:
+      - "&7Edit menu texts."
+    back:
+      - "&7Go back."
+    loans_enabled:
+      - "&7Toggle loans on/off."
+    loans_min:
+      - "&7Minimum allowed loan amount."
+    loans_max:
+      - "&7Maximum allowed loan amount."
+    loans_max_installments:
+      - "&7Maximum installments allowed."
+    loans_default_interval_hours:
+      - "&7Default hours between installments."
+    loans_charge_check_seconds:
+      - "&7How often to process charges."
+    loans_max_missed:
+      - "&7How many missed payments before default."
+    pay_min:
+      - "&7Minimum allowed pay amount."
+    pay_max:
+      - "&7Maximum allowed pay amount."
+    pay_menu_size:
+      - "&7Size of /pay menu (multiple of 9)."
+    pay_show_self:
+      - "&7Show yourself in /pay list."
+  loans:
+    enabled: "&fLoans"
+    min: "&fMin loan"
+    max: "&fMax loan"
+    max_installments: "&fMax installments"
+    default_interval_hours: "&fDefault interval (h)"
+    charge_check_seconds: "&fCharge check (s)"
+    max_missed: "&fMax missed"
+  pay:
+    min: "&fMin pay"
+    max: "&fMax pay"
+    menu_size: "&fPay menu size"
+    show_self: "&fShow self"
+  prompt:
+    value: "&aType the new value for &e%key% in chat, or &c%cancel%."
+    text: "&aType the new text for &e%key% in chat, or &c%cancel%."
+  cancelled: "&cEdit cancelled."
+  invalid_number: "&cInvalid number."
+  saved: "&aSaved: &e%key%"
+  save_failed: "&cCould not save the file."
+
+loan:
+  no_permission: "&cYou do not have permission to use loans."
+  none: "&aYou do not have an active loan."
+  already_active: "&aYou already have an active loan."
+  cancelled: "&cLoan action cancelled."
+  created: "&aLoan created: &6%amount% &7| installments: &f%installments% &7| installment: &6%installment_amount% &7| every &f%interval_hours%h"
+  paid: "&2Your loan is fully paid."
+  status: "&2Loan: principal &f%principal% &7| remaining &f%remaining% &7| installment &6%installment% &7| installments left &f%installments_left% &7| next charge in &c%next_in_minutes%m"
+  menu:
+    title: "&aLoan"
+    item:
+      request: "&aRequest"
+      status: "&eStatus"
+      pay: "&6Pay"
+      settings: "&cSettings"
+    lore:
+      request:
+        - "&7Request a new loan."
+      status:
+        - "&7View your current loan status."
+      pay:
+        - "&7Pay your loan."
+      settings:
+        - "&7Open loan settings."
+  request:
+    title:
+      type: "&aLoan Request"
+      delay: "&eTotal Delay"
+      installments_mode: "&eInstallments Mode"
+      installments_count: "&eInstallments Count"
+      interval: "&eInterval"
+      first_delay: "&eFirst Payment"
+    item:
+      total: "&eTotal"
+      installments: "&aInstallments"
+      mode_count: "&eCount"
+      mode_amount: "&eAmount"
+      same_as_interval: "&eSame as interval"
+      back: "&7Back"
+      cancel: "&cCancel"
+    lore:
+      total:
+        - "&7One payment."
+      installments:
+        - "&7Multiple payments."
+      mode_count:
+        - "&7Choose installments count."
+      mode_amount:
+        - "&7Type installment amount in chat."
+      installments_count:
+        - "&7Select how many installments."
+      delay:
+        - "&7Select in how many hours to charge."
+      interval:
+        - "&7Select hours between installments."
+      first_delay:
+        - "&7Select the first payment delay."
+      back:
+        - "&7Go back."
+      cancel:
+        - "&7Cancel request."
+  prompt:
+    cancel_words: "&ccancel,&ccancelar"
+    amount: "&aType the loan amount in chat, or &c%cancel%."
+    type: "&aType 'total' (pay once) or 'cuotas' (installments), or &c%cancel%."
+    total_delay_hours: "&aIn how many hours should the server collect the total payment? (example: 24) Or &c%cancel%."
+    installments_mode: "&aType 'cantidad' (enter installments count) or 'monto' (enter installment amount), or &c%cancel%."
+    installments_count: "&aHow many installments? Or &c%cancel%."
+    installment_amount: "&aType the installment amount (each payment). Or &c%cancel%."
+    interval_hours: "&aInterval between installments in hours (0 = default &e%default_hours%). Or &c%cancel%."
+    first_delay_hours: "&aFirst installment in how many hours? (0 = same as interval &e%default_hours%). Or &c%cancel%."
+    pay_amount: "&aType how much you want to pay (or 'all'). Remaining: &e%remaining%. Or &c%cancel%."
+  error:
+    invalid_number: "&cInvalid number."
+    invalid_type: "&cInvalid type. Use 'total' or 'cuotas'."
+    invalid_installments_mode: "&cInvalid option. Use 'cantidad' or 'monto'."
+    installment_too_small: "&cFor a loan of &e%loan_amount%, the minimum installment is &e%min_installment%."
+    too_small: "&cLoan amount must be at least &e%min%."
+    too_large: "&cLoan amount must be at most &e%max%."
+    too_many_installments: "&cToo many installments. Max: &e%max%."
+    not_enough_money: "&cInsufficient funds to pay."
+    deposit_failed: "&cCould not create the loan (deposit failed)."
+  pay:
+    success: "&aPayment received: &6%amount%. Remaining: &e%remaining%."
+  charge:
+    success: "&cInstallment charged: &6%amount%. Remaining: &e%remaining%."
+    missed: "&cInstallment not charged (&6%amount%). Missed &e%missed%/%max_missed%."
+    defaulted: "&4Loan defaulted. Remaining: &e%remaining%."
+
+economy:
+  bank_not_supported: "&cBank support not implemented"
+  eco:
+    usage: "&aUsage: /eco give <player> <amount> | /eco take <player> <amount>"
+    no_permission: "&cYou do not have permission to use /eco."
+    player_not_found: "&cPlayer not found: &f%player%"
+    invalid_amount: "&cInvalid amount: &6%amount%"
+    positive_only: "&cAmount must be positive."
+    deposit_ok: "&cAdded &6%amount% to &f%player%."
+    withdraw_ok: "&cRemoved &6%amount% from &f%player%."
+    deposit_error: "&cCould not deposit: &6%error%"
+    withdraw_error: "&cCould not withdraw: &6%error%"
+
+# ===== Discord Webhook i18n (11 languages: sync with config.yml language) =====
+discord:
+  field:
+    txid: "Transaction ID"
+    currency: "Currency"
+    amount: "Amount"
+    from: "From"
+    to: "To"
+    world: "World"
+    metadata: "Metadata"
+  threshold:
+    title: "💸 Large transaction (%type%)"
+    desc: "**%sign% %amount%** in %type%\nFrom: `%from%` → To: `%to%`"
+  dupe:
+    hard_label: "HARD"
+    soft_label: "SOFT"
+    title: "🚨 Anti-dupe detected (%hard%)"
+    desc: "Duplicate transaction rejected by AntiDupeWindow.\nTxId: `%txid%`\nSerial: `%serial%`\nType: `%type_key%`\nAmount: `%amount_raw% %currency%`"
+    field:
+      rejections: "Total rejections"
+  error:
+    title: "❌ Transaction batch persistence failed"
+    desc: "Batch size: `%batch_size%`\nError: `%error%`"
+  tx_type:
+    DEPOSIT: "Deposit"
+    WITHDRAW: "Withdraw"
+    PLAYER_PAY: "Player-to-player pay"
+    NOTE_WITHDRAW: "Note withdrawn"
+    NOTE_REDEEM: "Note redeemed"
+    OFFLINE_PAY_SENT: "Offline pay sent"
+    OFFLINE_PAY_CLAIMED: "Offline pay delivered"
+    OFFLINE_PAY_REFUNDED: "Offline pay refunded"
+    ADMIN_ADD: "Admin: add"
+    ADMIN_REMOVE: "Admin: remove"
+    ADMIN_SET: "Admin: set"
+    ADMIN_RESET: "Admin: reset"
+    INTEREST: "Bank interest"
+    TAX: "Tax"
+    BANK_DEPOSIT: "Bank deposit"
+    BANK_WITHDRAW: "Bank withdraw"
+    LOAN_DISBURSE: "Loan disbursed"
+    LOAN_REPAY: "Loan repayment"
+    LOAN_DEFAULT: "Loan default"
+    LOAN_COLLATERAL_SEIZED: "Collateral seized"
+    CHARGE_PAID: "Charge paid"
+    TEAM_DEPOSIT: "Team deposit"
+    TEAM_WITHDRAW: "Team withdraw"
+    TEAM_DISBAND_REFUND: "Team disband refund"
+
+# ===== Common (multi-command) =====
+cmd:
+  common:
+    only_players: "&cThis command can only be used in-game."
+    no_permission: "&cYou do not have permission to use this command."
+    invalid_amount: "&cInvalid amount."
+    positive_only: "&cAmount must be greater than 0."
+    insufficient_funds: "&cInsufficient balance."
+    player_not_found: "&cPlayer not found: &f%player%"
+    usage_prefix: "&eUsage:"
+
+# ===== Physical notes (PhysicalNoteService + /vault withdraw) =====
+note:
+  withdraw:
+    disabled: "&cPhysical notes are disabled."
+    usage: "Usage: /vault withdraw <amount> [currency]"
+    success: "&aYou withdrew &6%amount% &aas a physical note."
+  item:
+    name: "&6&lNote: &f%amount%"
+    lore:
+      currency: "&7Currency: &b%currency%"
+      amount: "&7Amount: &e%amount%"
+      issuer: "&7Issuer: &f%issuer%"
+      serial: "&7Serial #: &8%serial%"
+      hint: "&a» Right click to redeem «"
+  redeem:
+    already_redeemed: "&cThis note has already been redeemed."
+    invalid: "&cThis note could not be validated. It may be forged or expired."
+    error: "&cFailed to redeem note: &4%error%"
+    success: "&aNote redeemed: +&6%amount%"
+
+# ===== /vault history (HistoryMenuService + chat fallback) =====
+history:
+  unavailable: "&cHistory not available with the current economy provider."
+  gui:
+    title: "&5&lTransaction History"
+    info_name: "&e&lInformation"
+    info_lore:
+      - "&7Page &f%page% &7of &f%pages%"
+      - "&7Total transactions: &f%total%"
+      - ""
+      - "&eTip: hover over the items to see details."
+    prev_name: "&e« Previous page"
+    prev_lore: "&7Go back to page %page%"
+    next_name: "&eNext page »"
+    next_lore: "&7Advance to page %page%"
+    close_name: "&c&lClose history"
+    close_lore: "&7Close this menu."
+    entry:
+      title_prefix_in: "&a⬆ "
+      title_prefix_out: "&c⬇ "
+      title_prefix_neutral: "&7• "
+      title: "&f%type% &8#%serial%"
+      lore:
+        amount: "  Amount: &f%sign%%amount% &7(%currency%)"
+        from: "  From: &f%from%"
+        to: "  To: &f%to%"
+        world: "  World: &f%world%"
+        time: "  Date: &f%time%"
+        txid: "  TxId: &8%txid%"
+        meta_header: "  Metadata:"
+        meta_entry: "    &8• &7%key%: &f%value%"
+        divider: "&m-------------------------------"
+  chat:
+    header_top: "&9&m--------------------------------"
+    header_title: "&b&l  Transaction history &7(%page%/%pages%)"
+    header_bottom: "&9&m--------------------------------"
+    footer: "&9&m--------------------------------"
+    empty: "&7  (no transactions yet)"
+    line_format: " &8%time% %dir%%amount% &8- %type%"
+    line_meta: "      &8#%serial% &7%from%→%to%"
+
+# ===== /vault offlinepay =====
+offlinepay:
+  unavailable: "&cOffline payments not available."
+  list:
+    header: "&ePending offline payments: &f%count%"
+    line: "  #%id% &f%from_name% &7→ &f%to_name% &e%amount% &7(%time_ago% ago)"
+    empty: "&7  (no pending payments)"
+  refund:
+    usage: "Usage: /vault offlinepay refund <id>"
+    invalid_id: "&cInvalid ID."
+    success: "&aPayment &f#%id% &arefunded."
+    not_found: "&cPayment &f#%id% &cnot found."
+
+# ===== /eco admin =====
+eco:
+  usage: |
+    &eUsage:
+    &7  /eco give|add <player> <amount> [currency]
+    &7  /eco take|remove <player> <amount> [currency]
+    &7  /eco set <player> <amount> [currency]
+    &7  /eco reset <player> [currency]
+    &7  /eco top [page] [currency]
+  no_permission: "&cYou do not have permission to use /eco."
+  give:
+    success: "&aBalance of &f%player% &aset to &6%amount%"
+    error: "&cCould not add balance: &4%error%"
+  take:
+    success: "&cRemoved &6%amount% &cfrom &f%player%"
+    error: "&cCould not remove balance: &4%error%"
+  set:
+    success: "&aBalance of &f%player% &aset to &6%amount%"
+    error: "&cCould not set balance: &4%error%"
+  reset:
+    success: "&aBalance of &f%player% &areset to 0 (was &c%old_amount%&a)"
+    error: "&cCould not reset balance: &4%error%"
+
+bank:
+  unavailable: "&cBank service is unavailable right now."
+  no_permission: "&cYou do not have permission to use the bank."
+  only_players: "&cThis command can only be used in-game."
+  invalid_amount: "&cInvalid amount."
+  positive_only: "&cAmount must be greater than 0."
+  insufficient_funds: "&cYou do not have enough money in your wallet to deposit that amount."
+  insufficient_bank: "&cYou do not have enough money in the bank to withdraw that amount."
+  not_found: "&cNo bank account found for %player%."
+  invalid_page: "&cInvalid page."
+  usage: |
+    &6Bank Commands:
+    &e  /vault bank balance [player]
+    &e  /vault bank deposit <amount>
+    &e  /vault bank withdraw <amount>
+    &e  /vault bank top [page]
+  balance:
+    self_header: "&6=== &aYour Bank Balance &6==="
+    self_wallet: "&7Wallet: &f%wallet%"
+    self_bank: "&7In bank: &f%bank%"
+    self_total: "&7Total: &6%total%"
+    self_interest: "&7Next interest: &a+%interest_next% &7(%interest_pct%% every %interest_min%m)"
+    self_tax: "&7Next tax: &c-%tax_next% &7(%tax_pct%% on > %tax_threshold% every %tax_min%m)"
+    self_no_tax: "&7Next tax: &aNone (your balance is below the threshold)"
+    other_header: "&6=== &aBank Balance of &e%player% &6==="
+    other_wallet: "&7Wallet: &f%wallet%"
+    other_bank: "&7In bank: &f%bank%"
+    other_total: "&7Total: &6%total%"
+  deposit:
+    usage: "&cUsage: /vault bank deposit <amount>"
+    success: "&aYou deposited &6%amount% &ainto the bank. You now have &f%bank_new% &ain bank."
+    error: "&cThe deposit could not be completed: &4%error%"
+  withdraw:
+    usage: "&cUsage: /vault bank withdraw <amount>"
+    success: "&aYou withdrew &6%amount% &afrom the bank. You now have &f%wallet_new% &ain wallet."
+    error: "&cThe withdrawal could not be completed: &4%error%"
+  top:
+    header: "&6=== &aBank Top &7(Page %page%/%pages%) &6==="
+    empty: "&cThere are no bank balances registered yet."
+    line: "&7#%pos% &e%player% &8- &bBank: &f%bank% &8| &7Total: &6%total%"
+    footer: "&7Use /vault bank top 2 to see the next page."
+  gui:
+    title: "&8🏦 Bank"
+    wallet_name: "&6💳 Your Wallet"
+    wallet_lore:
+      - "&7Funds available in your pocket."
+      - ""
+      - "&8• &7Current: &f%wallet%"
+      - ""
+      - "&eYour liquid funds that you can spend directly."
+    bank_name: "&a🏦 In the Bank"
+    bank_lore:
+      - "&7Secured funds in your bank account."
+      - ""
+      - "&8• &7Current: &f%bank%"
+      - "&8• &7Interest: &a+%interest_next% &7every %interest_min%m"
+      - "&8• &7Tax: &c%tax_desc%"
+      - ""
+      - "&eEarn passive interest on this balance."
+    total_name: "&9📊 Net Worth"
+    total_lore:
+      - "&7Sum of your wallet + bank."
+      - ""
+      - "&8• &7Total: &6%total%"
+      - ""
+      - "&fYour combined net worth."
+    deposit_name: "&2📥 Deposit"
+    deposit_lore:
+      - "&7Move money from your wallet into the bank."
+      - ""
+      - "&8• &7Quick picks:"
+      - "&a  LMB 1: %qp1%     &aShift +1: %qp10%"
+      - "&a  LMB 2: %qp2%     &aShift +2: %qp20%"
+      - "&a  LMB 3: %qp3%     &aShift +3: %qp50%"
+      - "&a  LMB 4: %qp4%     &aShift +4: ALL"
+      - ""
+      - "&eDeposits earn interest automatically."
+    withdraw_name: "&c📤 Withdraw"
+    withdraw_lore:
+      - "&7Move money from the bank into your wallet."
+      - ""
+      - "&8• &7Quick picks:"
+      - "&c  LMB 1: %qp1%     &cShift +1: %qp10%"
+      - "&c  LMB 2: %qp2%     &cShift +2: %qp20%"
+      - "&c  LMB 3: %qp3%     &cShift +3: %qp50%"
+      - "&c  LMB 4: %qp4%     &cShift +4: ALL"
+      - ""
+      - "&eWithdraw when you need to pay or buy."
+    info_name: "&b📈 Information"
+    info_lore:
+      - "&7Current rates of your bank."
+      - ""
+      - "&8• &aInterest: &f+%interest_pct%% &7every %interest_min% minutes"
+      - "&8• &cTax: &f-%tax_pct%% &7on excess above %tax_threshold%"
+      - "&8• &7Tax every: &f%tax_min% minutes"
+      - ""
+      - "&eInterest is paid automatically; tax reduces inflation."
+    deposit_qp1_name: "&2+%qp1%"
+    deposit_qp1_lore:
+      - "&7Deposit &a%qp1_amount% &7into the bank."
+      - ""
+      - "&8• &7Wallet cost: &c%qp1_amount%"
+      - "&8• &7Bank after: &a%qp1_new%"
+      - ""
+      - "&eLMB = %qp1% · Shift = %qp10%"
+    deposit_qp2_name: "&2+%qp2%"
+    deposit_qp2_lore:
+      - "&7Deposit &a%qp2_amount% &7into the bank."
+      - ""
+      - "&8• &7Wallet cost: &c%qp2_amount%"
+      - "&8• &7Bank after: &a%qp2_new%"
+      - ""
+      - "&eLMB = %qp2% · Shift = %qp20%"
+    deposit_qp3_name: "&2+%qp3%"
+    deposit_qp3_lore:
+      - "&7Deposit &a%qp3_amount% &7into the bank."
+      - ""
+      - "&8• &7Wallet cost: &c%qp3_amount%"
+      - "&8• &7Bank after: &a%qp3_new%"
+      - ""
+      - "&eLMB = %qp3% · Shift = %qp50%"
+    deposit_qp4_name: "&2+%qp4%"
+    deposit_qp4_lore:
+      - "&7Deposit &a%qp4_amount% &7into the bank."
+      - ""
+      - "&8• &7Wallet cost: &c%qp4_amount%"
+      - "&8• &7Bank after: &a%qp4_new%"
+      - ""
+      - "&eLMB = %qp4% · Shift = ALL"
+    withdraw_qp1_name: "&c-%qp1%"
+    withdraw_qp1_lore:
+      - "&7Withdraw &c%qp1_amount% &7from the bank."
+      - ""
+      - "&8• &7Wallet after: &a%qp1_wallet%"
+      - "&8• &7Bank after: &c%qp1_bank%"
+      - ""
+      - "&eLMB = %qp1% · Shift = %qp10%"
+    withdraw_qp2_name: "&c-%qp2%"
+    withdraw_qp2_lore:
+      - "&7Withdraw &c%qp2_amount% &7from the bank."
+      - ""
+      - "&8• &7Wallet after: &a%qp2_wallet%"
+      - "&8• &7Bank after: &c%qp2_bank%"
+      - ""
+      - "&eLMB = %qp2% · Shift = %qp20%"
+    withdraw_qp3_name: "&c-%qp3%"
+    withdraw_qp3_lore:
+      - "&7Withdraw &c%qp3_amount% &7from the bank."
+      - ""
+      - "&8• &7Wallet after: &a%qp3_wallet%"
+      - "&8• &7Bank after: &c%qp3_bank%"
+      - ""
+      - "&eLMB = %qp3% · Shift = %qp50%"
+    withdraw_qp4_name: "&c-%qp4%"
+    withdraw_qp4_lore:
+      - "&7Withdraw &c%qp4_amount% &7from the bank."
+      - ""
+      - "&8• &7Wallet after: &a%qp4_wallet%"
+      - "&8• &7Bank after: &c%qp4_bank%"
+      - ""
+      - "&eLMB = %qp4% · Shift = ALL"
+    back_name: "&8◀ Back"
+    back_lore:
+      - "&7Go back to the main Vault menu."
+  menu:
+    item_name: "&6🏦 Bank"
+    item_lore:
+      - "&7Manage your bank account."
+      - ""
+      - "&8• &7Your balance: &f%bank%"
+      - "&8• &7Interest: &a+%interest_next%"
+      - ""
+      - "&eClick to open the bank menu."
+
+

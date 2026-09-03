@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Fondo tipo terminal con matiz técnico -->
+    <linearGradient id="bgProg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1020"/>
+      <stop offset="100%" stop-color="#0e2238"/>
+    </linearGradient>
+    <!-- Acentos del proyecto -->
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <!-- Patrón de cuadrícula sutil para sensación técnica -->
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0 H0 V48" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <path d="M24 0 V48" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <path d="M0 24 H48" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    </pattern>
+    <!-- Barras escaneadas tipo HUD -->
+    <linearGradient id="scan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(34,211,238,0)"/>
+      <stop offset="50%" stop-color="rgba(34,211,238,0.22)"/>
+      <stop offset="100%" stop-color="rgba(139,92,246,0)"/>
+    </linearGradient>
+    <!-- Pantalla del computador -->
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a1b2e"/>
+      <stop offset="100%" stop-color="#0d2b46"/>
+    </linearGradient>
+    <!-- Glow suave para el texto en pantalla -->
+    <filter id="textGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#ffffff" flood-opacity="0.25"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#22d3ee" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#8b5cf6" flood-opacity="0.25"/>
+    </filter>
+    <!-- Scanlines dentro de la pantalla -->
+    <pattern id="scanLines" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="4" height="1" fill="rgba(255,255,255,0.04)"/>
+    </pattern>
+    <!-- Brillo diagonal tipo vidrio -->
+    <linearGradient id="glassGlare" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.10)"/>
+      <stop offset="35%" stop-color="rgba(255,255,255,0.04)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+    <!-- Sombra general -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <!-- Clip de pantalla para integrar el título dentro del monitor -->
+    <clipPath id="clipScreen">
+      <path d="M200 300 L728 300 L834 406 L834 660 L200 660 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Fondo estilo programador -->
+  <g id="background">
+    <rect x="0" y="0" width="1024" height="1024" fill="url(#bgProg)"/>
+    <rect x="0" y="0" width="1024" height="1024" fill="url(#grid)" opacity="0.12"/>
+    <!-- Barras diagonales tipo escaneo -->
+    <rect x="-200" y="220" width="1400" height="8" fill="url(#scan)" opacity="0.25" transform="rotate(-12 512 512)"/>
+    <rect x="-200" y="520" width="1400" height="8" fill="url(#scan)" opacity="0.22" transform="rotate(-12 512 512)"/>
+    <rect x="-200" y="820" width="1400" height="8" fill="url(#scan)" opacity="0.18" transform="rotate(-12 512 512)"/>
+    <!-- Glifos técnicos sutiles -->
+    <g opacity="0.14" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#22d3ee">
+      <text x="72" y="140" font-size="64">{</text>
+      <text x="940" y="980" font-size="64" text-anchor="end">}</text>
+      <text x="72" y="220" font-size="44">&lt;/&gt;</text>
+      <text x="920" y="280" font-size="44" text-anchor="end">()=>{}</text>
+    </g>
+  </g>
+
+  <!-- Aro sutil para dar sensación de escena -->
+  <circle cx="512" cy="512" r="440" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="24"/>
+
+  <!-- Computador con efecto de desintegración en esquina superior derecha -->
+  <g id="computer" filter="url(#shadow)">
+    <!-- Marco/bezel del monitor -->
+    <rect x="190" y="280" width="644" height="420" rx="18" ry="18" fill="#0f172a" stroke="#1e3a5f" stroke-width="10"/>
+    <!-- Pantalla con esquina "cortada" para simular inicio de desintegración -->
+    <path d="M200 300 L728 300 L834 406 L834 660 L200 660 Z" fill="url(#screen)" stroke="#16324c" stroke-width="4"/>
+
+    <!-- Scanlines y brillo de vidrio dentro de la pantalla -->
+    <g clip-path="url(#clipScreen)">
+      <rect x="200" y="300" width="640" height="360" fill="url(#scanLines)" opacity="0.20"/>
+      <rect x="200" y="300" width="640" height="360" fill="url(#glassGlare)" opacity="0.35" transform="rotate(-12 512 480)"/>
+    </g>
+
+    <!-- Líneas de código sutiles dentro de la pantalla -->
+    <g opacity="0.75" clip-path="url(#clipScreen)">
+      <rect x="230" y="340" width="380" height="10" rx="2" fill="rgba(255,255,255,0.22)"/>
+      <rect x="230" y="370" width="320" height="10" rx="2" fill="rgba(34,211,238,0.35)"/>
+      <rect x="230" y="400" width="460" height="10" rx="2" fill="rgba(255,255,255,0.18)"/>
+      <rect x="230" y="430" width="300" height="10" rx="2" fill="rgba(139,92,246,0.35)"/>
+      <rect x="230" y="460" width="420" height="10" rx="2" fill="rgba(255,255,255,0.20)"/>
+      <rect x="230" y="490" width="360" height="10" rx="2" fill="rgba(34,211,238,0.35)"/>
+    </g>
+
+    <!-- Soporte del monitor -->
+    <rect x="452" y="700" width="120" height="16" rx="4" fill="#13263f"/>
+    <rect x="392" y="720" width="240" height="20" rx="10" fill="#0e2036" stroke="#1e3a5f" stroke-width="3"/>
+
+    <!-- Efecto de desintegración: pixeles/cuadrículas escapando de la esquina superior derecha -->
+    <g id="disintegrate" opacity="0.95">
+      <rect x="820" y="300" width="12" height="12" fill="url(#accent)" transform="rotate(10 826 306)" opacity="0.85"/>
+      <rect x="842" y="316" width="10" height="10" fill="url(#accent)" transform="rotate(18 847 321)" opacity="0.8"/>
+      <rect x="864" y="334" width="8" height="8" fill="url(#accent)" transform="rotate(24 868 338)" opacity="0.75"/>
+      <rect x="886" y="352" width="10" height="10" fill="url(#accent)" transform="rotate(32 891 357)" opacity="0.7"/>
+      <rect x="908" y="372" width="12" height="12" fill="url(#accent)" transform="rotate(40 914 378)" opacity="0.65"/>
+      <rect x="930" y="392" width="9" height="9" fill="url(#accent)" transform="rotate(28 935 396)" opacity="0.6"/>
+      <rect x="952" y="410" width="7" height="7" fill="url(#accent)" transform="rotate(18 955 413)" opacity="0.55"/>
+      <rect x="974" y="430" width="6" height="6" fill="url(#accent)" transform="rotate(12 977 433)" opacity="0.5"/>
+      <rect x="996" y="448" width="5" height="5" fill="url(#accent)" transform="rotate(6 999 451)" opacity="0.45"/>
+      <!-- pequeñas partículas alrededor -->
+      <circle cx="838" cy="304" r="2" fill="#22d3ee" opacity="0.85"/>
+      <circle cx="858" cy="324" r="2.5" fill="#8b5cf6" opacity="0.8"/>
+      <circle cx="880" cy="344" r="2" fill="#22d3ee" opacity="0.75"/>
+      <circle cx="900" cy="364" r="2.5" fill="#8b5cf6" opacity="0.7"/>
+      <circle cx="922" cy="382" r="2" fill="#22d3ee" opacity="0.65"/>
+    </g>
+
+    <!-- Título integrado dentro de la pantalla -->
+    <g clip-path="url(#clipScreen)" filter="url(#textGlow)">
+      <text x="512" y="520" text-anchor="middle" dominant-baseline="middle" font-family="Segoe UI, Arial, sans-serif" font-weight="800" font-size="132" fill="url(#accent)" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-opacity="0.45" style="paint-order: stroke fill">Cg Plugin</text>
+    </g>
+  </g>
+</svg>

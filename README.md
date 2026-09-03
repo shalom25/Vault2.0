@@ -1,7 +1,7 @@
 # Vault 2.0
 
 <p align="center">
-  <img src="assets/logo.svg" alt="Vault 2.0" width="720" />
+  <img src="https://i.imgur.com/HxgguHP.png" alt="Vault 2.0" width="720" />
 </p>
 
 [![CI](https://github.com/shalom25/Vault2.0/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/shalom25/Vault2.0/actions/workflows/build.yml) [![Release](https://img.shields.io/github/v/release/shalom25/Vault2.0?display_name=tag)](https://github.com/shalom25/Vault2.0/releases/latest) [![Downloads](https://img.shields.io/github/downloads/shalom25/Vault2.0/total)](https://github.com/shalom25/Vault2.0/releases)
@@ -10,25 +10,40 @@ An internal economy provider compatible with the Vault API (no external `Vault.j
 
 ## Key Changes
 - Plugin name: "Vault 2.0".
+<<<<<<< Updated upstream
 - Final JAR: `target/vault-2.0-v1.4.jar`.
 - Internal economy with persistence in `plugins/Vault 2.0/balances.yml` (MySQL optional).
 - PlaceholderAPI integration available (placeholders para balance).
 - Commands: `/balance`, `/pay`, `/eco` (admin) y `/vault reload`.
+=======
+ - Final JAR: `target/vault-2.0-v1.3.jar`.
+- Internal economy with persistence in `plugins/Vault 2.0/balances.yml`.
+- Commands: `/balance`, `/pay`, and `/vault reload`.
+>>>>>>> Stashed changes
 
 ## Requirements
 - Java 17.
 - Spigot/Paper 1.8.8 (tested). `api-version: 1.13` is used for broad compatibility of plugin metadata.
 
 ## Build
+<<<<<<< Updated upstream
 1. From the project folder, run: `mvn -B -U package`
 2. The artifact is produced at: `target/vault-2.0-v1.4.jar`
+=======
+1. From the project folder, run: `mvn package`
+2. The artifact is produced at: `target/vault-2.0-v1.3.jar`
+>>>>>>> Stashed changes
 
 ## Installation
 1. Copy `target/vault-2.0.jar` into your server `plugins/` folder.
 2. Start the server. No official `Vault.jar` or external economy plugin is required.
 
 ## Download
+<<<<<<< Updated upstream
 - Latest release: https://github.com/shalom25/Vault2.0/releases/latest
+=======
+- Latest JAR: https://github.com/shalom25/Vault2.0/releases/latest/download/vault-2.0-v1.3.jar
+>>>>>>> Stashed changes
 
 ## Configuration
 - File: `plugins/Vault 2.0/config.yml` (auto-generated on first start via `saveDefaultConfig()`).

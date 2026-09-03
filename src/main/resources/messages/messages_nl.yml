@@ -1,0 +1,640 @@
+# Dutch messages (Nederlands)
+pay:
+  # Command messages expected by code
+  only_players: "&cAlleen spelers kunnen /pay gebruiken."
+  no_permission: "&cJe hebt geen toestemming om /pay te gebruiken."
+  invalid_amount: "&cOngeldig bedrag."
+  player_offline: "&cSpeler &f%player% is offline; verzoek niet afgeleverd."
+  amount_too_small: "&cBedrag moet minstens &6%min% zijn"
+  amount_too_large: "&cBedrag mag maximaal &6%max% zijn"
+  not_enough_money: "&cOnvoldoende saldo."
+  withdraw_failed: "&cKan niet opnemen."
+  sent_ok: "&aJe hebt &6%amount% betaald aan &f%player%"
+  received_ok: "&aJe hebt &6%amount% ontvangen van &f%player%"
+  cancelled: "&cBetaalverzoek geannuleerd."
+
+  # UI/menu and other messages
+  menu:
+    title_main: "&8&lSelecteer speler"
+    title_player: "&8&lActies: &f%player%"
+    title_quick_pay: "&8&lSnel betalen: &f%player%"
+    nav:
+      prev_name: "&aVorige pagina"
+      next_name: "&aVolgende pagina"
+    item:
+      pay: "&6&lBetalen"
+      loan: "&e&lLening"
+      view_balance: "&e&lGeld"
+      view_balance_lore: "Saldo: %vault_eco_balance_short%"
+      charge: "&6&lIncasseren"
+      settings: "&c&lInstellingen"
+      manual_amount: "&a&lEigen bedrag"
+      back: "&c&lTerug"
+    lore:
+      settings:
+        - "&7Vault-instellingen openen."
+      pay:
+        - "&7Deze speler betalen."
+      quick_pay:
+        - "&7Betaal dit bedrag direct."
+      loan:
+        - "&7Open je leningmenu."
+      view_balance:
+        - "&7Toont het huidige saldo van %player%."
+      charge:
+        - "&7Een betaalverzoek sturen."
+      manual_amount:
+        - "&7Typ het bedrag in de chat."
+      back:
+        - "&7Ga terug naar het vorige menu."
+  prompt:
+    enter_amount_pay: "&aTyp het te betalen bedrag aan &f%player% in de chat, of &c%cancel%."
+    enter_amount_charge: "&aTyp het te incasseren bedrag van &f%player% in de chat, of &c%cancel%."
+    cancel_words: "&cannuleren,cancel,cancelar"
+  error:
+    player_not_found: "&cSpeler niet gevonden: &f%player%"
+    invalid_amount: "&cOngeldig bedrag."
+    positive_only: "&cBedrag moet positief zijn."
+    min_amount: "&cBedrag moet minstens &6%min% zijn"
+    max_amount: "&cBedrag mag maximaal &6%max% zijn"
+    insufficient_funds: "&cOnvoldoende saldo."
+    withdraw_error: "&cKan niet opnemen: &4%error%"
+    deposit_error: "&cKan niet storten: &4%error%"
+    player_offline: "&cSpeler %player% is offline; verzoek niet afgeleverd."
+  success:
+    sender: "&aJe hebt &6%amount% betaald aan &f%player%"
+
+  view:
+    balance: "&aSaldo van &f%player%: &6%amount%"
+    money_label: "&eGeld"
+  request:
+    prefix: "&eBetaalverzoek voorbereid: "
+    click: "&aKlik hier om &f%player% &6%amount_formatted% te betalen"
+    hover: "Voer uit /pay &f%player% &6%amount%"
+    sent: "&aVerzoek verzonden naar &f%player% voor &6%amount_formatted%."
+    stored: "&aVerzoek opgeslagen; wordt afgeleverd wanneer &f%player% inlogt."
+  pending:
+    header: "&aJe hebt &e%count% openstaande betaalverzoeken."
+    limit_notice: "Toont %shown% van %total%; de rest wordt later afgeleverd."
+
+cmd:
+  pay:
+    only_players: "Alleen spelers kunnen /pay gebruiken."
+    no_permission: "Je hebt geen toestemming om /pay te gebruiken."
+    usage: "Gebruik: /pay <speler> <bedrag> (of /pay om menu te openen, /pay <speler> opent submenu)"
+    player_not_found: "Speler niet gevonden: &f%player%"
+    invalid_amount: "Ongeldig bedrag: &6%amount%"
+    positive_only: "Bedrag moet positief zijn."
+  balance:
+    only_players: "&cDit commando is alleen voor spelers."
+    no_permission: "&cJe hebt geen toestemming om /balance te gebruiken."
+    your_balance: "Jouw saldo: &6%amount%"
+  vault:
+    no_permission: "&cJe hebt geen toestemming om de plugin te herladen."
+
+# Keys expected by menu service (top-level)
+menu:
+  title_main: "&8&lSelecteer speler"
+  title_player: "&8&lActies: &f%player%"
+  target_player: "&8&lSelecteer doelwit"
+  target_player_lore: "&aKlik om een speler te kiezen"
+  enter_amount: "&aVoer bedrag in"
+  enter_amount_lore: "&aTyp het bedrag in de chat"
+
+# Keys expected by balance command (top-level)
+balance:
+  no_permission: "&cJe hebt geen toestemming om /balance te gebruiken."
+  your_balance: "&6Jouw saldo: %amount%"
+
+  only_players: "&cDit commando is alleen voor spelers."
+plugin:
+  enabled: "Interne economie geregistreerd zonder afhankelijkheid van Vault.jar"
+  disabled: "Vault (interne economie) uitgeschakeld."
+  reloaded: "Configuratie en berichten herladen (taal: %lang%)."
+
+prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
+
+top:
+  unknown_player: "Speler"
+
+vaultop:
+  no_permission: "&cJe hebt geen toestemming om /vaultop te gebruiken."
+  top_unavailable: "&cTop is niet beschikbaar met de huidige economy-provider."
+  top_header: "&6Top geld &7(Pagina %page%/%pages%):"
+  no_data: "&7Nog geen saldo-gegevens."
+
+vault:
+  menu:
+    title: "&bVault-menu"
+    item:
+      pay: "&aPay"
+      loan: "&aLening"
+      settings: "&cInstellingen"
+      reload: "&eHerladen"
+      update: "&bUpdate"
+    lore:
+      pay:
+        - "&7Open het betaalmenu."
+      loan:
+        - "&7Leningen aanvragen, bekijken en betalen."
+      settings:
+        - "&7Plugin-instellingen bewerken."
+      reload:
+        - "&7Config en berichten herladen."
+      update:
+        - "&7Controleren op updates."
+
+settings:
+  title: "&cInstellingen"
+  title_loans: "&cLening instellingen"
+  title_pay: "&cPay instellingen"
+  title_texts: "&cTekst instellingen"
+  item:
+    loans: "&aLeningen"
+    pay: "&aPay"
+    texts: "&aTeksten"
+    back: "&7Terug"
+  lore:
+    loans:
+      - "&7Leensysteem configureren."
+    pay:
+      - "&7/pay-limieten en menu configureren."
+    texts:
+      - "&7Menuteksten bewerken."
+    back:
+      - "&7Ga terug."
+    loans_enabled:
+      - "&7Leningen aan/uit zetten."
+    loans_min:
+      - "&7Minimum leenbedrag."
+    loans_max:
+      - "&7Maximum leenbedrag."
+    loans_max_installments:
+      - "&7Maximaal aantal termijnen."
+    loans_default_interval_hours:
+      - "&7Standaard uren tussen termijnen."
+    loans_charge_check_seconds:
+      - "&7Hoe vaak afschrijvingen worden verwerkt."
+    loans_max_missed:
+      - "&7Hoeveel missers tot wanbetaling."
+    pay_min:
+      - "&7Minimum betaalbedrag."
+    pay_max:
+      - "&7Maximum betaalbedrag."
+    pay_menu_size:
+      - "&7Grootte van /pay-menu (veelvoud van 9)."
+    pay_show_self:
+      - "&7Toon jezelf in /pay."
+  loans:
+    enabled: "&fLeningen"
+    min: "&fMin lening"
+    max: "&fMax lening"
+    max_installments: "&fMax termijnen"
+    default_interval_hours: "&fStandaard interval (u)"
+    charge_check_seconds: "&fControle (s)"
+    max_missed: "&fMax missers"
+  pay:
+    min: "&fMin betaling"
+    max: "&fMax betaling"
+    menu_size: "&f/pay menu grootte"
+    show_self: "&fToon mij"
+  prompt:
+    value: "&aTyp de nieuwe waarde voor &e%key% in de chat, of &c%cancel%."
+    text: "&aTyp de nieuwe tekst voor &e%key% in de chat, of &c%cancel%."
+  cancelled: "&cBewerking geannuleerd."
+  invalid_number: "&cOngeldig getal."
+  saved: "&aOpgeslagen: &e%key%"
+  save_failed: "&cKon het bestand niet opslaan."
+
+loan:
+  no_permission: "&cJe hebt geen toestemming om leningen te gebruiken."
+  none: "&aJe hebt geen actieve lening."
+  already_active: "&aJe hebt al een actieve lening."
+  cancelled: "&cLeningactie geannuleerd."
+  created: "&aLening aangemaakt: &6%amount% &7| termijnen: &f%installments% &7| termijn: &6%installment_amount% &7| elke &f%interval_hours%u"
+  paid: "&2Je lening is volledig afbetaald."
+  status: "&2Lening: hoofdsom &f%principal% &7| resterend &f%remaining% &7| termijn &6%installment% &7| resterende termijnen &f%installments_left% &7| volgende afschrijving over &c%next_in_minutes%m"
+  menu:
+    title: "&aLening"
+    item:
+      request: "&aAanvragen"
+      status: "&eStatus"
+      pay: "&6Betalen"
+      settings: "&cInstellingen"
+    lore:
+      request:
+        - "&7Vraag een nieuwe lening aan."
+      status:
+        - "&7Bekijk je leningstatus."
+      pay:
+        - "&7Betaal je lening."
+      settings:
+        - "&7Open leninginstellingen."
+  request:
+    title:
+      type: "&aLening aanvragen"
+      delay: "&eTotale vertraging"
+      installments_mode: "&eTermijnmodus"
+      installments_count: "&eAantal termijnen"
+      interval: "&eInterval"
+      first_delay: "&eEerste termijn"
+    item:
+      total: "&eTotaal"
+      installments: "&aTermijnen"
+      mode_count: "&eAantal"
+      mode_amount: "&eBedrag"
+      same_as_interval: "&eZelfde als interval"
+      back: "&7Terug"
+      cancel: "&cAnnuleren"
+    lore:
+      total:
+        - "&7Eenmalige betaling."
+      installments:
+        - "&7Betaling in termijnen."
+      mode_count:
+        - "&7Kies aantal termijnen."
+      mode_amount:
+        - "&7Typ termijnbedrag in chat."
+      installments_count:
+        - "&7Selecteer aantal termijnen."
+      delay:
+        - "&7Selecteer vertraging in uren."
+      interval:
+        - "&7Selecteer uren tussen termijnen."
+      first_delay:
+        - "&7Selecteer eerste betaling vertraging."
+      back:
+        - "&7Ga terug."
+      cancel:
+        - "&7Annuleer aanvraag."
+  prompt:
+    cancel_words: "&cannuleren,&ccancel,&ccancelar"
+    amount: "&aTyp het leenbedrag in de chat, of &c%cancel%."
+    type: "&aTyp 'total' (eenmalige betaling) of 'termijnen', of &c%cancel%."
+    total_delay_hours: "&aOver hoeveel uur moet de server het volledige bedrag innen? (voorbeeld: 24) Of &c%cancel%."
+    installments_mode: "&aTyp 'aantal' (aantal termijnen) of 'bedrag' (bedrag per termijn), of &c%cancel%."
+    installments_count: "&aHoeveel termijnen? Of &c%cancel%."
+    installment_amount: "&aTyp het bedrag van elke termijn. Of &c%cancel%."
+    interval_hours: "&aInterval tussen termijnen in uren (0 = standaard &e%default_hours%). Of &c%cancel%."
+    first_delay_hours: "&aEerste termijn over hoeveel uur? (0 = zelfde interval &e%default_hours%). Of &c%cancel%."
+    pay_amount: "&aTyp hoeveel je wilt betalen (of 'all'). Resterend: &e%remaining%. Of &c%cancel%."
+  error:
+    invalid_number: "&cOngeldig getal."
+    invalid_type: "&cOngeldig type. Gebruik 'total' of 'termijnen'."
+    invalid_installments_mode: "&cOngeldige optie. Gebruik 'aantal' of 'bedrag'."
+    too_small: "&cHet leenbedrag moet minstens &e%min% zijn."
+    too_large: "&cHet leenbedrag mag maximaal &e%max% zijn."
+    too_many_installments: "&cTe veel termijnen. Maximum: &e%max%."
+    not_enough_money: "&cOnvoldoende geld om te betalen."
+    deposit_failed: "&cDe lening kon niet worden aangemaakt (storting mislukt)."
+    installment_too_small: "&cVoor een lening van &e%loan_amount% moet de minimale termijn &e%min_installment% zijn."
+  pay:
+    success: "&aBetaling ontvangen: &6%amount%. Resterend: &e%remaining%."
+  charge:
+    success: "&cTermijn afgeschreven: &6%amount%. Resterend: &e%remaining%."
+    missed: "&cTermijn kon niet worden afgeschreven (&6%amount%). Mislukkingen &e%missed%/%max_missed%."
+    defaulted: "&4Lening in gebreke. Resterend: &e%remaining%."
+
+economy:
+  bank_not_supported: "&cBankondersteuning niet geïmplementeerd"
+  eco:
+    usage: "&aGebruik: /eco give <speler> <bedrag> | /eco take <speler> <bedrag>"
+    no_permission: "&cJe hebt geen toestemming om /eco te gebruiken."
+    player_not_found: "&cSpeler niet gevonden: &f%player%"
+    invalid_amount: "&cOngeldig bedrag: &6%amount%"
+    positive_only: "&cBedrag moet positief zijn."
+    deposit_ok: "&6%amount% toegevoegd aan &f%player%."
+    withdraw_ok: "&6%amount% verwijderd van &f%player%."
+    deposit_error: "&cKon niet storten: &6%error%"
+    withdraw_error: "&cKon niet opnemen: &6%error%"
+
+# ===== Discord Webhook i18n (taal sync met config.yml language) =====
+discord:
+  field:
+    txid: "Transactie-ID"
+    currency: "Valuta"
+    amount: "Bedrag"
+    from: "Van"
+    to: "Naar"
+    world: "Wereld"
+    metadata: "Metadata"
+  threshold:
+    title: "💸 Grote transactie (%type%)"
+    desc: "**%sign% %amount%** in %type%\nVan: `%from%` → Naar: `%to%`"
+  dupe:
+    hard_label: "KRITIEK"
+    soft_label: "WAARSCHUWING"
+    title: "🚨 Anti-dupe gedetecteerd (%hard%)"
+    desc: "Dubbele transactie afgewezen door AntiDupeWindow.\nTxId: `%txid%`\nSerie: `%serial%`\nType: `%type_key%`\nBedrag: `%amount_raw% %currency%`"
+    field:
+      rejections: "Totaal afgewezen"
+  error:
+    title: "❌ Opslaan transactiebatch mislukt"
+    desc: "Batchgrootte: `%batch_size%`\nFout: `%error%`"
+  tx_type:
+    DEPOSIT: "Storting"
+    WITHDRAW: "Opname"
+    PLAYER_PAY: "Betaling tussen spelers"
+    NOTE_WITHDRAW: "Bankbiljet opgenomen"
+    NOTE_REDEEM: "Bankbiljet verzilverd"
+    OFFLINE_PAY_SENT: "Offline betaling verzonden"
+    OFFLINE_PAY_CLAIMED: "Offline betaling afgeleverd"
+    OFFLINE_PAY_REFUNDED: "Offline betaling terugbetaald"
+    ADMIN_ADD: "Admin: toevoegen"
+    ADMIN_REMOVE: "Admin: verwijderen"
+    ADMIN_SET: "Admin: instellen"
+    ADMIN_RESET: "Admin: resetten"
+    INTEREST: "Bankrente"
+    TAX: "Belasting"
+    BANK_DEPOSIT: "Bankstorting"
+    BANK_WITHDRAW: "Bankopname"
+    LOAN_DISBURSE: "Lening uitbetaald"
+    LOAN_REPAY: "Lening terugbetaling"
+    LOAN_DEFAULT: "Lening in gebreke"
+    LOAN_COLLATERAL_SEIZED: "Pand in beslag genomen"
+    CHARGE_PAID: "Factuur betaald"
+    TEAM_DEPOSIT: "Teamstorting"
+    TEAM_WITHDRAW: "Teamopname"
+    TEAM_DISBAND_REFUND: "Terugbetaling bij teamopheffing"
+
+cmd:
+  common:
+    only_players: "&cDit commando kan alleen in-game gebruikt worden."
+    no_permission: "&cJe hebt geen toestemming om dit commando te gebruiken."
+    invalid_amount: "&cOngeldig bedrag."
+    positive_only: "&cHet bedrag moet groter zijn dan 0."
+    insufficient_funds: "&cOnvoldoende saldo."
+    player_not_found: "&cSpeler niet gevonden: &f%player%"
+    usage_prefix: "&eGebruik:"
+
+# ===== Fysieke bankbiljetten (PhysicalNoteService + /vault withdraw) =====
+note:
+  withdraw:
+    disabled: "&cFysieke bankbiljetten zijn gedeactiveerd."
+    usage: "Gebruik: /vault withdraw <bedrag> [valuta]"
+    success: "&aJe hebt &6%amount% &aopgenomen als fysiek bankbiljet."
+  item:
+    name: "&6&lBankbiljet: &f%amount%"
+    lore:
+      currency: "&7Valuta: &b%currency%"
+      amount: "&7Bedrag: &e%amount%"
+      issuer: "&7Uitgever: &f%issuer%"
+      serial: "&7Serienummer: &8%serial%"
+      hint: "&a» Klik rechts om in te wisselen «"
+  redeem:
+    already_redeemed: "&cDit bankbiljet is al ingewisseld."
+    invalid: "&cDit bankbiljet kon niet worden gevalideerd. Mogelijk gewijzigd of verlopen."
+    error: "&cFout bij inwisselen bankbiljet: &4%error%"
+    success: "&aBankbiljet ingewisseld: +&6%amount%"
+
+# ===== /vault history (HistoryMenuService + chat fallback) =====
+history:
+  unavailable: "&cGeschiedenis niet beschikbaar met de huidige provider."
+  gui:
+    title: "&5&lTransactiegeschiedenis"
+    info_name: "&e&lInformatie"
+    info_lore:
+      - "&7Pagina &f%page% &7van &f%pages%"
+      - "&7Totaal transacties: &f%total%"
+      - ""
+      - "&eTip: beweeg over items om details te zien."
+    prev_name: "&e« Vorige pagina"
+    prev_lore: "&7Ga naar pagina %page%"
+    next_name: "&eVolgende pagina »"
+    next_lore: "&7Ga naar pagina %page%"
+    close_name: "&c&lGeschiedenis sluiten"
+    close_lore: "&7Sluit dit menu."
+    entry:
+      title_prefix_in: "&a⬆ "
+      title_prefix_out: "&c⬇ "
+      title_prefix_neutral: "&7• "
+      title: "&f%type% &8#%serial%"
+      lore:
+        amount: "  Bedrag: &f%sign%%amount% &7(%currency%)"
+        from: "  Van: &f%from%"
+        to: "  Naar: &f%to%"
+        world: "  Wereld: &f%world%"
+        time: "  Datum: &f%time%"
+        txid: "  TxId: &8%txid%"
+        meta_header: "  Metadata:"
+        meta_entry: "    &8• &7%key%: &f%value%"
+        divider: "&m-------------------------------"
+  chat:
+    header_top: "&9&m--------------------------------"
+    header_title: "&b&l  Transactiegeschiedenis &7(%page%/%pages%)"
+    header_bottom: "&9&m--------------------------------"
+    footer: "&9&m--------------------------------"
+    empty: "&7  (nog geen transacties)"
+    line_format: " &8%time% %dir%%amount% &8- %type%"
+    line_meta: "      &8#%serial% &7%from%→%to%"
+
+# ===== /vault offlinepay =====
+offlinepay:
+  unavailable: "&cOffline betalingen niet beschikbaar."
+  list:
+    header: "&eOpenstaande offline betalingen: &f%count%"
+    line: "  #%id% &f%from_name% &7→ &f%to_name% &e%amount% &7(%time_ago% geleden)"
+    empty: "&7  (geen openstaande betalingen)"
+  refund:
+    usage: "Gebruik: /vault offlinepay refund <id>"
+    invalid_id: "&cOngeldig ID."
+    success: "&aBetaling &f#%id% &aterugbetaald."
+    not_found: "&cBetaling &f#%id% &cniet gevonden."
+
+# ===== /eco admin =====
+eco:
+  usage: |
+    &eGebruik:
+    &7  /eco give|add <speler> <bedrag> [valuta]
+    &7  /eco take|remove <speler> <bedrag> [valuta]
+    &7  /eco set <speler> <bedrag> [valuta]
+    &7  /eco reset <speler> [valuta]
+    &7  /eco top [pagina] [valuta]
+  no_permission: "&cJe hebt geen toestemming om /eco te gebruiken."
+  give:
+    success: "&aSaldo van &f%player% &ais ingesteld op &6%amount%"
+    error: "&cKon saldo niet toevoegen: &4%error%"
+  take:
+    success: "&c&6%amount% &cverwijderd van &f%player%"
+    error: "&cKon saldo niet verwijderen: &4%error%"
+  set:
+    success: "&aSaldo van &f%player% &ais ingesteld op &6%amount%"
+    error: "&cKon saldo niet instellen: &4%error%"
+  reset:
+    success: "&aSaldo van &f%player% &agereset naar 0 (was &c%old_amount%&a)"
+    error: "&cKon saldo niet resetten: &4%error%"
+
+bank:
+  unavailable: "&cBankdienst is momenteel niet beschikbaar."
+  no_permission: "&cJe hebt geen toestemming om de bank te gebruiken."
+  only_players: "&cDit commando kan alleen in-game gebruikt worden."
+  invalid_amount: "&cOngeldig bedrag."
+  positive_only: "&cHet bedrag moet groter zijn dan 0."
+  insufficient_funds: "&cJe hebt onvoldoende geld in je portemonnee om dat bedrag te storten."
+  insufficient_bank: "&cJe hebt onvoldoende geld op de bank om dat bedrag op te nemen."
+  not_found: "&cGeen bankrekening gevonden voor %player%."
+  invalid_page: "&cOngeldige pagina."
+  usage: |
+    &6Bankcommando's:
+    &e  /vault bank balance [speler]
+    &e  /vault bank deposit <bedrag>
+    &e  /vault bank withdraw <bedrag>
+    &e  /vault bank top [pagina]
+  balance:
+    self_header: "&6=== &aJe Banksaldo &6==="
+    self_wallet: "&7Portemonnee: &f%wallet%"
+    self_bank: "&7Op de bank: &f%bank%"
+    self_total: "&7Totaal: &6%total%"
+    self_interest: "&7Volgende rente: &a+%interest_next% &7(%interest_pct%% elke %interest_min%m)"
+    self_tax: "&7Volgende belasting: &c-%tax_next% &7(%tax_pct%% op > %tax_threshold% elke %tax_min%m)"
+    self_no_tax: "&7Volgende belasting: &aGeen (je saldo ligt onder de drempel)"
+    other_header: "&6=== &aBanksaldo van &e%player% &6==="
+    other_wallet: "&7Portemonnee: &f%wallet%"
+    other_bank: "&7Op de bank: &f%bank%"
+    other_total: "&7Totaal: &6%total%"
+  deposit:
+    usage: "&cGebruik: /vault bank deposit <bedrag>"
+    success: "&aJe hebt &6%amount% &agestort op de bank. Je hebt nu &f%bank_new% &aop de bank."
+    error: "&cDe storting kon niet worden voltooid: &4%error%"
+  withdraw:
+    usage: "&cGebruik: /vault bank withdraw <bedrag>"
+    success: "&aJe hebt &6%amount% &aopgenomen van de bank. Je hebt nu &f%wallet_new% &ain portemonnee."
+    error: "&cDe opname kon niet worden voltooid: &4%error%"
+  top:
+    header: "&6=== &aBank Top &7(Pagina %page%/%pages%) &6==="
+    empty: "&cEr zijn nog geen banksaldi geregistreerd."
+    line: "&7#%pos% &e%player% &8- &bBank: &f%bank% &8| &7Totaal: &6%total%"
+    footer: "&7Gebruik /vault bank top 2 om de volgende pagina te zien."
+  gui:
+    title: "&8🏦 Bank"
+    wallet_name: "&6💳 Je Portemonnee"
+    wallet_lore:
+      - "&7Geld beschikbaar in je portemonnee."
+      - ""
+      - "&8• &7Huidig: &f%wallet%"
+      - ""
+      - "&eJe liquide middelen die je direct kunt uitgeven."
+    bank_name: "&a🏦 Op de Bank"
+    bank_lore:
+      - "&7Veilig bewaarde middelen op je bankrekening."
+      - ""
+      - "&8• &7Huidig: &f%bank%"
+      - "&8• &7Rente: &a+%interest_next% &7elke %interest_min%m"
+      - "&8• &7Belasting: &c%tax_desc%"
+      - ""
+      - "&eVerdien passieve rente over dit saldo."
+    total_name: "&9📊 Vermogen"
+    total_lore:
+      - "&7Som van je portemonnee + bank."
+      - ""
+      - "&8• &7Totaal: &6%total%"
+      - ""
+      - "&fJe totale vermogen."
+    deposit_name: "&2📥 Storten"
+    deposit_lore:
+      - "&7Geld verplaatsen van je portemonnee naar de bank."
+      - ""
+      - "&8• &7Snelle keuzes:"
+      - "&a  Linksklik 1: %qp1%     &aShift +1: %qp10%"
+      - "&a  Linksklik 2: %qp2%     &aShift +2: %qp20%"
+      - "&a  Linksklik 3: %qp3%     &aShift +3: %qp50%"
+      - "&a  Linksklik 4: %qp4%     &aShift +4: ALL"
+      - ""
+      - "&eStortingen verdienen automatisch rente."
+    withdraw_name: "&c📤 Opnemen"
+    withdraw_lore:
+      - "&7Geld verplaatsen van de bank naar je portemonnee."
+      - ""
+      - "&8• &7Snelle keuzes:"
+      - "&c  Linksklik 1: %qp1%     &cShift +1: %qp10%"
+      - "&c  Linksklik 2: %qp2%     &cShift +2: %qp20%"
+      - "&c  Linksklik 3: %qp3%     &cShift +3: %qp50%"
+      - "&c  Linksklik 4: %qp4%     &cShift +4: ALL"
+      - ""
+      - "&eNeem op wanneer je moet betalen of kopen."
+    info_name: "&b📈 Informatie"
+    info_lore:
+      - "&7Huidige tarieven van je bank."
+      - ""
+      - "&8• &aRente: &f+%interest_pct%% &7elke %interest_min% minuten"
+      - "&8• &cBelasting: &f-%tax_pct%% &7over overmaat boven %tax_threshold%"
+      - "&8• &7Belasting elke: &f%tax_min% minuten"
+      - ""
+      - "&eRente wordt automatisch bijgeschreven; belasting vermindert inflatie."
+    deposit_qp1_name: "&2+%qp1%"
+    deposit_qp1_lore:
+      - "&7Stort &a%qp1_amount% &7op de bank."
+      - ""
+      - "&8• &7Kosten portemonnee: &c%qp1_amount%"
+      - "&8• &7Bank na: &a%qp1_new%"
+      - ""
+      - "&eLinksklik = %qp1% · Shift = %qp10%"
+    deposit_qp2_name: "&2+%qp2%"
+    deposit_qp2_lore:
+      - "&7Stort &a%qp2_amount% &7op de bank."
+      - ""
+      - "&8• &7Kosten portemonnee: &c%qp2_amount%"
+      - "&8• &7Bank na: &a%qp2_new%"
+      - ""
+      - "&eLinksklik = %qp2% · Shift = %qp20%"
+    deposit_qp3_name: "&2+%qp3%"
+    deposit_qp3_lore:
+      - "&7Stort &a%qp3_amount% &7op de bank."
+      - ""
+      - "&8• &7Kosten portemonnee: &c%qp3_amount%"
+      - "&8• &7Bank na: &a%qp3_new%"
+      - ""
+      - "&eLinksklik = %qp3% · Shift = %qp50%"
+    deposit_qp4_name: "&2+%qp4%"
+    deposit_qp4_lore:
+      - "&7Stort &a%qp4_amount% &7op de bank."
+      - ""
+      - "&8• &7Kosten portemonnee: &c%qp4_amount%"
+      - "&8• &7Bank na: &a%qp4_new%"
+      - ""
+      - "&eLinksklik = %qp4% · Shift = ALL"
+    withdraw_qp1_name: "&c-%qp1%"
+    withdraw_qp1_lore:
+      - "&7Neem &c%qp1_amount% &7op van de bank."
+      - ""
+      - "&8• &7Portemonnee na: &a%qp1_wallet%"
+      - "&8• &7Bank na: &c%qp1_bank%"
+      - ""
+      - "&eLinksklik = %qp1% · Shift = %qp10%"
+    withdraw_qp2_name: "&c-%qp2%"
+    withdraw_qp2_lore:
+      - "&7Neem &c%qp2_amount% &7op van de bank."
+      - ""
+      - "&8• &7Portemonnee na: &a%qp2_wallet%"
+      - "&8• &7Bank na: &c%qp2_bank%"
+      - ""
+      - "&eLinksklik = %qp2% · Shift = %qp20%"
+    withdraw_qp3_name: "&c-%qp3%"
+    withdraw_qp3_lore:
+      - "&7Neem &c%qp3_amount% &7op van de bank."
+      - ""
+      - "&8• &7Portemonnee na: &a%qp3_wallet%"
+      - "&8• &7Bank na: &c%qp3_bank%"
+      - ""
+      - "&eLinksklik = %qp3% · Shift = %qp50%"
+    withdraw_qp4_name: "&c-%qp4%"
+    withdraw_qp4_lore:
+      - "&7Neem &c%qp4_amount% &7op van de bank."
+      - ""
+      - "&8• &7Portemonnee na: &a%qp4_wallet%"
+      - "&8• &7Bank na: &c%qp4_bank%"
+      - ""
+      - "&eLinksklik = %qp4% · Shift = ALL"
+    back_name: "&8◀ Terug"
+    back_lore:
+      - "&7Ga terug naar het hoofdmenu van Vault."
+  menu:
+    item_name: "&6🏦 Bank"
+    item_lore:
+      - "&7Beheer je bankrekening."
+      - ""
+      - "&8• &7Je saldo: &f%bank%"
+      - "&8• &7Rente: &a+%interest_next%"
+      - ""
+      - "&eKlik om het bankmenu te openen."
+
