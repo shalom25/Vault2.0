@@ -1,0 +1,184 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Vault",
+  "colors": {
+    "primary": "#6a2dd9",
+    "light": "#7a43e0",
+    "dark": "#4f1aa8"
+  },
+  "background": {
+    "color": {
+      "dark": "#1d1d1d"
+    }
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "seo": {
+    "metatags": {
+      "title": "Vault Economy 2.1 Wiki | Internal Economy Provider Spigot 1.8.8 - 1.21+",
+      "description": "Vault v2.1.0 is an internal economy provider 100% compatible with the legacy Vault API. Multi-currency, multi-world, bank with interest, HMAC anti-dupe physical notes, loans, GUI history, and Discord webhook. No external Vault.jar required.",
+      "keywords": "Vault Economy, Minecraft plugin, Spigot economy, multi-currency, bank interest, physical notes, HMAC anti-dupe, loans, PlaceholderAPI, Java 17, Java 21, Modrinth rj9SgaYL"
+    }
+  },
+  "favicon": "/assets/logo.png",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Wiki",
+        "groups": [
+          {
+            "group": "Information",
+            "icon": "circle-question",
+            "pages": [
+              "index",
+              {
+                "group": "Frequently Asked Questions",
+                "icon": "circle-question",
+                "pages": [
+                  "faq/installation-errors",
+                  "faq/players-cant-pay",
+                  "faq/balances-reset",
+                  "faq/bank-interest-disabled",
+                  "faq/physical-note-invalid"
+                ]
+              },
+              {
+                "group": "Compatibility",
+                "icon": "square-check",
+                "pages": [
+                  "compatibility/placeholders",
+                  "compatibility/skinsrestorer",
+                  "compatibility/luckperms",
+                  "compatibility/mysql"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Plugin Usage",
+            "icon": "pen-to-square",
+            "pages": [
+              "first-install",
+              {
+                "group": "Beginners",
+                "icon": "hand-wave",
+                "pages": [
+                  "beginners/getting-started",
+                  "beginners/faq-basics"
+                ]
+              },
+              {
+                "group": "Currency",
+                "icon": "coins",
+                "pages": [
+                  "currency/format",
+                  "currency/multi-currency",
+                  "currency/abbreviation"
+                ]
+              },
+              "commands",
+              "permissions",
+              "config-reference",
+              {
+                "group": "Economic Features",
+                "icon": "chart-line-up-down",
+                "pages": [
+                  "features/player-pay",
+                  "features/bank",
+                  "features/physical-notes",
+                  "features/loans",
+                  "features/transactions",
+                  "features/top-players",
+                  "features/offline-pay",
+                  "features/charge-requests",
+                  "features/discord-webhook"
+                ]
+              },
+              {
+                "group": "Multi-world",
+                "icon": "globe",
+                "pages": [
+                  "multiworld/world-balances",
+                  "multiworld/migration-essentials"
+                ]
+              },
+              "languages",
+              {
+                "group": "Scripting",
+                "icon": "code",
+                "pages": [
+                  "scripting/placeholders"
+                ]
+              },
+              "updater"
+            ]
+          },
+          {
+            "group": "Developers",
+            "icon": "terminal",
+            "pages": [
+              {
+                "group": "Java API",
+                "icon": "network-wired",
+                "pages": [
+                  "dev/java/getting-started",
+                  "dev/java/tx-events",
+                  "dev/java/simple-economy-hooks"
+                ]
+              },
+              "dev/skript",
+              "dev/contribute"
+            ]
+          },
+          {
+            "group": "Other",
+            "icon": "bell",
+            "pages": [
+              "other/changelog",
+              "other/troubleshooting",
+              "other/support"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/assets/logo.png",
+    "dark": "/assets/logo.png"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Modrinth",
+        "href": "https://modrinth.com/plugin/rj9SgaYL",
+        "icon": "download"
+      },
+      {
+        "label": "Changelog",
+        "href": "/other/changelog"
+      },
+      {
+        "label": "Discord",
+        "href": "https://discord.gg/invite/vault-economy",
+        "icon": "discord"
+      }
+    ]
+  },
+  "integrations": {
+    "cookies": {
+      "key": "vault-wiki",
+      "value": "vault-wiki"
+    },
+    "telemetry": {
+      "enabled": false
+    }
+  },
+  "errors": {
+    "404": {
+      "redirect": false
+    }
+  }
+}
