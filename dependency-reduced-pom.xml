@@ -3,20 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.example</groupId>
   <artifactId>vault</artifactId>
-<<<<<<< Updated upstream
   <name>Vault 2.0</name>
   <version>2.1.0</version>
   <description>Proveedor Economy estilo Vault integrado (sin depender de Vault.jar)</description>
   <build>
     <directory>${build.dir}</directory>
     <finalName>${jar.finalName}</finalName>
-=======
-  <name>Vault 2.0 v1.3</name>
-  <version>v1.3</version>
-  <description>Proveedor Economy estilo Vault integrado (sin depender de Vault.jar)</description>
-  <build>
-    <finalName>vault-2.0-v1.3</finalName>
->>>>>>> Stashed changes
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

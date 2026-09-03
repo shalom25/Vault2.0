@@ -11,14 +11,8 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
-<<<<<<< Updated upstream
 import java.io.File;
 import java.io.IOException;
-=======
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
->>>>>>> Stashed changes
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -31,7 +25,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-<<<<<<< Updated upstream
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
@@ -86,24 +79,6 @@ public class SimpleEconomy implements Economy {
         this.plugin = plugin;
         loadCurrencyDefinitions();
         reloadStorageSettings();
-=======
-// visible storage; no hidden attributes required
-
-public class SimpleEconomy implements Economy {
-    private final Plugin plugin;
-    private final Map<UUID, Double> balances = new HashMap<>();
-    private final DecimalFormat formatter = new DecimalFormat("#,##0.00");
-    private final java.io.File storeFile;
-    private final boolean saveOnTransaction;
-
-    public SimpleEconomy(Plugin plugin) {
-        this.plugin = plugin;
-        // Defaults
-        org.bukkit.configuration.file.FileConfiguration cfg = plugin.getConfig();
-        // Visible YAML storage at data root: balances.yml
-        this.storeFile = new java.io.File(plugin.getDataFolder(), "balances.yml");
-        this.saveOnTransaction = cfg.getBoolean("storage.save_on_transaction", false);
->>>>>>> Stashed changes
     }
 
     public void setTransactionLogService(TransactionLogService txLog) {
@@ -647,7 +622,6 @@ public class SimpleEconomy implements Economy {
         if (bal < amount) {
             return new EconomyResponse(0.0, bal, ResponseType.FAILURE, "Insufficient funds");
         }
-<<<<<<< Updated upstream
         double newBal = sanitizeBalance(bal - amount);
         getData(currencyId).worldBalances
                 .computeIfAbsent(normalizedWorld, k -> new ConcurrentHashMap<>())
@@ -671,19 +645,6 @@ public class SimpleEconomy implements Economy {
         persistBalanceChange(currencyId, player.getUniqueId(), newBal, "deposit");
         emitTx(currencyId, type != null ? type : TxType.DEPOSIT, null, player.getUniqueId(), amount, null, note);
         return new EconomyResponse(amount, newBal, ResponseType.SUCCESS, "");
-=======
-        balances.put(player.getUniqueId(), bal - amount);
-        if (saveOnTransaction) saveQuietly(player.getUniqueId());
-        return new EconomyResponse(amount, bal - amount, ResponseType.SUCCESS, "");
-    }
-
-    @Override
-    public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
-        double bal = getBalance(player);
-        balances.put(player.getUniqueId(), bal + amount);
-        if (saveOnTransaction) saveQuietly(player.getUniqueId());
-        return new EconomyResponse(amount, bal + amount, ResponseType.SUCCESS, "");
->>>>>>> Stashed changes
     }
 
     @Override public EconomyResponse depositPlayer(OfflinePlayer player, String worldName, double amount) {
@@ -801,7 +762,6 @@ public class SimpleEconomy implements Economy {
     public EconomyResponse isBankOwner(String bank, org.bukkit.OfflinePlayer player) { return new net.milkbowl.vault.economy.EconomyResponse(0,0,net.milkbowl.vault.economy.EconomyResponse.ResponseType.NOT_IMPLEMENTED,"Not implemented"); }
     public EconomyResponse isBankMember(String bank, org.bukkit.OfflinePlayer player) { return new net.milkbowl.vault.economy.EconomyResponse(0,0,net.milkbowl.vault.economy.EconomyResponse.ResponseType.NOT_IMPLEMENTED,"Not implemented"); }
 
-<<<<<<< Updated upstream
     public void load() {
         if (plugin.getConfig().getBoolean("storage.use_mysql", false)) {
             return;
@@ -1122,86 +1082,3 @@ public class SimpleEconomy implements Economy {
         return new String(arr);
     }
 }
-=======
-    // Persistence API
-    public void load() {
-        // Load YAML from root if present
-        if (storeFile.exists()) {
-            org.bukkit.configuration.file.FileConfiguration cfg = org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(storeFile);
-            for (String key : cfg.getKeys(false)) {
-                try {
-                    java.util.UUID uuid = java.util.UUID.fromString(key);
-                    double value = cfg.getDouble(key, 0.0);
-                    balances.put(uuid, value);
-                } catch (IllegalArgumentException ignored) {
-                }
-            }
-            return;
-        }
-
-        // Migration: from .internal/balances.dat (binary) or balances/balances.yml (YAML)
-        java.io.File internalFile = new java.io.File(new java.io.File(plugin.getDataFolder(), ".internal"), "balances.dat");
-        java.io.File oldSubFile = new java.io.File(new java.io.File(plugin.getDataFolder(), "balances"), "balances.yml");
-        boolean migrated = false;
-        if (internalFile.exists()) {
-            try (java.io.DataInputStream in = new java.io.DataInputStream(new java.io.BufferedInputStream(new java.io.FileInputStream(internalFile)))) {
-                int count = in.readInt();
-                for (int i = 0; i < count; i++) {
-                    long msb = in.readLong();
-                    long lsb = in.readLong();
-                    double value = in.readDouble();
-                    balances.put(new java.util.UUID(msb, lsb), value);
-                }
-                migrated = true;
-            } catch (Exception ex) {
-                plugin.getLogger().warning("Failed to migrate from internal store: " + ex.getMessage());
-            }
-        } else if (oldSubFile.exists()) {
-            org.bukkit.configuration.file.FileConfiguration cfg = org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(oldSubFile);
-            for (String key : cfg.getKeys(false)) {
-                try {
-                    java.util.UUID uuid = java.util.UUID.fromString(key);
-                    double value = cfg.getDouble(key, 0.0);
-                    balances.put(uuid, value);
-                } catch (IllegalArgumentException ignored) {
-                }
-            }
-            migrated = true;
-        }
-
-        if (migrated) {
-            try {
-                save();
-                if (internalFile.exists() && !internalFile.delete()) {
-                    plugin.getLogger().info("Kept .internal/balances.dat (could not delete). Data migrated to balances.yml.");
-                }
-                if (oldSubFile.exists() && !oldSubFile.delete()) {
-                    plugin.getLogger().info("Kept balances/balances.yml (could not delete). Data migrated to balances.yml.");
-                }
-            } catch (Exception ex) {
-                plugin.getLogger().warning("Failed to write migrated balances to balances.yml: " + ex.getMessage());
-            }
-        }
-    }
-
-    public void save() throws java.io.IOException {
-        org.bukkit.configuration.file.YamlConfiguration cfg = new org.bukkit.configuration.file.YamlConfiguration();
-        for (java.util.Map.Entry<java.util.UUID, Double> e : balances.entrySet()) {
-            cfg.set(e.getKey().toString(), e.getValue());
-        }
-        cfg.save(storeFile);
-    }
-
-    private void saveQuietly(java.util.UUID changedUuid) {
-        try {
-            save();
-        } catch (Exception ex) {
-            plugin.getLogger().warning("Failed to save balances: " + ex.getMessage());
-        }
-    }
-
-    public void close() {
-        // No-op: SQL support removido
-    }
-}
->>>>>>> Stashed changes

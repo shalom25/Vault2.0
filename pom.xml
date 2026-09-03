@@ -79,7 +79,6 @@
       <version>2.11.5</version>
       <scope>provided</scope>
     </dependency>
-<<<<<<< Updated upstream
     <dependency>
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
@@ -115,13 +114,6 @@
   <build>
     <directory>${build.dir}</directory>
     <finalName>${jar.finalName}</finalName>
-=======
-    
-  </dependencies>
-
-  <build>
-    <finalName>vault-2.0-v1.3</finalName>
->>>>>>> Stashed changes
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

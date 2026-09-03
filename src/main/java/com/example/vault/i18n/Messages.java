@@ -65,7 +65,6 @@ public class Messages {
     }
 
     public void reload(String language) {
-<<<<<<< Updated upstream
         syncYamlDefaults("messages/messages_en.yml");
         syncYamlDefaults("messages/messages_es.yml");
         syncYamlDefaults("messages/messages_fr.yml");
@@ -82,16 +81,6 @@ public class Messages {
         File langFile = new File(plugin.getDataFolder(), "messages/messages_" + normalizedLanguage + ".yml");
         if (!langFile.exists()) {
             plugin.getLogger().warning("Language file messages/messages_" + normalizedLanguage + ".yml not found. Using English.");
-=======
-        // Ensure files exist in data/messages/
-        saveResourceOnce("messages/messages_en.yml");
-        saveResourceOnce("messages/messages_es.yml");
-        // Load fallback (English) and selected language from messages/ subfolder
-        this.fallback = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "messages/messages_en.yml"));
-        File langFile = new File(plugin.getDataFolder(), "messages/messages_" + language.toLowerCase() + ".yml");
-        if (!langFile.exists()) {
-            plugin.getLogger().warning("Language file messages/messages_" + language + ".yml not found. Using English.");
->>>>>>> Stashed changes
             langFile = new File(plugin.getDataFolder(), "messages/messages_en.yml");
         }
         this.primary = YamlConfiguration.loadConfiguration(langFile);
