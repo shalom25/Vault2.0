@@ -113,15 +113,45 @@ This system simplifies financial management in the game, offering control and dy
 <details>
 <summary>Click to view all Commands</summary>
 
+### Main Commands
 ```
-/vault                        -> open main menu
-/vault reload                 -> reload config + messages and add missing sections
-/vault update                 -> check updates
-/vault resetbalances <confirm> -> clear balance
-/pay                          -> open player list GUI
-/loan | /prestamo             -> open loan GUI
-/balance                      -> show your balance
-/eco give/take                -> admin (OP)
+/balance | /bal | /dinero      -> Show your current balance
+/pay | /pagar                   -> Send money to another player (GUI or command)
+/loan | /prestamo               -> Open the loan menu GUI
+/vaultop                        -> Show top players with the most money
+/vault | /v | /cofre | /vault2  -> Vault menu / admin command
+```
+
+### /vault Subcommands
+```
+/vault [main menu]              -> Open the main vault menu
+/vault reload                   -> Reload config + messages and add missing sections
+/vault update                   -> Check for updates
+/vault resetbalances confirm    -> Wipe ALL balances (confirm required)
+/vault loan request|pay|status  -> Loan management
+/vault top [page]               -> Top richest players
+/vault withdraw <amount>        -> Withdraw physical banknotes (HMAC signed)
+/vault history                  -> Open transaction history GUI
+/vault offlinepay list|refund   -> Manage pending offline payments
+/vault bank                     -> Open bank system (see below)
+```
+
+### /vault bank Subcommands
+```
+/vault bank menu|gui|open       -> Open the bank GUI menu
+/vault bank balance|bal         -> Show your bank balance
+/vault bank deposit|dep <amount>    -> Deposit money into the bank
+/vault bank withdraw|with|wd <amount> -> Withdraw money from the bank
+/vault bank top [page]          -> Top bank balance rankings
+```
+
+### Admin /eco Command
+```
+/eco give|add <player> <amount>    -> Add money to a player
+/eco take|remove <player> <amount> -> Take money from a player
+/eco set <player> <amount>         -> Set a player's balance
+/eco reset <player>                -> Reset a player's balance to 0
+/eco top [page]                    -> Top richest players
 ```
 
 </details>
@@ -133,11 +163,37 @@ This system simplifies financial management in the game, offering control and dy
 <details>
 <summary>Click to view all Permissions</summary>
 
+### Player Permissions (default: true)
 ```
-vault.balance   (default: true)  -> /balance
-vault.pay       (default: true)  -> /pay + GUI
-vault.loan      (default: true)  -> /loan /prestamo + loans
-vault.eco       (default: op)    -> /eco give / take
+vault.balance             -> /balance, /bal, /dinero
+vault.pay                 -> /pay menu and direct payments
+vault.loan                -> /loan, /prestamo and loan features
+vault.eco.top             -> /eco top and /vault top
+vault.top                 -> /vaultop (top players command)
+vault.withdraw            -> /vault withdraw (physical banknotes)
+vault.redeem              -> Right-click physical notes to redeem
+vault.history             -> /vault history (transaction GUI)
+```
+
+### Pay Limits Bypass (default: op)
+```
+vault.pay.bypass_min      -> Bypass minimum amount limit
+vault.pay.bypass_max      -> Bypass maximum amount limit
+vault.pay.bypass_limits   -> Alias to bypass min/max limits
+```
+
+### Admin Permissions (default: op)
+```
+vault.eco                 -> Full access to /eco command
+  └─ vault.eco.give       -> /eco give | add
+  └─ vault.eco.take       -> /eco take | remove
+  └─ vault.eco.set        -> /eco set
+  └─ vault.eco.reset      -> /eco reset
+  └─ vault.eco.top        -> /eco top (also default: true)
+
+vault.admin               -> /vault admin command (reload, update, resetbalances, offlinepay)
+vault.offlinepay.view     -> /vault offlinepay list
+vault.offlinepay.refund   -> /vault offlinepay refund <id>
 ```
 
 </details>
