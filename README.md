@@ -140,7 +140,7 @@ This system simplifies financial management in the game, offering control and dy
 ```
 /vault bank menu|gui|open       -> Open the bank GUI menu
 /vault bank balance|bal         -> Show your bank balance
-/vault bank deposit|dep <amount>    -> Deposit money into the bank
+/vault bank deposit|dep <amount>      -> Deposit money into the bank
 /vault bank withdraw|with|wd <amount> -> Withdraw money from the bank
 /vault bank top [page]          -> Top bank balance rankings
 ```
