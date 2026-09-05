@@ -67,6 +67,7 @@
 1. **Pay** — send money to a player
 2. **Balance** — shows the player's money
 3. **Charge** — sends an interactive message to the player with the designated amount (clicking on the message automatically sends the money without using commands).
+4. **Bank** — opens the bank menu (deposit/withdraw funds, view interest and tax).
 
 ---
 
