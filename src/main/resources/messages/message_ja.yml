@@ -1,0 +1,640 @@
+# 日本語メッセージ
+pay:
+  # コードが参照するコマンド用メッセージ
+  only_players: "&c/pay はプレイヤーのみ使用できます。"
+  no_permission: "&c/pay を使用する権限がありません。"
+  invalid_amount: "&c無効な金額です。"
+  player_offline: "&cプレイヤー &f%player% &cはオフラインです。リクエストは送信されませんでした。"
+  amount_too_small: "&c金額は少なくとも &6%min% &c以上である必要があります。"
+  amount_too_large: "&c金額は最大で &6%max% &c以下である必要があります。"
+  not_enough_money: "&c所持金が不足しています。"
+  withdraw_failed: "&c引き出しに失敗しました。"
+  sent_ok: "&f%player% &aに &6%amount% &aを支払いました。"
+  received_ok: "&f%player% &aから &6%amount% &aを受け取りました。"
+  cancelled: "&c支払いリクエストがキャンセルされました。"
+
+  # UI/メニューおよびその他のメッセージ
+  menu:
+    title_main: "&8&lプレイヤーを選択"
+    title_player: "&8&lアクション: &f%player%"
+    title_quick_pay: "&8&lクイック支払い: &f%player%"
+    nav:
+      prev_name: "&a前のページ"
+      next_name: "&a次のページ"
+    item:
+      pay: "&6&l支払う"
+      loan: "&e&lローン"
+      view_balance: "&e&l所持金"
+      view_balance_lore: "所持金: %vault_eco_balance_short%"
+      charge: "&6&l請求"
+      settings: "&c&l設定"
+      manual_amount: "&a&l金額を直接入力"
+      back: "&c&l戻る"
+    lore:
+      settings:
+        - "&7Vaultの設定を開きます。"
+      pay:
+        - "&7このプレイヤーに支払います。"
+      quick_pay:
+        - "&7この金額を即座に支払います。"
+      loan:
+        - "&7ローンメニューを開きます。"
+      view_balance:
+        - "&f%player% &7の現在の所持金を表示します。"
+      charge:
+        - "&7支払いリクエストを送信します。"
+      manual_amount:
+        - "&7チャットで金額を入力します。"
+      back:
+        - "&7前のメニューに戻ります。"
+  prompt:
+    enter_amount_pay: "&f%player% &aに支払う金額をチャットに入力するか、&c%cancel% &aと入力してください。"
+    enter_amount_charge: "&f%player% &aに請求する金額をチャットに入力するか、&c%cancel% &aと入力してください。"
+    cancel_words: "&ccancel,cancelar,キャンセル"
+  error:
+    player_not_found: "&cプレイヤーが見つかりません: &f%player%"
+    invalid_amount: "&c無効な金額です。"
+    positive_only: "&c金額は正の数である必要があります。"
+    min_amount: "&c金額は少なくとも &6%min% &c以上である必要があります。"
+    max_amount: "&c金額は最大で &6%max% &c以下である必要があります。"
+    insufficient_funds: "&c所持金が不足しています。"
+    withdraw_error: "&c引き出しできませんでした: &4%error%"
+    deposit_error: "&c預け入れできませんでした: &4%error%"
+    player_offline: "&cプレイヤー %player% はオフラインです。リクエストは送信されませんでした。"
+  success:
+    sender: "&f%player% &aに &6%amount% &aを支払いました。"
+
+  view:
+    balance: "&f%player% &aの所持金: &6%amount%"
+    money_label: "&e所持金"
+  request:
+    prefix: "&e支払いリクエストを作成しました: "
+    click: "&aここをクリックして &f%player% &aに &6%amount_formatted% &aを支払います"
+    hover: "/pay &f%player% &6%amount% &7を実行"
+    sent: "&f%player% &aに &6%amount_formatted% &aの請求を送信しました。"
+    stored: "&aリクエストを保存しました。&f%player% &aが参加したときに送信されます。"
+  pending:
+    header: "&a保留中の支払いリクエストが &e%count% &a件あります。"
+    limit_notice: "%total% 件中 %shown% 件を表示しています。残りは後で送信されます。"
+
+cmd:
+  pay:
+    only_players: "ゲーム内のプレイヤーのみが /pay を使用できます。"
+    no_permission: "/pay を使用する権限がありません。"
+    usage: "使用方法: /pay <プレイヤー> <金額> (または /pay でメニューを開く、/pay <プレイヤー> でサブメニューを開く)"
+    player_not_found: "プレイヤーが見つかりません: &f%player%"
+    invalid_amount: "無効な金額です: &6%amount%"
+    positive_only: "金額は正の数である必要があります。"
+  balance:
+    only_players: "&cこのコマンドはプレイヤー専用です。"
+    no_permission: "&c/balance を使用する権限がありません。"
+    your_balance: "あなたの所持金: &6%amount%"
+  vault:
+    no_permission: "&cプラグインを再読み込みする権限がありません。"
+
+# メニューサービスが参照するキー (トップレベル)
+menu:
+  title_main: "&8&lプレイヤーを選択"
+  title_player: "&8&lアクション: &f%player%"
+  target_player: "&8&l対象を選択"
+  target_player_lore: "&aクリックしてプレイヤーを選択"
+  enter_amount: "&a金額を入力"
+  enter_amount_lore: "&aチャットで金額を入力してください"
+
+# balanceコマンドが参照するキー (トップレベル)
+balance:
+  no_permission: "&c/balance を使用する権限がありません。"
+  your_balance: "&6あなたの所持金: %amount%"
+
+  only_players: "&cこのコマンドはプレイヤー専用です。"
+plugin:
+  enabled: "Vault.jar に依存しない内部経済システムが登録されました"
+  disabled: "Vault (内部経済システム) が無効化されました。"
+  reloaded: "設定とメッセージを再読み込みしました (言語: %lang%)。"
+
+prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
+
+top:
+  unknown_player: "プレイヤー"
+
+vaultop:
+  no_permission: "&c/vaultop を使用する権限がありません。"
+  top_unavailable: "&c現在の経済プロバイダーではランキング機能を利用できません。"
+  top_header: "&6所持金ランキング &7(%page%/%pages% ページ):"
+  no_data: "&7所持金データがまだありません。"
+
+vault:
+  menu:
+    title: "&bVault メニュー"
+    item:
+      pay: "&a送金"
+      loan: "&aローン"
+      settings: "&c設定"
+      reload: "&e再読み込み"
+      update: "&bアップデート"
+    lore:
+      pay:
+        - "&7送金メニューを開きます。"
+      loan:
+        - "&7ローンの申請、確認、返済を行います。"
+      settings:
+        - "&7プラグインの設定を編集します。"
+      reload:
+        - "&7設定とメッセージを再読み込みします。"
+      update:
+        - "&7アップデートを確認します。"
+
+settings:
+  title: "&c設定"
+  title_loans: "&cローン設定"
+  title_pay: "&c送金設定"
+  title_texts: "&cテキスト設定"
+  item:
+    loans: "&aローン"
+    pay: "&a送金"
+    texts: "&aテキスト"
+    back: "&7戻る"
+  lore:
+    loans:
+      - "&7ローンシステムの設定をします。"
+    pay:
+      - "&7/pay の制限やメニューの設定をします。"
+    texts:
+      - "&7メニューのテキストを編集します。"
+    back:
+      - "&7戻ります。"
+    loans_enabled:
+      - "&7ローンの有効/無効を切り替えます。"
+    loans_min:
+      - "&7許可される最小ローン額。"
+    loans_max:
+      - "&7許可される最大ローン額。"
+    loans_max_installments:
+      - "&7許可される最大分割回数。"
+    loans_default_interval_hours:
+      - "&7分割返済のデフォルト間隔（時間）。"
+    loans_charge_check_seconds:
+      - "&7引き落とし処理の実行間隔。"
+    loans_max_missed:
+      - "&7デフォルト（滞納）扱いになるまでの未払い回数。"
+    pay_min:
+      - "&7許可される最小送金額。"
+    pay_max:
+      - "&7許可される最大送金額。"
+    pay_menu_size:
+      - "&7/pay メニューのサイズ（9の倍数）。"
+    pay_show_self:
+      - "&7/pay 一覧に自分を表示するかどうか。"
+  loans:
+    enabled: "&fローン機能"
+    min: "&f最小ローン額"
+    max: "&f最大ローン額"
+    max_installments: "&f最大分割回数"
+    default_interval_hours: "&fデフォルト間隔 (時間)"
+    charge_check_seconds: "&f引き落としチェック (秒)"
+    max_missed: "&f最大未払い回数"
+  pay:
+    min: "&f最小送金額"
+    max: "&f最大送金額"
+    menu_size: "&f送金メニューサイズ"
+    show_self: "&f自分を表示"
+  prompt:
+    value: "&e%key% &aの新しい値をチャットに入力するか、&c%cancel% &aと入力してください。"
+    text: "&e%key% &aの新しいテキストをチャットに入力するか、&c%cancel% &aと入力してください。"
+  cancelled: "&c編集をキャンセルしました。"
+  invalid_number: "&c無効な数値です。"
+  saved: "&a保存しました: &e%key%"
+  save_failed: "&cファイルを保存できませんでした。"
+
+loan:
+  no_permission: "&cローンを使用する権限がありません。"
+  none: "&a利用中のローンはありません。"
+  already_active: "&aすでに利用中のローンが存在します。"
+  cancelled: "&cローンの手続きをキャンセルしました。"
+  created: "&aローンを組む: &6%amount% &7| 分割回数: &f%installments% &7| 返済額: &6%installment_amount% &7| &f%interval_hours%時間ごと"
+  paid: "&2ローンは完済されました。"
+  status: "&2ローン情報: 元金 &f%principal% &7| 残高 &f%remaining% &7| 返済額 &6%installment% &7| 残り回数 &f%installments_left% &7| 次の引き落としまで &c%next_in_minutes%分"
+  menu:
+    title: "&aローン"
+    item:
+      request: "&a申請"
+      status: "&eステータス"
+      pay: "&6返済"
+      settings: "&c設定"
+    lore:
+      request:
+        - "&7新しいローンを申請します。"
+      status:
+        - "&7現在のローンのステータスを確認します。"
+      pay:
+        - "&7ローンを返済します。"
+      settings:
+        - "&7ローン設定を開きます。"
+  request:
+    title:
+      type: "&aローン申請"
+      delay: "&e支払いまでの時間"
+      installments_mode: "&e分割指定モード"
+      installments_count: "&e分割回数"
+      interval: "&e返済間隔"
+      first_delay: "&e初回支払い"
+    item:
+      total: "&e一括"
+      installments: "&a分割"
+      mode_count: "&e回数指定"
+      mode_amount: "&e金額指定"
+      same_as_interval: "&e返済間隔と同じ"
+      back: "&7戻る"
+      cancel: "&cキャンセル"
+    lore:
+      total:
+        - "&71回で支払います。"
+      installments:
+        - "&7複数回に分けて支払います。"
+      mode_count:
+        - "&7分割回数を指定します。"
+      mode_amount:
+        - "&71回あたりの返済額をチャットに入力します。"
+      installments_count:
+        - "&7分割回数を選択します。"
+      delay:
+        - "&7何時間後に引き落とすか選択します。"
+      interval:
+        - "&7返済の間隔（時間）を選択します。"
+      first_delay:
+        - "&7初回の返済までの時間を選択します。"
+      back:
+        - "&7戻ります。"
+      cancel:
+        - "&7申請をキャンセルします。"
+  prompt:
+    cancel_words: "&ccancel,&ccancelar,キャンセル"
+    amount: "&aローンの希望額をチャットに入力するか、&c%cancel% &aと入力してください。"
+    type: "&a一括払いは 'total'、分割払いは 'cuotas' と入力するか、&c%cancel% &aと入力してください。"
+    total_delay_hours: "&a何時間後に一括で引き落としますか？ (例: 24) または &c%cancel% &aと入力してください。"
+    installments_mode: "&a回数指定は 'cantidad'、金額指定は 'monto' と入力するか、&c%cancel% &aと入力してください。"
+    installments_count: "&a何回払いにしますか？ または &c%cancel% &aと入力してください。"
+    installment_amount: "&a1回あたりの返済額を入力するか、&c%cancel% &aと入力してください。"
+    interval_hours: "&a返済の間隔時間を入力してください (0 = デフォルト &e%default_hours%時間&a)。または &c%cancel% &aと入力してください。"
+    first_delay_hours: "&a初回の返済は何時間後ですか？ (0 = 返済間隔と同じ &e%default_hours%時間&a)。または &c%cancel% &aと入力してください。"
+    pay_amount: "&a支払う金額を入力してください (または全額の場合は 'all')。残高: &e%remaining%&a。または &c%cancel% &aと入力してください。"
+  error:
+    invalid_number: "&c無効な数値です。"
+    invalid_type: "&c無効なタイプです。'total' または 'cuotas' を使用してください。"
+    invalid_installments_mode: "&c無効なオプションです。'cantidad' または 'monto' を使用してください。"
+    installment_too_small: "&e%loan_amount% &cのローンでは、最小返済額は &e%min_installment% &cです。"
+    too_small: "&cローン額は少なくとも &e%min% &c以上である必要があります。"
+    too_large: "&cローン額は最大で &e%max% &c以下である必要があります。"
+    too_many_installments: "&c分割回数が多すぎます。最大: &e%max%"
+    not_enough_money: "&c返済するための所持金が不足しています。"
+    deposit_failed: "&cローンを作成できませんでした (振込失敗)。"
+  pay:
+    success: "&a支払いを受け取りました: &6%amount%&a。残高: &e%remaining%"
+  charge:
+    success: "&c返済金が引き落とされました: &6%amount%&c。残高: &e%remaining%"
+    missed: "&c返済金を引き落とせませんでした (&6%amount%&c)。未払い: &e%missed%/%max_missed%"
+    defaulted: "&4ローンがデフォルト（滞納失敗）しました。残高: &e%remaining%"
+
+economy:
+  bank_not_supported: "&c銀行機能は実装されていません"
+  eco:
+    usage: "&a使用方法: /eco give <プレイヤー> <金額> | /eco take <プレイヤー> <金額>"
+    no_permission: "&c/eco を使用する権限がありません。"
+    player_not_found: "&cプレイヤーが見つかりません: &f%player%"
+    invalid_amount: "&c無効な金額です: &6%amount%"
+    positive_only: "&c金額は0より大きい必要があります。"
+    deposit_ok: "&f%player% &cに &6%amount% &cを追加しました。"
+    withdraw_ok: "&f%player% &cから &6%amount% &cを削減しました。"
+    deposit_error: "&c追加できませんでした: &6%error%"
+    withdraw_error: "&c削減できませんでした: &6%error%"
+
+# ===== Discord Webhook i18n (11言語: config.ymlのlanguageと同期) =====
+discord:
+  field:
+    txid: "トランザクションID"
+    currency: "通貨"
+    amount: "金額"
+    from: "差出人"
+    to: "宛先"
+    world: "ワールド"
+    metadata: "メタデータ"
+  threshold:
+    title: "💸 高額取引検出 (%type%)"
+    desc: "**%type%** にて **%sign% %amount%** の取引\n差出人: `%from%` → 宛先: `%to%`"
+  dupe:
+    hard_label: "HARD"
+    soft_label: "SOFT"
+    title: "🚨 複製検知 (%hard%)"
+    desc: "AntiDupeWindowによって重複取引が拒否されました。\nTxId: `%txid%`\nシリアル: `%serial%`\nタイプ: `%type_key%`\n金額: `%amount_raw% %currency%`"
+    field:
+      rejections: "拒否された合計回数"
+  error:
+    title: "❌ トランザクション一括保存失敗"
+    desc: "バッチサイズ: `%batch_size%`\nエラー: `%error%`"
+  tx_type:
+    DEPOSIT: "預け入れ"
+    WITHDRAW: "引き出し"
+    PLAYER_PAY: "プレイヤー間送金"
+    NOTE_WITHDRAW: "小切手発行"
+    NOTE_REDEEM: "小切手換金"
+    OFFLINE_PAY_SENT: "オフライン送金送信"
+    OFFLINE_PAY_CLAIMED: "オフライン送金受取"
+    OFFLINE_PAY_REFUNDED: "オフライン送金返金"
+    ADMIN_ADD: "管理者: 追加"
+    ADMIN_REMOVE: "管理者: 削減"
+    ADMIN_SET: "管理者: 設定"
+    ADMIN_RESET: "管理者: リセット"
+    INTEREST: "銀行利息"
+    TAX: "税金"
+    BANK_DEPOSIT: "銀行預け入れ"
+    BANK_WITHDRAW: "銀行引き出し"
+    LOAN_DISBURSE: "ローン実行"
+    LOAN_REPAY: "ローン返済"
+    LOAN_DEFAULT: "ローンデフォルト"
+    LOAN_COLLATERAL_SEIZED: "担保没収"
+    CHARGE_PAID: "請求支払い"
+    TEAM_DEPOSIT: "チーム預け入れ"
+    TEAM_WITHDRAW: "チーム引き出し"
+    TEAM_DISBAND_REFUND: "チーム解散返金"
+
+# ===== 共通メッセージ (複数コマンド共有) =====
+cmd:
+  common:
+    only_players: "&cこのコマンドはゲーム内でのみ使用できます。"
+    no_permission: "&cこのコマンドを使用する権限がありません。"
+    invalid_amount: "&c無効な金額です。"
+    positive_only: "&c金額は0より大きい必要があります。"
+    insufficient_funds: "&c残高が不足しています。"
+    player_not_found: "&cプレイヤーが見つかりません: &f%player%"
+    usage_prefix: "&e使用方法:"
+
+# ===== 小切手 (PhysicalNoteService + /vault withdraw) =====
+note:
+  withdraw:
+    disabled: "&c小切手機能は無効化されています。"
+    usage: "使用方法: /vault withdraw <金額> [通貨]"
+    success: "&a小切手として &6%amount% &aを引き出しました。"
+  item:
+    name: "&6&l小切手: &f%amount%"
+    lore:
+      currency: "&7通貨: &b%currency%"
+      amount: "&7金額: &e%amount%"
+      issuer: "&7発行者: &f%issuer%"
+      serial: "&7シリアル No.: &8%serial%"
+      hint: "&a» 右クリックで換金 «"
+  redeem:
+    already_redeemed: "&cこの小切手はすでに換金されています。"
+    invalid: "&cこの小切手を検証できませんでした。偽造されているか有効期限切れの可能性があります。"
+    error: "&c小切手の換金に失敗しました: &4%error%"
+    success: "&a小切手を換金しました: +&6%amount%"
+
+# ===== /vault history (HistoryMenuService + チャット表示) =====
+history:
+  unavailable: "&c現在の経済プロバイダーでは履歴機能を利用できません。"
+  gui:
+    title: "&5&l取引履歴"
+    info_name: "&e&l情報"
+    info_lore:
+      - "&7ページ &f%page% &7/ &f%pages%"
+      - "&7合計取引数: &f%total%"
+      - ""
+      - "&eヒント: アイテムにホバーすると詳細が表示されます。"
+    prev_name: "&e« 前のページ"
+    prev_lore: "&7ページ %page% に戻る"
+    next_name: "&e次のページ »"
+    next_lore: "&7ページ %page% に進む"
+    close_name: "&c&l履歴を閉じる"
+    close_lore: "&7このメニューを閉じます。"
+    entry:
+      title_prefix_in: "&a⬆ "
+      title_prefix_out: "&c⬇ "
+      title_prefix_neutral: "&7• "
+      title: "&f%type% &8#%serial%"
+      lore:
+        amount: "  金額: &f%sign%%amount% &7(%currency%)"
+        from: "  差出人: &f%from%"
+        to: "  宛先: &f%to%"
+        world: "  ワールド: &f%world%"
+        time: "  日時: &f%time%"
+        txid: "  TxId: &8%txid%"
+        meta_header: "  メタデータ:"
+        meta_entry: "    &8• &7%key%: &f%value%"
+        divider: "&m-------------------------------"
+  chat:
+    header_top: "&9&m--------------------------------"
+    header_title: "&b&l  取引履歴 &7(%page%/%pages%)"
+    header_bottom: "&9&m--------------------------------"
+    footer: "&9&m--------------------------------"
+    empty: "&7  (取引履歴はまだありません)"
+    line_format: " &8%time% %dir%%amount% &8- %type%"
+    line_meta: "      &8#%serial% &7%from%→%to%"
+
+# ===== /vault offlinepay =====
+offlinepay:
+  unavailable: "&cオフライン送金機能は利用できません。"
+  list:
+    header: "&e保留中のオフライン送金: &f%count% 件"
+    line: "  #%id% &f%from_name% &7→ &f%to_name% &e%amount% &7(%time_ago% 前)"
+    empty: "&7  (保留中の送金はありません)"
+  refund:
+    usage: "使用方法: /vault offlinepay refund <id>"
+    invalid_id: "&c無効なIDです。"
+    success: "&a送金 &f#%id% &aを返金しました。"
+    not_found: "&c送金 &f#%id% &cが見つかりません。"
+
+# ===== /eco admin =====
+eco:
+  usage: |
+    &e使用方法:
+    &7  /eco give|add <プレイヤー> <金額> [通貨]
+    &7  /eco take|remove <プレイヤー> <金額> [通貨]
+    &7  /eco set <プレイヤー> <金額> [通貨]
+    &7  /eco reset <プレイヤー> [通貨]
+    &7  /eco top [ページ] [通貨]
+  no_permission: "&c/eco を使用する権限がありません。"
+  give:
+    success: "&f%player% &aの所持金を &6%amount% &aに設定しました"
+    error: "&c所持金を追加できませんでした: &4%error%"
+  take:
+    success: "&f%player% &cから &6%amount% &cを削除しました"
+    error: "&c所持金を削減できませんでした: &4%error%"
+  set:
+    success: "&f%player% &aの所持金を &6%amount% &aに設定しました"
+    error: "&c所持金を設定できませんでした: &4%error%"
+  reset:
+    success: "&f%player% &aの所持金を 0 にリセットしました (変更前: &c%old_amount%&a)"
+    error: "&c所持金をリセットできませんでした: &4%error%"
+
+bank:
+  unavailable: "&c銀行サービスは現在利用できません。"
+  no_permission: "&c銀行を使用する権限がありません。"
+  only_players: "&cこのコマンドはゲーム内でのみ使用できます。"
+  invalid_amount: "&c無効な金額です。"
+  positive_only: "&c金額は0より大きい必要があります。"
+  insufficient_funds: "&cその金額を預け入れるための十分な所持金がありません。"
+  insufficient_bank: "&cその金額を引き出すための十分な預金が銀行にありません。"
+  not_found: "&f%player% &cの口座が見つかりません。"
+  invalid_page: "&c無効なページです。"
+  usage: |
+    &6銀行コマンド:
+    &e  /vault bank balance [プレイヤー]
+    &e  /vault bank deposit <金額>
+    &e  /vault bank withdraw <金額>
+    &e  /vault bank top [ページ]
+  balance:
+    self_header: "&6=== &aあなたの銀行口座残高 &6==="
+    self_wallet: "&7所持金: &f%wallet%"
+    self_bank: "&7銀行預金: &f%bank%"
+    self_total: "&7合計: &6%total%"
+    self_interest: "&7次の利息: &a+%interest_next% &7(%interest_min%分ごとに %interest_pct%%)"
+    self_tax: "&7次の税金: &c-%tax_next% &7(%tax_min%分ごとに %tax_threshold% を超える額の %tax_pct%%)"
+    self_no_tax: "&7次の税金: &aなし (残高が課金基準未満です)"
+    other_header: "&6=== &e%player% &aの銀行口座残高 &6==="
+    other_wallet: "&7所持金: &f%wallet%"
+    other_bank: "&7銀行預金: &f%bank%"
+    other_total: "&7合計: &6%total%"
+  deposit:
+    usage: "&c使用方法: /vault bank deposit <金額>"
+    success: "&a銀行に &6%amount% &aを預け入れました。現在の預金残高: &f%bank_new%"
+    error: "&c預け入れを完了できませんでした: &4%error%"
+  withdraw:
+    usage: "&c使用方法: /vault bank withdraw <金額>"
+    success: "&a銀行から &6%amount% &aを引き出しました。現在の所持金: &f%wallet_new%"
+    error: "&c引き出しを完了できませんでした: &4%error%"
+  top:
+    header: "&6=== &a銀行預金ランキング &7(%page%/%pages% ページ) &6==="
+    empty: "&c登録されている銀行口座がまだありません。"
+    line: "&7#%pos% &e%player% &8- &b銀行: &f%bank% &8| &7合計: &6%total%"
+    footer: "&7次のページを見るには /vault bank top 2 を使用してください。"
+  gui:
+    title: "&8🏦 銀行"
+    wallet_name: "&6💳 あなたの所持金"
+    wallet_lore:
+      - "&7手元で利用可能な資金です。"
+      - ""
+      - "&8• &7現在: &f%wallet%"
+      - ""
+      - "&e直接使用できる流動資金です。"
+    bank_name: "&a🏦 銀行預金"
+    bank_lore:
+      - "&7銀行口座に安全に保管されている資金です。"
+      - ""
+      - "&8• &7現在: &f%bank%"
+      - "&8• &7利息: %interest_min%分ごとに &a+%interest_next%"
+      - "&8• &7税金: &c%tax_desc%"
+      - ""
+      - "&eこの残高に対して受動的に利息を獲得します。"
+    total_name: "&9📊 総資産"
+    total_lore:
+      - "&7所持金 + 銀行預金の合計です。"
+      - ""
+      - "&8• &7合計: &6%total%"
+      - ""
+      - "&fあなたの合計総資産です。"
+    deposit_name: "&2📥 預け入れ"
+    deposit_lore:
+      - "&7所持金から銀行へお金を移動します。"
+      - ""
+      - "&8• &7クイック選択:"
+      - "&a  左クリック 1: %qp1%     &aShift + 左クリック 1: %qp10%"
+      - "&a  左クリック 2: %qp2%     &aShift + 左クリック 2: %qp20%"
+      - "&a  左クリック 3: %qp3%     &aShift + 左クリック 3: %qp50%"
+      - "&a  左クリック 4: %qp4%     &aShift + 左クリック 4: 全額"
+      - ""
+      - "&e預金には自動的に利息がつきます。"
+    withdraw_name: "&c📤 引き出し"
+    withdraw_lore:
+      - "&7銀行から所持金へお金を移動します。"
+      - ""
+      - "&8• &7クイック選択:"
+      - "&c  左クリック 1: %qp1%     &cShift + 左クリック 1: %qp10%"
+      - "&c  左クリック 2: %qp2%     &cShift + 左クリック 2: %qp20%"
+      - "&c  左クリック 3: %qp3%     &cShift + 左クリック 3: %qp50%"
+      - "&c  左クリック 4: %qp4%     &cShift + 左クリック 4: 全額"
+      - ""
+      - "&e支払いや購入が必要な時に引き出してください。"
+    info_name: "&b📈 情報"
+    info_lore:
+      - "&7現在の銀行の金利情報です。"
+      - ""
+      - "&8• &a利息: %interest_min%分ごとに &f+%interest_pct%%"
+      - "&8• &c税金: %tax_threshold% を超えた分に対し &f-%tax_pct%%"
+      - "&8• &7課金間隔: &f%tax_min%分ごと"
+      - ""
+      - "&e利息は自動的に支払われ、税金はインフレを抑制します。"
+    deposit_qp1_name: "&2+%qp1%"
+    deposit_qp1_lore:
+      - "&7銀行に &a%qp1_amount% &7預け入れます。"
+      - ""
+      - "&8• &7所持金の消費: &c%qp1_amount%"
+      - "&8• &7預け入れ後の銀行: &a%qp1_new%"
+      - ""
+      - "&e左クリック = %qp1% · Shift = %qp10%"
+    deposit_qp2_name: "&2+%qp2%"
+    deposit_qp2_lore:
+      - "&7銀行に &a%qp2_amount% &7預け入れます。"
+      - ""
+      - "&8• &7所持金の消費: &c%qp2_amount%"
+      - "&8• &7預け入れ後の銀行: &a%qp2_new%"
+      - ""
+      - "&e左クリック = %qp2% · Shift = %qp20%"
+    deposit_qp3_name: "&2+%qp3%"
+    deposit_qp3_lore:
+      - "&7銀行に &a%qp3_amount% &7預け入れます。"
+      - ""
+      - "&8• &7所持金の消費: &c%qp3_amount%"
+      - "&8• &7預け入れ後の銀行: &a%qp3_new%"
+      - ""
+      - "&e左クリック = %qp3% · Shift = %qp50%"
+    deposit_qp4_name: "&2+%qp4%"
+    deposit_qp4_lore:
+      - "&7銀行に &a%qp4_amount% &7預け入れます。"
+      - ""
+      - "&8• &7所持金の消費: &c%qp4_amount%"
+      - "&8• &7預け入れ後の銀行: &a%qp4_new%"
+      - ""
+      - "&e左クリック = %qp4% · Shift = 全額"
+    withdraw_qp1_name: "&c-%qp1%"
+    withdraw_qp1_lore:
+      - "&7銀行から &c%qp1_amount% &7引き出します。"
+      - ""
+      - "&8• &7引き出し後の所持金: &a%qp1_wallet%"
+      - "&8• &7引き出し後の銀行: &c%qp1_bank%"
+      - ""
+      - "&e左クリック = %qp1% · Shift = %qp10%"
+    withdraw_qp2_name: "&c-%qp2%"
+    withdraw_qp2_lore:
+      - "&7銀行から &c%qp2_amount% &7引き出します。"
+      - ""
+      - "&8• &7引き出し後の所持金: &a%qp2_wallet%"
+      - "&8• &7引き出し後の銀行: &c%qp2_bank%"
+      - ""
+      - "&e左クリック = %qp2% · Shift = %qp20%"
+    withdraw_qp3_name: "&c-%qp3%"
+    withdraw_qp3_lore:
+      - "&7銀行から &c%qp3_amount% &7引き出します。"
+      - ""
+      - "&8• &7引き出し後の所持金: &a%qp3_wallet%"
+      - "&8• &7引き出し後の銀行: &c%qp3_bank%"
+      - ""
+      - "&e左クリック = %qp3% · Shift = %qp50%"
+    withdraw_qp4_name: "&c-%qp4%"
+    withdraw_qp4_lore:
+      - "&7銀行から &c%qp4_amount% &7引き出します。"
+      - ""
+      - "&8• &7引き出し後の所持金: &a%qp4_wallet%"
+      - "&8• &7引き出し後の銀行: &c%qp4_bank%"
+      - ""
+      - "&e左クリック = %qp4% · Shift = 全額"
+    back_name: "&8◀ 戻る"
+    back_lore:
+      - "&7メインのVaultメニューに戻ります。"
+  menu:
+    item_name: "&6🏦 銀行"
+    item_lore:
+      - "&7銀行口座を管理します。"
+      - ""
+      - "&8• &7預金残高: &f%bank%"
+      - "&8• &7次の利息: &a+%interest_next%"
+      - ""
+      - "&eクリックして銀行メニューを開きます。"
