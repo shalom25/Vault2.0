@@ -1,0 +1,640 @@
+# Türkçe mesajlar
+pay:
+  # Kod tarafından beklenen komut mesajları
+  only_players: "&cSadece oyuncular /pay komutunu kullanabilir."
+  no_permission: "&c/pay komutunu kullanma izniniz yok."
+  invalid_amount: "&cGeçersiz miktar."
+  player_offline: "&cOyuncu &f%player% çevrimdışı; istek iletilemedi."
+  amount_too_small: "&cMiktar en az &6%min% olmalı"
+  amount_too_large: "&cMiktar en fazla &6%max% olmalı"
+  not_enough_money: "&cYetersiz bakiye."
+  withdraw_failed: "&cPara çekilemedi."
+  sent_ok: "&f%player% &aadlı oyuncuya &6%amount% &aödedin"
+  received_ok: "&f%player% &aadlı oyuncudan &6%amount% &aaldın"
+  cancelled: "&cÖdeme isteği iptal edildi."
+
+  # Menü/arayüz ve diğer mesajlar
+  menu:
+    title_main: "&8&lOyuncu seç"
+    title_player: "&8&lİşlemler: &f%player%"
+    title_quick_pay: "&8&lHızlı ödeme: &f%player%"
+    nav:
+      prev_name: "&aÖnceki sayfa"
+      next_name: "&aSonraki sayfa"
+    item:
+      pay: "&6&lÖde"
+      loan: "&e&lKredi"
+      view_balance: "&e&lPara"
+      view_balance_lore: "Bakiye: %vault_eco_balance_short%"
+      charge: "&6&lTahsilat"
+      settings: "&c&lAyarlar"
+      manual_amount: "&a&lÖzel miktar"
+      back: "&c&lGeri"
+    lore:
+      settings:
+        - "&7Vault ayarlarını aç."
+      pay:
+        - "&7Bu oyuncuya öde."
+      quick_pay:
+        - "&7Bu miktarı anında öde."
+      loan:
+        - "&7Kredi menünü aç."
+      view_balance:
+        - "&7%player% adlı oyuncunun güncel bakiyesini gösterir."
+      charge:
+        - "&7Bir ödeme talebi gönder."
+      manual_amount:
+        - "&7Miktarı sohbete yaz."
+      back:
+        - "&7Önceki menüye dön."
+  prompt:
+    enter_amount_pay: "&f%player% &aadlı oyuncuya ödenecek miktarı sohbete yaz, ya da &c%cancel%."
+    enter_amount_charge: "&f%player% &aadlı oyuncudan tahsil etmek istediğin miktarı sohbete yaz, ya da &c%cancel%."
+    cancel_words: "&ciptal,&cvazgeç"
+  error:
+    player_not_found: "&cOyuncu bulunamadı: &f%player%"
+    invalid_amount: "&cGeçersiz miktar."
+    positive_only: "&cMiktar pozitif olmalı."
+    min_amount: "&cMiktar en az &6%min% olmalı"
+    max_amount: "&cMiktar en fazla &6%max% olmalı"
+    insufficient_funds: "&cYetersiz bakiye."
+    withdraw_error: "&cPara çekilemedi: &4%error%"
+    deposit_error: "&cPara yatırılamadı: &4%error%"
+    player_offline: "&cOyuncu %player% çevrimdışı; istek iletilemedi."
+  success:
+    sender: "&f%player% &aadlı oyuncuya &6%amount% &aödedin"
+
+  view:
+    balance: "&f%player% &abakiyesi: &6%amount%"
+    money_label: "&ePara"
+  request:
+    prefix: "&eÖdeme isteği hazırlandı: "
+    click: "&f%player% &aadlı oyuncuya ödemek için tıkla: &6%amount_formatted%"
+    hover: "/pay &f%player% &6%amount% komutunu çalıştır"
+    sent: "&f%player% &aadlı oyuncuya &6%amount_formatted% &aiçin istek gönderildi."
+    stored: "&aİstek kaydedildi; &f%player% &akatıldığında iletilecek."
+  pending:
+    header: "&e%count% &abekleyen ödeme isteğin var."
+    limit_notice: "%total% içinden %shown% gösteriliyor; kalanlar daha sonra iletilecek."
+
+cmd:
+  pay:
+    only_players: "Sadece oyuncular /pay komutunu kullanabilir."
+    no_permission: "/pay komutunu kullanma izniniz yok."
+    usage: "Kullanım: /pay <oyuncu> <miktar> (ya da menüyü açmak için /pay, alt menü için /pay <oyuncu>)"
+    player_not_found: "Oyuncu bulunamadı: &f%player%"
+    invalid_amount: "Geçersiz miktar: &6%amount%"
+    positive_only: "Miktar pozitif olmalı."
+  balance:
+    only_players: "&cBu komut yalnızca oyuncular içindir."
+    no_permission: "&c/balance komutunu kullanma izniniz yok."
+    your_balance: "Bakiyen: &6%amount%"
+  vault:
+    no_permission: "&cEklentiyi yeniden yükleme izniniz yok."
+
+# Menü servisinin beklediği anahtarlar (üst seviye)
+menu:
+  title_main: "&8&lOyuncu seç"
+  title_player: "&8&lİşlemler: &f%player%"
+  target_player: "&8&lHedef seç"
+  target_player_lore: "&aOyuncu seçmek için tıkla"
+  enter_amount: "&aMiktar gir"
+  enter_amount_lore: "&aMiktarı sohbete yaz"
+
+# Bakiye komutunun beklediği anahtarlar (üst seviye)
+balance:
+  no_permission: "&c/balance komutunu kullanma izniniz yok."
+  your_balance: "&6Bakiyen: %amount%"
+
+  only_players: "&cBu komut yalnızca oyuncular içindir."
+plugin:
+  enabled: "Dahili ekonomi, Vault.jar'a bağımlı olmadan kaydedildi"
+  disabled: "Vault (dahili ekonomi) devre dışı."
+  reloaded: "Yapılandırma ve mesajlar yeniden yüklendi (dil: %lang%)."
+
+prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
+
+top:
+  unknown_player: "Oyuncu"
+
+vaultop:
+  no_permission: "&c/vaultop komutunu kullanma izniniz yok."
+  top_unavailable: "&cMevcut ekonomi sağlayıcısıyla sıralama kullanılamıyor."
+  top_header: "&6En zengin oyuncular &7(Sayfa %page%/%pages%):"
+  no_data: "&7Henüz bakiye verisi yok."
+
+vault:
+  menu:
+    title: "&bVault Menüsü"
+    item:
+      pay: "&aÖde"
+      loan: "&aKredi"
+      settings: "&cAyarlar"
+      reload: "&eYeniden yükle"
+      update: "&bGüncelle"
+    lore:
+      pay:
+        - "&7Ödeme menüsünü aç."
+      loan:
+        - "&7Kredi talep et, görüntüle ve öde."
+      settings:
+        - "&7Eklenti ayarlarını düzenle."
+      reload:
+        - "&7Yapılandırmayı ve mesajları yeniden yükle."
+      update:
+        - "&7Güncellemeleri kontrol et."
+
+settings:
+  title: "&cAyarlar"
+  title_loans: "&cKredi Ayarları"
+  title_pay: "&cÖdeme Ayarları"
+  title_texts: "&cMetin Ayarları"
+  item:
+    loans: "&aKrediler"
+    pay: "&aÖdeme"
+    texts: "&aMetinler"
+    back: "&7Geri"
+  lore:
+    loans:
+      - "&7Kredi sistemini yapılandır."
+    pay:
+      - "&7/pay limitlerini ve menüsünü yapılandır."
+    texts:
+      - "&7Menü metinlerini düzenle."
+    back:
+      - "&7Geri dön."
+    loans_enabled:
+      - "&7Kredileri aç/kapat."
+    loans_min:
+      - "&7İzin verilen minimum kredi miktarı."
+    loans_max:
+      - "&7İzin verilen maksimum kredi miktarı."
+    loans_max_installments:
+      - "&7İzin verilen maksimum taksit sayısı."
+    loans_default_interval_hours:
+      - "&7Taksitler arasındaki varsayılan saat sayısı."
+    loans_charge_check_seconds:
+      - "&7Tahsilatların ne sıklıkla işleneceği."
+    loans_max_missed:
+      - "&7Temerrüde düşmeden önce kaç ödeme kaçırılabilir."
+    pay_min:
+      - "&7İzin verilen minimum ödeme miktarı."
+    pay_max:
+      - "&7İzin verilen maksimum ödeme miktarı."
+    pay_menu_size:
+      - "&7/pay menüsünün boyutu (9'un katı)."
+    pay_show_self:
+      - "&7/pay listesinde kendini göster."
+  loans:
+    enabled: "&fKrediler"
+    min: "&fMin kredi"
+    max: "&fMaks kredi"
+    max_installments: "&fMaks taksit"
+    default_interval_hours: "&fVarsayılan aralık (s)"
+    charge_check_seconds: "&fTahsilat kontrolü (sn)"
+    max_missed: "&fMaks kaçırılan"
+  pay:
+    min: "&fMin ödeme"
+    max: "&fMaks ödeme"
+    menu_size: "&fÖdeme menü boyutu"
+    show_self: "&fKendini göster"
+  prompt:
+    value: "&e%key% &aiçin yeni değeri sohbete yaz, ya da &c%cancel%."
+    text: "&e%key% &aiçin yeni metni sohbete yaz, ya da &c%cancel%."
+  cancelled: "&cDüzenleme iptal edildi."
+  invalid_number: "&cGeçersiz sayı."
+  saved: "&aKaydedildi: &e%key%"
+  save_failed: "&cDosya kaydedilemedi."
+
+loan:
+  no_permission: "&cKredileri kullanma izniniz yok."
+  none: "&aAktif bir kredin yok."
+  already_active: "&aZaten aktif bir kredin var."
+  cancelled: "&cKredi işlemi iptal edildi."
+  created: "&aKredi oluşturuldu: &6%amount% &7| taksit: &f%installments% &7| taksit tutarı: &6%installment_amount% &7| her &f%interval_hours%s'de bir"
+  paid: "&2Kredin tamamen ödendi."
+  status: "&2Kredi: anapara &f%principal% &7| kalan &f%remaining% &7| taksit &6%installment% &7| kalan taksit &f%installments_left% &7| sonraki tahsilat &c%next_in_minutes% dakika sonra"
+  menu:
+    title: "&aKredi"
+    item:
+      request: "&aTalep et"
+      status: "&eDurum"
+      pay: "&6Öde"
+      settings: "&cAyarlar"
+    lore:
+      request:
+        - "&7Yeni bir kredi talep et."
+      status:
+        - "&7Mevcut kredi durumunu görüntüle."
+      pay:
+        - "&7Kredini öde."
+      settings:
+        - "&7Kredi ayarlarını aç."
+  request:
+    title:
+      type: "&aKredi Talebi"
+      delay: "&eToplam Gecikme"
+      installments_mode: "&eTaksit Modu"
+      installments_count: "&eTaksit Sayısı"
+      interval: "&eAralık"
+      first_delay: "&eİlk Ödeme"
+    item:
+      total: "&eToplam"
+      installments: "&aTaksitler"
+      mode_count: "&eSayı"
+      mode_amount: "&eMiktar"
+      same_as_interval: "&eAralıkla aynı"
+      back: "&7Geri"
+      cancel: "&cİptal"
+    lore:
+      total:
+        - "&7Tek ödeme."
+      installments:
+        - "&7Birden fazla ödeme."
+      mode_count:
+        - "&7Taksit sayısını seç."
+      mode_amount:
+        - "&7Taksit miktarını sohbete yaz."
+      installments_count:
+        - "&7Kaç taksit olacağını seç."
+      delay:
+        - "&7Kaç saat sonra tahsil edileceğini seç."
+      interval:
+        - "&7Taksitler arasındaki saat sayısını seç."
+      first_delay:
+        - "&7İlk ödeme gecikmesini seç."
+      back:
+        - "&7Geri dön."
+      cancel:
+        - "&7Talebi iptal et."
+  prompt:
+    cancel_words: "&ciptal,&cvazgeç"
+    amount: "&aKredi miktarını sohbete yaz, ya da &c%cancel%."
+    type: "&a'total' (tek seferde öde) veya 'cuotas' (taksitli) yaz, ya da &c%cancel%."
+    total_delay_hours: "&aSunucu toplam ödemeyi kaç saat sonra tahsil etsin? (örnek: 24) Ya da &c%cancel%."
+    installments_mode: "&a'cantidad' (taksit sayısı gir) veya 'monto' (taksit miktarı gir) yaz, ya da &c%cancel%."
+    installments_count: "&aKaç taksit? Ya da &c%cancel%."
+    installment_amount: "&aTaksit miktarını yaz (her ödeme). Ya da &c%cancel%."
+    interval_hours: "&aTaksitler arasındaki aralık, saat cinsinden (0 = varsayılan &e%default_hours%). Ya da &c%cancel%."
+    first_delay_hours: "&aİlk taksit kaç saat sonra? (0 = aralıkla aynı &e%default_hours%). Ya da &c%cancel%."
+    pay_amount: "&aNe kadar ödemek istediğini yaz (ya da 'all'). Kalan: &e%remaining%. Ya da &c%cancel%."
+  error:
+    invalid_number: "&cGeçersiz sayı."
+    invalid_type: "&cGeçersiz tür. 'total' veya 'cuotas' kullan."
+    invalid_installments_mode: "&cGeçersiz seçenek. 'cantidad' veya 'monto' kullan."
+    installment_too_small: "&e%loan_amount% &ctutarındaki bir kredi için minimum taksit &e%min_installment%&c'dir."
+    too_small: "&cKredi miktarı en az &e%min% olmalı."
+    too_large: "&cKredi miktarı en fazla &e%max% olmalı."
+    too_many_installments: "&cÇok fazla taksit. Maksimum: &e%max%."
+    not_enough_money: "&cÖdemek için yetersiz bakiye."
+    deposit_failed: "&cKredi oluşturulamadı (yatırma işlemi başarısız)."
+  pay:
+    success: "&aÖdeme alındı: &6%amount%. Kalan: &e%remaining%."
+  charge:
+    success: "&cTaksit tahsil edildi: &6%amount%. Kalan: &e%remaining%."
+    missed: "&cTaksit tahsil edilemedi (&6%amount%&c). Kaçırılan &e%missed%/%max_missed%."
+    defaulted: "&4Kredi temerrüde düştü. Kalan: &e%remaining%."
+
+economy:
+  bank_not_supported: "&cBanka desteği uygulanmamış"
+  eco:
+    usage: "&aKullanım: /eco give <oyuncu> <miktar> | /eco take <oyuncu> <miktar>"
+    no_permission: "&c/eco komutunu kullanma izniniz yok."
+    player_not_found: "&cOyuncu bulunamadı: &f%player%"
+    invalid_amount: "&cGeçersiz miktar: &6%amount%"
+    positive_only: "&cMiktar pozitif olmalı."
+    deposit_ok: "&f%player% &cadlı oyuncuya &6%amount% &ceklendi."
+    withdraw_ok: "&f%player% &cadlı oyuncudan &6%amount% &cçıkarıldı."
+    deposit_error: "&cYatırılamadı: &6%error%"
+    withdraw_error: "&cÇekilemedi: &6%error%"
+
+# ===== Discord Webhook i18n (11 dil: config.yml dili ile senkron) =====
+discord:
+  field:
+    txid: "İşlem Kimliği"
+    currency: "Para Birimi"
+    amount: "Miktar"
+    from: "Gönderen"
+    to: "Alıcı"
+    world: "Dünya"
+    metadata: "Metadata"
+  threshold:
+    title: "💸 Büyük işlem (%type%)"
+    desc: "%type% türünde **%sign% %amount%**\nGönderen: `%from%` → Alıcı: `%to%`"
+  dupe:
+    hard_label: "SERT"
+    soft_label: "HAFİF"
+    title: "🚨 Dupe tespit edildi (%hard%)"
+    desc: "Yinelenen işlem AntiDupeWindow tarafından reddedildi.\nİşlem Kimliği: `%txid%`\nSeri No: `%serial%`\nTür: `%type_key%`\nMiktar: `%amount_raw% %currency%`"
+    field:
+      rejections: "Toplam ret sayısı"
+  error:
+    title: "❌ İşlem grubu kaydedilemedi"
+    desc: "Grup boyutu: `%batch_size%`\nHata: `%error%`"
+  tx_type:
+    DEPOSIT: "Para yatırma"
+    WITHDRAW: "Para çekme"
+    PLAYER_PAY: "Oyuncudan oyuncuya ödeme"
+    NOTE_WITHDRAW: "Banknot çekildi"
+    NOTE_REDEEM: "Banknot bozduruldu"
+    OFFLINE_PAY_SENT: "Çevrimdışı ödeme gönderildi"
+    OFFLINE_PAY_CLAIMED: "Çevrimdışı ödeme teslim edildi"
+    OFFLINE_PAY_REFUNDED: "Çevrimdışı ödeme iade edildi"
+    ADMIN_ADD: "Yönetici: ekleme"
+    ADMIN_REMOVE: "Yönetici: çıkarma"
+    ADMIN_SET: "Yönetici: ayarlama"
+    ADMIN_RESET: "Yönetici: sıfırlama"
+    INTEREST: "Banka faizi"
+    TAX: "Vergi"
+    BANK_DEPOSIT: "Bankaya yatırma"
+    BANK_WITHDRAW: "Bankadan çekme"
+    LOAN_DISBURSE: "Kredi kullandırıldı"
+    LOAN_REPAY: "Kredi ödemesi"
+    LOAN_DEFAULT: "Kredi temerrüdü"
+    LOAN_COLLATERAL_SEIZED: "Teminata el konuldu"
+    CHARGE_PAID: "Tahsilat ödendi"
+    TEAM_DEPOSIT: "Takım yatırması"
+    TEAM_WITHDRAW: "Takım çekmesi"
+    TEAM_DISBAND_REFUND: "Takım feshi iadesi"
+
+# ===== Ortak (çoklu komut) =====
+cmd:
+  common:
+    only_players: "&cBu komut yalnızca oyun içinde kullanılabilir."
+    no_permission: "&cBu komutu kullanma izniniz yok."
+    invalid_amount: "&cGeçersiz miktar."
+    positive_only: "&cMiktar 0'dan büyük olmalı."
+    insufficient_funds: "&cYetersiz bakiye."
+    player_not_found: "&cOyuncu bulunamadı: &f%player%"
+    usage_prefix: "&eKullanım:"
+
+# ===== Fiziksel banknotlar (PhysicalNoteService + /vault withdraw) =====
+note:
+  withdraw:
+    disabled: "&cFiziksel banknotlar devre dışı."
+    usage: "Kullanım: /vault withdraw <miktar> [para birimi]"
+    success: "&a&6%amount% &afiziksel banknot olarak çektin."
+  item:
+    name: "&6&lBanknot: &f%amount%"
+    lore:
+      currency: "&7Para birimi: &b%currency%"
+      amount: "&7Miktar: &e%amount%"
+      issuer: "&7Veren: &f%issuer%"
+      serial: "&7Seri No: &8%serial%"
+      hint: "&a» Bozdurmak için sağ tıkla «"
+  redeem:
+    already_redeemed: "&cBu banknot zaten bozdurulmuş."
+    invalid: "&cBu banknot doğrulanamadı. Sahte veya süresi dolmuş olabilir."
+    error: "&cBanknot bozdurulamadı: &4%error%"
+    success: "&aBanknot bozduruldu: +&6%amount%"
+
+# ===== /vault history (HistoryMenuService + sohbet yedeği) =====
+history:
+  unavailable: "&cMevcut ekonomi sağlayıcısıyla geçmiş kullanılamıyor."
+  gui:
+    title: "&5&lİşlem Geçmişi"
+    info_name: "&e&lBilgi"
+    info_lore:
+      - "&7Sayfa &f%page% &7/ &f%pages%"
+      - "&7Toplam işlem: &f%total%"
+      - ""
+      - "&eİpucu: detayları görmek için üzerine gel."
+    prev_name: "&e« Önceki sayfa"
+    prev_lore: "&7%page%. sayfaya geri dön"
+    next_name: "&eSonraki sayfa »"
+    next_lore: "&7%page%. sayfaya ilerle"
+    close_name: "&c&lGeçmişi kapat"
+    close_lore: "&7Bu menüyü kapat."
+    entry:
+      title_prefix_in: "&a⬆ "
+      title_prefix_out: "&c⬇ "
+      title_prefix_neutral: "&7• "
+      title: "&f%type% &8#%serial%"
+      lore:
+        amount: "  Miktar: &f%sign%%amount% &7(%currency%)"
+        from: "  Gönderen: &f%from%"
+        to: "  Alıcı: &f%to%"
+        world: "  Dünya: &f%world%"
+        time: "  Tarih: &f%time%"
+        txid: "  İşlem Kimliği: &8%txid%"
+        meta_header: "  Metadata:"
+        meta_entry: "    &8• &7%key%: &f%value%"
+        divider: "&m-------------------------------"
+  chat:
+    header_top: "&9&m--------------------------------"
+    header_title: "&b&l  İşlem geçmişi &7(%page%/%pages%)"
+    header_bottom: "&9&m--------------------------------"
+    footer: "&9&m--------------------------------"
+    empty: "&7  (henüz işlem yok)"
+    line_format: " &8%time% %dir%%amount% &8- %type%"
+    line_meta: "      &8#%serial% &7%from%→%to%"
+
+# ===== /vault offlinepay =====
+offlinepay:
+  unavailable: "&cÇevrimdışı ödemeler kullanılamıyor."
+  list:
+    header: "&eBekleyen çevrimdışı ödemeler: &f%count%"
+    line: "  #%id% &f%from_name% &7→ &f%to_name% &e%amount% &7(%time_ago% önce)"
+    empty: "&7  (bekleyen ödeme yok)"
+  refund:
+    usage: "Kullanım: /vault offlinepay refund <id>"
+    invalid_id: "&cGeçersiz ID."
+    success: "&aÖdeme &f#%id% &aiade edildi."
+    not_found: "&cÖdeme &f#%id% &cbulunamadı."
+
+# ===== /eco yönetici =====
+eco:
+  usage: |
+    &eKullanım:
+    &7  /eco give|add <oyuncu> <miktar> [para birimi]
+    &7  /eco take|remove <oyuncu> <miktar> [para birimi]
+    &7  /eco set <oyuncu> <miktar> [para birimi]
+    &7  /eco reset <oyuncu> [para birimi]
+    &7  /eco top [sayfa] [para birimi]
+  no_permission: "&c/eco komutunu kullanma izniniz yok."
+  give:
+    success: "&f%player% &abakiyesi &6%amount% &aolarak ayarlandı"
+    error: "&cBakiye eklenemedi: &4%error%"
+  take:
+    success: "&f%player% &cadlı oyuncudan &6%amount% &cçıkarıldı"
+    error: "&cBakiye çıkarılamadı: &4%error%"
+  set:
+    success: "&f%player% &abakiyesi &6%amount% &aolarak ayarlandı"
+    error: "&cBakiye ayarlanamadı: &4%error%"
+  reset:
+    success: "&f%player% &abakiyesi 0'a sıfırlandı &a(önceki: &c%old_amount%&a)"
+    error: "&cBakiye sıfırlanamadı: &4%error%"
+
+bank:
+  unavailable: "&cBanka servisi şu anda kullanılamıyor."
+  no_permission: "&cBankayı kullanma izniniz yok."
+  only_players: "&cBu komut yalnızca oyun içinde kullanılabilir."
+  invalid_amount: "&cGeçersiz miktar."
+  positive_only: "&cMiktar 0'dan büyük olmalı."
+  insufficient_funds: "&cBu miktarı yatırmak için cüzdanında yeterli para yok."
+  insufficient_bank: "&cBu miktarı çekmek için bankada yeterli para yok."
+  not_found: "&c%player% için banka hesabı bulunamadı."
+  invalid_page: "&cGeçersiz sayfa."
+  usage: |
+    &6Banka Komutları:
+    &e  /vault bank balance [oyuncu]
+    &e  /vault bank deposit <miktar>
+    &e  /vault bank withdraw <miktar>
+    &e  /vault bank top [sayfa]
+  balance:
+    self_header: "&6=== &aBanka Bakiyen &6==="
+    self_wallet: "&7Cüzdan: &f%wallet%"
+    self_bank: "&7Bankada: &f%bank%"
+    self_total: "&7Toplam: &6%total%"
+    self_interest: "&7Sonraki faiz: &a+%interest_next% &7(her %interest_min% dakikada %interest_pct%%)"
+    self_tax: "&7Sonraki vergi: &c-%tax_next% &7(%tax_threshold% üzerindeki kısımdan her %tax_min% dakikada %tax_pct%%)"
+    self_no_tax: "&7Sonraki vergi: &aYok &7(bakiyen eşiğin altında)"
+    other_header: "&6=== &e%player% &aadlı oyuncunun Banka Bakiyesi &6==="
+    other_wallet: "&7Cüzdan: &f%wallet%"
+    other_bank: "&7Bankada: &f%bank%"
+    other_total: "&7Toplam: &6%total%"
+  deposit:
+    usage: "&cKullanım: /vault bank deposit <miktar>"
+    success: "&a&6%amount% &abankaya yatırdın. Artık bankada &f%bank_new% &avar."
+    error: "&cYatırma işlemi tamamlanamadı: &4%error%"
+  withdraw:
+    usage: "&cKullanım: /vault bank withdraw <miktar>"
+    success: "&aBankadan &6%amount% &açektin. Artık cüzdanında &f%wallet_new% &avar."
+    error: "&cÇekme işlemi tamamlanamadı: &4%error%"
+  top:
+    header: "&6=== &aBanka Sıralaması &7(Sayfa %page%/%pages%) &6==="
+    empty: "&cHenüz kayıtlı banka bakiyesi yok."
+    line: "&7#%pos% &e%player% &8- &bBanka: &f%bank% &8| &7Toplam: &6%total%"
+    footer: "&7Sonraki sayfayı görmek için /vault bank top 2 kullan."
+  gui:
+    title: "&8🏦 Banka"
+    wallet_name: "&6💳 Cüzdanın"
+    wallet_lore:
+      - "&7Cebinde bulunan kullanılabilir para."
+      - ""
+      - "&8• &7Güncel: &f%wallet%"
+      - ""
+      - "&eDoğrudan harcayabileceğin likit paran."
+    bank_name: "&a🏦 Bankada"
+    bank_lore:
+      - "&7Banka hesabındaki güvenli paran."
+      - ""
+      - "&8• &7Güncel: &f%bank%"
+      - "&8• &7Faiz: &a+%interest_next% &7her %interest_min% dakikada"
+      - "&8• &7Vergi: &c%tax_desc%"
+      - ""
+      - "&eBu bakiyeden pasif faiz kazan."
+    total_name: "&9📊 Net Değer"
+    total_lore:
+      - "&7Cüzdanın ve bankandaki paranın toplamı."
+      - ""
+      - "&8• &7Toplam: &6%total%"
+      - ""
+      - "&fToplam servetin."
+    deposit_name: "&2📥 Para Yatır"
+    deposit_lore:
+      - "&7Cüzdanındaki parayı bankaya aktar."
+      - ""
+      - "&8• &7Hızlı seçimler:"
+      - "&a  Sol Tık 1: %qp1%     &aShift +1: %qp10%"
+      - "&a  Sol Tık 2: %qp2%     &aShift +2: %qp20%"
+      - "&a  Sol Tık 3: %qp3%     &aShift +3: %qp50%"
+      - "&a  Sol Tık 4: %qp4%     &aShift +4: HEPSİ"
+      - ""
+      - "&eYatırılan paralar otomatik faiz kazanır."
+    withdraw_name: "&c📤 Para Çek"
+    withdraw_lore:
+      - "&7Bankadaki parayı cüzdanına aktar."
+      - ""
+      - "&8• &7Hızlı seçimler:"
+      - "&c  Sol Tık 1: %qp1%     &cShift +1: %qp10%"
+      - "&c  Sol Tık 2: %qp2%     &cShift +2: %qp20%"
+      - "&c  Sol Tık 3: %qp3%     &cShift +3: %qp50%"
+      - "&c  Sol Tık 4: %qp4%     &cShift +4: HEPSİ"
+      - ""
+      - "&eÖdeme yapman veya bir şey satın alman gerektiğinde çek."
+    info_name: "&b📈 Bilgi"
+    info_lore:
+      - "&7Bankanın güncel oranları."
+      - ""
+      - "&8• &aFaiz: &f+%interest_pct%% &7her %interest_min% dakikada"
+      - "&8• &cVergi: &f-%tax_pct%% &7%tax_threshold% üzerindeki kısımdan"
+      - "&8• &7Vergi sıklığı: &f%tax_min% dakikada bir"
+      - ""
+      - "&eFaiz otomatik ödenir; vergi enflasyonu azaltır."
+    deposit_qp1_name: "&2+%qp1%"
+    deposit_qp1_lore:
+      - "&7Bankaya &a%qp1_amount% &7yatır."
+      - ""
+      - "&8• &7Cüzdan maliyeti: &c%qp1_amount%"
+      - "&8• &7Sonraki banka bakiyesi: &a%qp1_new%"
+      - ""
+      - "&eSol Tık = %qp1% · Shift = %qp10%"
+    deposit_qp2_name: "&2+%qp2%"
+    deposit_qp2_lore:
+      - "&7Bankaya &a%qp2_amount% &7yatır."
+      - ""
+      - "&8• &7Cüzdan maliyeti: &c%qp2_amount%"
+      - "&8• &7Sonraki banka bakiyesi: &a%qp2_new%"
+      - ""
+      - "&eSol Tık = %qp2% · Shift = %qp20%"
+    deposit_qp3_name: "&2+%qp3%"
+    deposit_qp3_lore:
+      - "&7Bankaya &a%qp3_amount% &7yatır."
+      - ""
+      - "&8• &7Cüzdan maliyeti: &c%qp3_amount%"
+      - "&8• &7Sonraki banka bakiyesi: &a%qp3_new%"
+      - ""
+      - "&eSol Tık = %qp3% · Shift = %qp50%"
+    deposit_qp4_name: "&2+%qp4%"
+    deposit_qp4_lore:
+      - "&7Bankaya &a%qp4_amount% &7yatır."
+      - ""
+      - "&8• &7Cüzdan maliyeti: &c%qp4_amount%"
+      - "&8• &7Sonraki banka bakiyesi: &a%qp4_new%"
+      - ""
+      - "&eSol Tık = %qp4% · Shift = HEPSİ"
+    withdraw_qp1_name: "&c-%qp1%"
+    withdraw_qp1_lore:
+      - "&7Bankadan &c%qp1_amount% &7çek."
+      - ""
+      - "&8• &7Sonraki cüzdan bakiyesi: &a%qp1_wallet%"
+      - "&8• &7Sonraki banka bakiyesi: &c%qp1_bank%"
+      - ""
+      - "&eSol Tık = %qp1% · Shift = %qp10%"
+    withdraw_qp2_name: "&c-%qp2%"
+    withdraw_qp2_lore:
+      - "&7Bankadan &c%qp2_amount% &7çek."
+      - ""
+      - "&8• &7Sonraki cüzdan bakiyesi: &a%qp2_wallet%"
+      - "&8• &7Sonraki banka bakiyesi: &c%qp2_bank%"
+      - ""
+      - "&eSol Tık = %qp2% · Shift = %qp20%"
+    withdraw_qp3_name: "&c-%qp3%"
+    withdraw_qp3_lore:
+      - "&7Bankadan &c%qp3_amount% &7çek."
+      - ""
+      - "&8• &7Sonraki cüzdan bakiyesi: &a%qp3_wallet%"
+      - "&8• &7Sonraki banka bakiyesi: &c%qp3_bank%"
+      - ""
+      - "&eSol Tık = %qp3% · Shift = %qp50%"
+    withdraw_qp4_name: "&c-%qp4%"
+    withdraw_qp4_lore:
+      - "&7Bankadan &c%qp4_amount% &7çek."
+      - ""
+      - "&8• &7Sonraki cüzdan bakiyesi: &a%qp4_wallet%"
+      - "&8• &7Sonraki banka bakiyesi: &c%qp4_bank%"
+      - ""
+      - "&eSol Tık = %qp4% · Shift = HEPSİ"
+    back_name: "&8◀ Geri"
+    back_lore:
+      - "&7Ana Vault menüsüne geri dön."
+  menu:
+    item_name: "&6🏦 Banka"
+    item_lore:
+      - "&7Banka hesabını yönet."
+      - ""
+      - "&8• &7Bakiyen: &f%bank%"
+      - "&8• &7Faiz: &a+%interest_next%"
+      - ""
+      - "&eBanka menüsünü açmak için tıkla."
