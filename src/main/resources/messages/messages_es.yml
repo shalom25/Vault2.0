@@ -90,6 +90,14 @@ cmd:
     your_balance: "Tu balance: &6%amount%"
   vault:
     no_permission: "&cNo tienes permiso para recargar el plugin."
+  common:
+    only_players: "&cEste comando solo puede usarse en el juego."
+    no_permission: "&cNo tienes permiso para usar este comando."
+    invalid_amount: "&cCantidad inválida."
+    positive_only: "&cLa cantidad debe ser mayor que 0."
+    insufficient_funds: "&cSaldo insuficiente."
+    player_not_found: "&cJugador no encontrado: &f%player%"
+    usage_prefix: "&eUso:"
 
 # Claves esperadas por el servicio de menú (nivel superior)
 menu:
@@ -355,17 +363,6 @@ discord:
     TEAM_DEPOSIT: "Depósito equipo"
     TEAM_WITHDRAW: "Retiro equipo"
     TEAM_DISBAND_REFUND: "Reembolso equipo"
-
-# ===== Comunes (multi-comando) =====
-cmd:
-  common:
-    only_players: "&cEste comando solo puede usarse en el juego."
-    no_permission: "&cNo tienes permiso para usar este comando."
-    invalid_amount: "&cCantidad inválida."
-    positive_only: "&cLa cantidad debe ser mayor que 0."
-    insufficient_funds: "&cSaldo insuficiente."
-    player_not_found: "&cJugador no encontrado: &f%player%"
-    usage_prefix: "&eUso:"
 
 # ===== Billetes físicos (PhysicalNoteService + /vault withdraw) =====
 note:

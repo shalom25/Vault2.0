@@ -91,6 +91,14 @@ cmd:
     your_balance: "Bakiyen: &6%amount%"
   vault:
     no_permission: "&cEklentiyi yeniden yükleme izniniz yok."
+  common:
+    only_players: "&cBu komut yalnızca oyun içinde kullanılabilir."
+    no_permission: "&cBu komutu kullanma izniniz yok."
+    invalid_amount: "&cGeçersiz miktar."
+    positive_only: "&cMiktar 0'dan büyük olmalı."
+    insufficient_funds: "&cYetersiz bakiye."
+    player_not_found: "&cOyuncu bulunamadı: &f%player%"
+    usage_prefix: "&eKullanım:"
 
 # Menü servisinin beklediği anahtarlar (üst seviye)
 menu:
@@ -190,7 +198,7 @@ settings:
     min: "&fMin kredi"
     max: "&fMaks kredi"
     max_installments: "&fMaks taksit"
-    default_interval_hours: "&fVarsayılan aralık (s)"
+    default_interval_hours: "&fVarsayılan aralık (saat)"
     charge_check_seconds: "&fTahsilat kontrolü (sn)"
     max_missed: "&fMaks kaçırılan"
   pay:
@@ -270,9 +278,9 @@ loan:
   prompt:
     cancel_words: "&ciptal,&cvazgeç"
     amount: "&aKredi miktarını sohbete yaz, ya da &c%cancel%."
-    type: "&a'total' (tek seferde öde) veya 'cuotas' (taksitli) yaz, ya da &c%cancel%."
+    type: "&aTek ödeme için 'total' (Tek seferde), taksitli ödeme için 'installments' (Taksitli) yaz ya da &c%cancel% &ayaz."
     total_delay_hours: "&aSunucu toplam ödemeyi kaç saat sonra tahsil etsin? (örnek: 24) Ya da &c%cancel%."
-    installments_mode: "&a'cantidad' (taksit sayısı gir) veya 'monto' (taksit miktarı gir) yaz, ya da &c%cancel%."
+    installments_mode: "&aSayıyla belirtmek için 'count' (Taksit sayısı), tutarla belirtmek için 'amount' (Taksit tutarı) yaz ya da &c%cancel% &ayaz."
     installments_count: "&aKaç taksit? Ya da &c%cancel%."
     installment_amount: "&aTaksit miktarını yaz (her ödeme). Ya da &c%cancel%."
     interval_hours: "&aTaksitler arasındaki aralık, saat cinsinden (0 = varsayılan &e%default_hours%). Ya da &c%cancel%."
@@ -280,8 +288,8 @@ loan:
     pay_amount: "&aNe kadar ödemek istediğini yaz (ya da 'all'). Kalan: &e%remaining%. Ya da &c%cancel%."
   error:
     invalid_number: "&cGeçersiz sayı."
-    invalid_type: "&cGeçersiz tür. 'total' veya 'cuotas' kullan."
-    invalid_installments_mode: "&cGeçersiz seçenek. 'cantidad' veya 'monto' kullan."
+    invalid_type: "&cGeçersiz tür. Sadece 'total' veya 'installments' kullan."
+    invalid_installments_mode: "&cGeçersiz seçenek. Sadece 'count' veya 'amount' kullan."
     installment_too_small: "&e%loan_amount% &ctutarındaki bir kredi için minimum taksit &e%min_installment%&c'dir."
     too_small: "&cKredi miktarı en az &e%min% olmalı."
     too_large: "&cKredi miktarı en fazla &e%max% olmalı."
@@ -356,17 +364,6 @@ discord:
     TEAM_DEPOSIT: "Takım yatırması"
     TEAM_WITHDRAW: "Takım çekmesi"
     TEAM_DISBAND_REFUND: "Takım feshi iadesi"
-
-# ===== Ortak (çoklu komut) =====
-cmd:
-  common:
-    only_players: "&cBu komut yalnızca oyun içinde kullanılabilir."
-    no_permission: "&cBu komutu kullanma izniniz yok."
-    invalid_amount: "&cGeçersiz miktar."
-    positive_only: "&cMiktar 0'dan büyük olmalı."
-    insufficient_funds: "&cYetersiz bakiye."
-    player_not_found: "&cOyuncu bulunamadı: &f%player%"
-    usage_prefix: "&eKullanım:"
 
 # ===== Fiziksel banknotlar (PhysicalNoteService + /vault withdraw) =====
 note:

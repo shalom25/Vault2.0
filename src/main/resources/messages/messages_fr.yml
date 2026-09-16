@@ -100,6 +100,14 @@ cmd:
     withdraw_ok: "Retiré %amount% de %player%."
     deposit_error: "Impossible de déposer : %error%"
     withdraw_error: "Impossible de retirer : %error%"
+  common:
+    only_players: "&cCette commande ne peut être utilisée que dans le jeu."
+    no_permission: "&cVous n'avez pas la permission d'utiliser cette commande."
+    invalid_amount: "&cMontant invalide."
+    positive_only: "&cLe montant doit être supérieur à 0."
+    insufficient_funds: "&cSolde insuffisant."
+    player_not_found: "&cJoueur introuvable : &f%player%"
+    usage_prefix: "&eUtilisation :"
 
 # Clés attendues par le service de menu (niveau supérieur)
 menu:
@@ -365,17 +373,6 @@ discord:
     TEAM_DEPOSIT: "Dépôt d'équipe"
     TEAM_WITHDRAW: "Retrait d'équipe"
     TEAM_DISBAND_REFUND: "Remboursement lors du démantèlement"
-
-# ===== Communs (multi-commande) =====
-cmd:
-  common:
-    only_players: "&cCette commande ne peut être utilisée que dans le jeu."
-    no_permission: "&cVous n'avez pas la permission d'utiliser cette commande."
-    invalid_amount: "&cMontant invalide."
-    positive_only: "&cLe montant doit être supérieur à 0."
-    insufficient_funds: "&cSolde insuffisant."
-    player_not_found: "&cJoueur introuvable : &f%player%"
-    usage_prefix: "&eUtilisation :"
 
 # ===== Billets physiques (PhysicalNoteService + /vault withdraw) =====
 note:

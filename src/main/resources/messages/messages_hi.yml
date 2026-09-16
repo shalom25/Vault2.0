@@ -91,6 +91,14 @@ cmd:
     your_balance: "आपकी शेष राशि: &6%amount%"
   vault:
     no_permission: "&cआपके पास प्लगइन को फिर से लोड करने की अनुमति नहीं है।"
+  common:
+    only_players: "&cयह कमांड केवल गेम में उपयोग की जा सकती है।"
+    no_permission: "&cआपके पास इस कमांड का उपयोग करने की अनुमति नहीं है।"
+    invalid_amount: "&cअमान्य राशि।"
+    positive_only: "&cराशि 0 से अधिक होनी चाहिए।"
+    insufficient_funds: "&cअपर्याप्त बैलेंस।"
+    player_not_found: "&cखिलाड़ी नहीं मिला: &f%player%"
+    usage_prefix: "&eउपयोग:"
 
 # Keys expected by menu service (top-level)
 menu:
@@ -357,18 +365,7 @@ discord:
     TEAM_WITHDRAW: "टीम निकासी"
     TEAM_DISBAND_REFUND: "टीम तोड़ने पर वापसी"
 
-# ===== Common (multi-command) =====
-cmd:
-  common:
-    only_players: "&cयह कमांड केवल गेम में उपयोग की जा सकती है।"
-    no_permission: "&cआपके पास इस कमांड का उपयोग करने की अनुमति नहीं है।"
-    invalid_amount: "&cअमान्य राशि।"
-    positive_only: "&cराशि 0 से अधिक होनी चाहिए।"
-    insufficient_funds: "&cअपर्याप्त बैलेंस।"
-    player_not_found: "&cखिलाड़ी नहीं मिला: &f%player%"
-    usage_prefix: "&eउपयोग:"
-
-# ===== Physical notes (PhysicalNoteService + /vault withdraw) =====
+# ===== भौतिक नोट्स (PhysicalNoteService + /vault withdraw) =====
 note:
   withdraw:
     disabled: "&cभौतिक नोट अक्षम हैं।"

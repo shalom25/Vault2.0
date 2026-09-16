@@ -91,6 +91,14 @@ cmd:
     your_balance: "Ваш баланс: &6%amount%"
   vault:
     no_permission: "&cУ вас нет прав для перезагрузки плагина."
+  common:
+    only_players: "&cЭту команду можно использовать только в игре."
+    no_permission: "&cУ вас нет прав для использования этой команды."
+    invalid_amount: "&cНеверная сумма."
+    positive_only: "&cСумма должна быть больше 0."
+    insufficient_funds: "&cНедостаточно средств."
+    player_not_found: "&cИгрок не найден: &f%player%"
+    usage_prefix: "&eИспользование:"
 
 # Keys expected by menu service (top-level)
 menu:
@@ -356,17 +364,6 @@ discord:
     TEAM_DEPOSIT: "Вклад в команду"
     TEAM_WITHDRAW: "Вывод из команды"
     TEAM_DISBAND_REFUND: "Возврат при роспуске команды"
-
-# ===== Общее (мульти-команды) =====
-cmd:
-  common:
-    only_players: "&cЭту команду можно использовать только в игре."
-    no_permission: "&cУ вас нет прав для использования этой команды."
-    invalid_amount: "&cНеверная сумма."
-    positive_only: "&cСумма должна быть больше 0."
-    insufficient_funds: "&cНедостаточно средств."
-    player_not_found: "&cИгрок не найден: &f%player%"
-    usage_prefix: "&eИспользование:"
 
 # ===== Физические купюры (PhysicalNoteService + /vault withdraw) =====
 note:

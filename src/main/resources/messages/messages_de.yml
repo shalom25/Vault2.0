@@ -100,6 +100,14 @@ cmd:
     withdraw_ok: "%amount% von %player% abgezogen."
     deposit_error: "Einzahlung fehlgeschlagen: %error%"
     withdraw_error: "Abheben fehlgeschlagen: %error%"
+  common:
+    only_players: "&cDieser Befehl kann nur im Spiel verwendet werden."
+    no_permission: "&cDu hast keine Berechtigung, diesen Befehl zu verwenden."
+    invalid_amount: "&cUngültiger Betrag."
+    positive_only: "&cBetrag muss größer als 0 sein."
+    insufficient_funds: "&cUnzureichender Kontostand."
+    player_not_found: "&cSpieler nicht gefunden: &f%player%"
+    usage_prefix: "&eVerwendung:"
 
 # Schlüssel, die vom Menüservice erwartet werden (oberste Ebene)
 menu:
@@ -366,18 +374,7 @@ discord:
     TEAM_WITHDRAW: "Team-Auszahlung"
     TEAM_DISBAND_REFUND: "Team-Auflösung Rückerstattung"
 
-# ===== Allgemein (Mehrfachbefehle) =====
-cmd:
-  common:
-    only_players: "&cDieser Befehl kann nur im Spiel verwendet werden."
-    no_permission: "&cDu hast keine Berechtigung, diesen Befehl zu verwenden."
-    invalid_amount: "&cUngültiger Betrag."
-    positive_only: "&cBetrag muss größer als 0 sein."
-    insufficient_funds: "&cUnzureichender Kontostand."
-    player_not_found: "&cSpieler nicht gefunden: &f%player%"
-    usage_prefix: "&eVerwendung:"
-
-# ===== Physische Notizen (PhysicalNoteService + /vault withdraw) =====
+# ===== Physische Banknoten (PhysicalNoteService + /vault withdraw) =====
 note:
   withdraw:
     disabled: "&cPhysische Notizen sind deaktiviert."

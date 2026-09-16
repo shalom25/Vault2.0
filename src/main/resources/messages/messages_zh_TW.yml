@@ -91,6 +91,14 @@ cmd:
     your_balance: "你的餘額: &6%amount%"
   vault:
     no_permission: "&c你沒有權限重新加載插件。"
+  common:
+    only_players: "&c此指令只能在遊戲內使用。"
+    no_permission: "&c你沒有權限使用此指令。"
+    invalid_amount: "&c無效的金額。"
+    positive_only: "&c金額必須大於 0。"
+    insufficient_funds: "&c餘額不足。"
+    player_not_found: "&c找不到玩家：&f%player%"
+    usage_prefix: "&e用法："
 
 # Keys expected by menu service (top-level)
 menu:
@@ -356,17 +364,6 @@ discord:
     TEAM_DEPOSIT: "團隊存款"
     TEAM_WITHDRAW: "團隊提款"
     TEAM_DISBAND_REFUND: "解散團隊退款"
-
-# ===== 通用（多指令）=====
-cmd:
-  common:
-    only_players: "&c此指令只能在遊戲內使用。"
-    no_permission: "&c你沒有權限使用此指令。"
-    invalid_amount: "&c無效的金額。"
-    positive_only: "&c金額必須大於 0。"
-    insufficient_funds: "&c餘額不足。"
-    player_not_found: "&c找不到玩家：&f%player%"
-    usage_prefix: "&e用法："
 
 # ===== 實體票據（PhysicalNoteService + /vault withdraw）=====
 note:

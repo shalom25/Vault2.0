@@ -89,6 +89,14 @@ cmd:
     your_balance: "Twoje saldo: &6%amount%"
   vault:
     no_permission: "&cNie masz uprawnień do przeładowania pluginu."
+  common:
+    only_players: "&cTa komenda może być używana tylko w grze."
+    no_permission: "&cNie masz uprawnień do używania tej komendy."
+    invalid_amount: "&cNieprawidłowa kwota."
+    positive_only: "&cKwota musi być większa od 0."
+    insufficient_funds: "&cNiewystarczające saldo."
+    player_not_found: "&cNie znaleziono gracza: &f%player%"
+    usage_prefix: "&eUżycie:"
 
 menu:
   title_main: "&8&lWybierz gracza"
@@ -352,16 +360,6 @@ discord:
     TEAM_DEPOSIT: "Wpłata drużyny"
     TEAM_WITHDRAW: "Wypłata drużyny"
     TEAM_DISBAND_REFUND: "Zwrot przy rozwiązaniu drużyny"
-
-cmd:
-  common:
-    only_players: "&cTa komenda może być używana tylko w grze."
-    no_permission: "&cNie masz uprawnień do używania tej komendy."
-    invalid_amount: "&cNieprawidłowa kwota."
-    positive_only: "&cKwota musi być większa od 0."
-    insufficient_funds: "&cNiewystarczające saldo."
-    player_not_found: "&cNie znaleziono gracza: &f%player%"
-    usage_prefix: "&eUżycie:"
 
 note:
   withdraw:

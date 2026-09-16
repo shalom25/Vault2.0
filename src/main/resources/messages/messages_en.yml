@@ -91,6 +91,14 @@ cmd:
     your_balance: "Your balance: &6%amount%"
   vault:
     no_permission: "&cYou do not have permission to reload the plugin."
+  common:
+    only_players: "&cThis command can only be used in-game."
+    no_permission: "&cYou do not have permission to use this command."
+    invalid_amount: "&cInvalid amount."
+    positive_only: "&cAmount must be greater than 0."
+    insufficient_funds: "&cInsufficient balance."
+    player_not_found: "&cPlayer not found: &f%player%"
+    usage_prefix: "&eUsage:"
 
 # Keys expected by menu service (top-level)
 menu:
@@ -356,17 +364,6 @@ discord:
     TEAM_DEPOSIT: "Team deposit"
     TEAM_WITHDRAW: "Team withdraw"
     TEAM_DISBAND_REFUND: "Team disband refund"
-
-# ===== Common (multi-command) =====
-cmd:
-  common:
-    only_players: "&cThis command can only be used in-game."
-    no_permission: "&cYou do not have permission to use this command."
-    invalid_amount: "&cInvalid amount."
-    positive_only: "&cAmount must be greater than 0."
-    insufficient_funds: "&cInsufficient balance."
-    player_not_found: "&cPlayer not found: &f%player%"
-    usage_prefix: "&eUsage:"
 
 # ===== Physical notes (PhysicalNoteService + /vault withdraw) =====
 note:

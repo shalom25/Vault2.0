@@ -91,6 +91,14 @@ cmd:
     your_balance: "Jouw saldo: &6%amount%"
   vault:
     no_permission: "&cJe hebt geen toestemming om de plugin te herladen."
+  common:
+    only_players: "&cDit commando kan alleen in-game gebruikt worden."
+    no_permission: "&cJe hebt geen toestemming om dit commando te gebruiken."
+    invalid_amount: "&cOngeldig bedrag."
+    positive_only: "&cHet bedrag moet groter zijn dan 0."
+    insufficient_funds: "&cOnvoldoende saldo."
+    player_not_found: "&cSpeler niet gevonden: &f%player%"
+    usage_prefix: "&eGebruik:"
 
 # Keys expected by menu service (top-level)
 menu:
@@ -356,16 +364,6 @@ discord:
     TEAM_DEPOSIT: "Teamstorting"
     TEAM_WITHDRAW: "Teamopname"
     TEAM_DISBAND_REFUND: "Terugbetaling bij teamopheffing"
-
-cmd:
-  common:
-    only_players: "&cDit commando kan alleen in-game gebruikt worden."
-    no_permission: "&cJe hebt geen toestemming om dit commando te gebruiken."
-    invalid_amount: "&cOngeldig bedrag."
-    positive_only: "&cHet bedrag moet groter zijn dan 0."
-    insufficient_funds: "&cOnvoldoende saldo."
-    player_not_found: "&cSpeler niet gevonden: &f%player%"
-    usage_prefix: "&eGebruik:"
 
 # ===== Fysieke bankbiljetten (PhysicalNoteService + /vault withdraw) =====
 note:

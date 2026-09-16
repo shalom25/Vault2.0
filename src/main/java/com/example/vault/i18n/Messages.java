@@ -76,6 +76,8 @@ public class Messages {
         syncYamlDefaults("messages/messages_ru.yml");
         syncYamlDefaults("messages/messages_pt.yml");
         syncYamlDefaults("messages/messages_hi.yml");
+        syncYamlDefaults("messages/messages_ja.yml");
+        syncYamlDefaults("messages/messages_tr.yml");
         this.fallback = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "messages/messages_en.yml"));
         String normalizedLanguage = normalizeLanguageFileCode(language);
         File langFile = new File(plugin.getDataFolder(), "messages/messages_" + normalizedLanguage + ".yml");
