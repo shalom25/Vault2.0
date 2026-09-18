@@ -5,7 +5,7 @@
 
   <groupId>com.example</groupId>
   <artifactId>vault</artifactId>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
   <name>Vault 2.0</name>
   <description>Proveedor Economy estilo Vault integrado (sin depender de Vault.jar)</description>
 
@@ -13,7 +13,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>17</maven.compiler.release>
     <spigot.api.version>1.8.8-R0.1-SNAPSHOT</spigot.api.version>
-    <jar.finalName>vault-2.1.0-java17</jar.finalName>
+    <jar.finalName>vault-2.1.1-java17</jar.finalName>
     <build.dir>${project.basedir}/target-java17</build.dir>
   </properties>
 
@@ -180,7 +180,7 @@
       <properties>
         <maven.compiler.release>17</maven.compiler.release>
         <spigot.api.version>1.8.8-R0.1-SNAPSHOT</spigot.api.version>
-        <jar.finalName>vault-2.1.0-java17</jar.finalName>
+        <jar.finalName>vault-2.1.1-java17</jar.finalName>
         <build.dir>${project.basedir}/target-java17</build.dir>
       </properties>
     </profile>
@@ -189,7 +189,7 @@
       <properties>
         <maven.compiler.release>21</maven.compiler.release>
         <spigot.api.version>1.21.4-R0.1-SNAPSHOT</spigot.api.version>
-        <jar.finalName>vault-2.1.0-java21</jar.finalName>
+        <jar.finalName>vault-2.1.1-java21</jar.finalName>
         <build.dir>${project.basedir}/target-java21</build.dir>
       </properties>
     </profile>

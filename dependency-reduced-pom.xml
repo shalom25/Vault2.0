@@ -4,7 +4,7 @@
   <groupId>com.example</groupId>
   <artifactId>vault</artifactId>
   <name>Vault 2.0</name>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
   <description>Proveedor Economy estilo Vault integrado (sin depender de Vault.jar)</description>
   <build>
     <directory>${build.dir}</directory>

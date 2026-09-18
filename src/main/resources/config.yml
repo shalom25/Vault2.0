@@ -1,7 +1,7 @@
 # Vault 2.0 — internal economy compatible with the Vault API
 # Provides balance, player-to-player payments, and config/message reload.
 # Commands: /balance, /pay, /vault reload. No external Vault.jar required.
-plugin_version: v2.1.0
+plugin_version: v2.1.1
 # languages_supported: ["en", "es", "fr", "de", "nl", "pl", "zh_CN", "zh_TW", "ru", "pt", "hi", "ja", "tr"]
 language: en
 # Vault 2.0 — internal economy compatible with the Vault API
