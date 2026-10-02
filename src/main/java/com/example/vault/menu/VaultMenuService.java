@@ -73,11 +73,16 @@ public class VaultMenuService implements Listener {
         if (plugin.getEconomyProvider() instanceof SimpleEconomy) se = (SimpleEconomy) plugin.getEconomyProvider();
         BankService b = plugin.getBankService();
 
-        inv.setItem(10, item(Material.EMERALD, display("vault.menu.item.pay", "&aPay"), lore("vault.menu.lore.pay")));
-        inv.setItem(12, item(Material.EMERALD_BLOCK, display("vault.menu.item.loan", "&aLoan"), lore("vault.menu.lore.loan")));
+        boolean hasPay = player.isOp() || player.hasPermission("vault.admin") || player.hasPermission("vault.use") || player.hasPermission("vault.pay");
+        boolean hasLoan = player.isOp() || player.hasPermission("vault.admin") || player.hasPermission("vault.use") || player.hasPermission("vault.loan");
+        boolean hasBankMenu = player.isOp() || player.hasPermission("vault.admin") || player.hasPermission("vault.use") || player.hasPermission("vault.bank");
+        boolean showAdmin = player.isOp() || player.hasPermission("vault.admin");
+
+        if (hasPay) inv.setItem(10, item(Material.EMERALD, display("vault.menu.item.pay", "&aPay"), lore("vault.menu.lore.pay")));
+        if (hasLoan) inv.setItem(12, item(Material.EMERALD_BLOCK, display("vault.menu.item.loan", "&aLoan"), lore("vault.menu.lore.loan")));
 
         // 🏦 Bank item (slot 13)
-        if (se != null && b != null) {
+        if (se != null && b != null && hasBankMenu) {
             String cid = se.getDefaultCurrencyId();
             double bankBal = b.getBankBalance(player.getUniqueId());
             double irate = plugin.getConfig().getDouble("bank.interest.percent_per_period", 0.5);
@@ -96,7 +101,7 @@ public class VaultMenuService implements Listener {
             inv.setItem(13, item(gold, dispName, coloredLore));
         }
 
-        if (player.isOp()) {
+        if (showAdmin) {
             Material comparator = Material.matchMaterial("COMPARATOR");
             if (comparator == null) comparator = Material.matchMaterial("REDSTONE_COMPARATOR");
             if (comparator == null) comparator = Material.REDSTONE;
@@ -200,14 +205,17 @@ public class VaultMenuService implements Listener {
         String name = meta != null ? meta.getDisplayName() : "";
 
         if (isMain) {
+            boolean showAdmin2 = player.isOp() || player.hasPermission("vault.admin");
             if (name.equals(display("vault.menu.item.pay", "&aPay"))) {
-                if (payMenuService != null) {
+                if (payMenuService != null && (player.isOp() || player.hasPermission("vault.admin") || player.hasPermission("vault.use") || player.hasPermission("vault.pay"))) {
                     payMenuService.openMainMenu(player);
                 }
                 return;
             }
             if (name.equals(display("vault.menu.item.loan", "&aLoan"))) {
-                loanMenuService.openLoanMenu(player);
+                if (player.isOp() || player.hasPermission("vault.admin") || player.hasPermission("vault.use") || player.hasPermission("vault.loan")) {
+                    loanMenuService.openLoanMenu(player);
+                }
                 return;
             }
             // Bank menu item matches on placeholder-resolved bank.menu.item_name raw
@@ -227,21 +235,23 @@ public class VaultMenuService implements Listener {
             }
             if (!bankMatch && (name.equals(ColorUtil.colorize(fallbackBankName)))) bankMatch = true;
             if (bankMatch) {
-                openBankMenu(player);
+                if (player.isOp() || player.hasPermission("vault.admin") || player.hasPermission("vault.use") || player.hasPermission("vault.bank")) {
+                    openBankMenu(player);
+                }
                 return;
             }
-            if (player.isOp() && name.equals(display("vault.menu.item.settings", "&cSettings"))) {
+            if (showAdmin2 && name.equals(display("vault.menu.item.settings", "&cSettings"))) {
                 openSettingsMenu(player);
                 return;
             }
-            if (player.isOp() && name.equals(display("vault.menu.item.reload", "&eReload"))) {
+            if (showAdmin2 && name.equals(display("vault.menu.item.reload", "&eReload"))) {
                 plugin.reloadPluginState();
                 String lang = plugin.getConfig().getString("language", "en");
                 player.sendMessage(messages.formatChat("plugin.reloaded", java.util.Collections.singletonMap("lang", lang)));
                 player.closeInventory();
                 return;
             }
-            if (player.isOp() && name.equals(display("vault.menu.item.update", "&bUpdate"))) {
+            if (showAdmin2 && name.equals(display("vault.menu.item.update", "&bUpdate"))) {
                 player.sendMessage(messages.prefixed("Checking for updates..."));
                 plugin.runUpdateCheckAndAnnounce(player);
                 player.closeInventory();
@@ -249,7 +259,8 @@ public class VaultMenuService implements Listener {
             return;
         }
 
-        if (!player.isOp()) return;
+        boolean settingsOk = player.isOp() || player.hasPermission("vault.admin");
+        if (!settingsOk) return;
 
         if (isSettingsMain) {
             if (name.equals(display("settings.item.loans", "&aLoans"))) {

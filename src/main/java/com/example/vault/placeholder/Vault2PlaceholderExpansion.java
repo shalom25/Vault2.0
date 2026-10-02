@@ -11,6 +11,9 @@ import com.example.vault.i18n.Messages;
 import com.example.vault.util.ColorUtil;
 import com.example.vault.util.PlayerResolver;
 import com.example.vault.economy.SimpleEconomy;
+import com.example.vault.economy.BankService;
+import com.example.vault.loans.Loan;
+import com.example.vault.loans.LoanService;
 import org.bukkit.Bukkit;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -63,6 +66,60 @@ public class Vault2PlaceholderExpansion extends PlaceholderExpansion {
         return true;
     }
 
+    private SimpleEconomy getSimpleEconomy() {
+        return economy instanceof SimpleEconomy ? (SimpleEconomy) economy : null;
+    }
+
+    private BankService getBankService() {
+        if (!(plugin instanceof com.example.vault.VaultPlugin)) return null;
+        return ((com.example.vault.VaultPlugin) plugin).getBankService();
+    }
+
+    private LoanService getLoanService() {
+        if (!(plugin instanceof com.example.vault.VaultPlugin)) return null;
+        try {
+            java.lang.reflect.Method m = com.example.vault.VaultPlugin.class.getMethod("getLoanService");
+            Object out = m.invoke(plugin);
+            return out instanceof LoanService ? (LoanService) out : null;
+        } catch (Throwable ignored) {
+            return null;
+        }
+    }
+
+    private double sanitize(double v) { return Double.isFinite(v) ? v : 0.0; }
+
+    private enum Style { RAW, FIXED, COMMAS, SHORT, FORMATTED, INT }
+
+    private Style styleFromSuffix(String key, String base) {
+        String suffix = key.substring(base.length());
+        if (suffix.isEmpty()) return Style.FIXED;
+        if (suffix.equals("_raw")) return Style.RAW;
+        if (suffix.equals("_int")) return Style.INT;
+        if (suffix.equals("_fixed")) return Style.FIXED;
+        if (suffix.equals("_commas")) return Style.COMMAS;
+        if (suffix.equals("_short")) return Style.SHORT;
+        if (suffix.equals("_formatted")) return Style.FORMATTED;
+        return null;
+    }
+
+    private String formatMoney(double amount, Style style) {
+        double a = sanitize(amount);
+        return switch (style) {
+            case RAW -> String.valueOf(a);
+            case FIXED -> String.format(Locale.ROOT, "%.2f", a);
+            case COMMAS -> formatWithCommas(a);
+            case SHORT -> {
+                SimpleEconomy se = getSimpleEconomy();
+                if (se != null) yield se.formatShort(se.getDefaultCurrencyId(), a);
+                yield economy.format(a);
+            }
+            case FORMATTED -> economy.format(a);
+            case INT -> String.valueOf(Math.round(a));
+        };
+    }
+
+    private boolean isFiniteNonNegative(double v) { return Double.isFinite(v) && v >= 0.0; }
+
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         if (params == null) return "";
@@ -78,12 +135,88 @@ public class Vault2PlaceholderExpansion extends PlaceholderExpansion {
             if (raw == null) raw = "";
             return ColorUtil.colorize(raw);
         }
+
+        String interestPrefix = "interest";
+        if (key.equals(interestPrefix) || key.startsWith(interestPrefix + "_")) {
+            if (player == null) return "";
+            Style style = styleFromSuffix(key, interestPrefix);
+            if (style == null) return "";
+            BankService bank = getBankService();
+            if (bank == null) return formatMoney(0.0, style);
+            SimpleEconomy se = getSimpleEconomy();
+            if (se == null) return formatMoney(0.0, style);
+            if (!bank.isInterestEnabled()) return formatMoney(0.0, style);
+            double bankBal = sanitize(bank.getBankBalance(player.getUniqueId()));
+            double pct = plugin.getConfig().getDouble("bank.interest.percent_per_period", 0.5);
+            if (pct <= 0 || bankBal <= 0) return formatMoney(0.0, style);
+            return formatMoney(bankBal * pct / 100.0, style);
+        }
+
+        String taxPrefix = "tax";
+        if (key.equals(taxPrefix) || key.startsWith(taxPrefix + "_")) {
+            if (player == null) return "";
+            Style style = styleFromSuffix(key, taxPrefix);
+            if (style == null) return "";
+            BankService bank = getBankService();
+            if (bank == null) return formatMoney(0.0, style);
+            SimpleEconomy se = getSimpleEconomy();
+            if (se == null) return formatMoney(0.0, style);
+            if (!bank.isTaxEnabled()) return formatMoney(0.0, style);
+            double bankBal = sanitize(bank.getBankBalance(player.getUniqueId()));
+            double pct = plugin.getConfig().getDouble("bank.tax.percent_per_period", 0.0);
+            double threshold = plugin.getConfig().getDouble("bank.tax.threshold", 1000000.0);
+            if (pct <= 0 || bankBal <= threshold) return formatMoney(0.0, style);
+            return formatMoney((bankBal - threshold) * pct / 100.0, style);
+        }
+
+        String netPrefix = "net";
+        if (key.equals(netPrefix) || key.startsWith(netPrefix + "_")) {
+            if (player == null) return "";
+            Style style = styleFromSuffix(key, netPrefix);
+            if (style == null) return "";
+            ensureAccountForRequest(player, player);
+            double wallet = sanitize(getBalanceForRequest(player, player));
+            BankService bank = getBankService();
+            double bankBal = bank != null ? sanitize(bank.getBankBalance(player.getUniqueId())) : 0.0;
+            LoanService loans = getLoanService();
+            double loanRemaining = 0.0;
+            if (loans != null) {
+                Loan loan = loans.getLoan(player.getUniqueId());
+                if (loan != null) loanRemaining = sanitize(loan.getRemaining());
+            }
+            return formatMoney(wallet + bankBal - loanRemaining, style);
+        }
+
+        String walletPrefix = "wallet";
+        if (key.equals(walletPrefix) || key.startsWith(walletPrefix + "_")) {
+            if (player == null) return "";
+            Style style = styleFromSuffix(key, walletPrefix);
+            if (style == null) return "";
+            ensureAccountForRequest(player, player);
+            return formatMoney(getBalanceForRequest(player, player), style);
+        }
+
+        String bankPrefix = "bank";
+        if (key.equals(bankPrefix) || key.startsWith(bankPrefix + "_")) {
+            Style style = styleFromSuffix(key, bankPrefix);
+            if (style == null) return "";
+            if (player == null) return formatMoney(0.0, style);
+            BankService bank = getBankService();
+            if (bank == null) return formatMoney(0.0, style);
+            return formatMoney(bank.getBankBalance(player.getUniqueId()), style);
+        }
+
+        if (key.startsWith("loan_")) {
+            if (player == null) return "";
+            return resolveLoanPlaceholder(key, player);
+        }
+
         if (player == null) return "";
         switch (key) {
             case "balance": {
                 ensureAccountForRequest(player, player);
                 double bal = getBalanceForRequest(player, player);
-                return String.valueOf(bal);
+                return String.format(Locale.ROOT, "%.2f", bal);
             }
             case "balance_formatted": {
                 ensureAccountForRequest(player, player);
@@ -93,7 +226,7 @@ public class Vault2PlaceholderExpansion extends PlaceholderExpansion {
             case "eco_balance": {
                 ensureAccountForRequest(player, player);
                 double bal = getBalanceForRequest(player, player);
-                return String.valueOf(bal);
+                return String.format(Locale.ROOT, "%.2f", bal);
             }
             case "eco_balance_formatted": {
                 ensureAccountForRequest(player, player);
@@ -132,7 +265,7 @@ public class Vault2PlaceholderExpansion extends PlaceholderExpansion {
                     OfflinePlayer other = PlayerResolver.resolveByNameWithOfflineFallback(plugin, name);
                     if (other == null) return "";
                     ensureAccountForRequest(other, player);
-                    return String.valueOf(getBalanceForRequest(other, player));
+                    return String.format(Locale.ROOT, "%.2f", getBalanceForRequest(other, player));
                 }
                 if (key.startsWith("ecobalance") && key.endsWith("dp")) {
                     String middle = key.substring("ecobalance".length(), key.length() - 2);
@@ -147,6 +280,78 @@ public class Vault2PlaceholderExpansion extends PlaceholderExpansion {
                         return "";
                     }
                 }
+                return "";
+        }
+    }
+
+    private String resolveLoanPlaceholder(String key, OfflinePlayer player) {
+        LoanService loans = getLoanService();
+        Loan loan = loans != null ? loans.getLoan(player.getUniqueId()) : null;
+        String rest = key.substring("loan_".length());
+        switch (rest) {
+            case "total":
+            case "total_formatted":
+            case "total_commas":
+            case "total_short":
+            case "total_fixed": {
+                Style style = styleFromSuffix("loan_" + rest, "loan_total");
+                if (style == null) return "";
+                double principal = loan != null && isFiniteNonNegative(loan.getPrincipal()) ? loan.getPrincipal() : 0.0;
+                if (loan != null && isFiniteNonNegative(loan.getInstallmentsLeft()) && loan.getInstallmentsLeft() > 0
+                        && isFiniteNonNegative(loan.getInstallmentAmount())) {
+                    double withInstallments = loan.getInstallmentAmount() * loan.getInstallmentsLeft();
+                    if (withInstallments > principal) principal = withInstallments;
+                }
+                return formatMoney(principal, style);
+            }
+            case "remainder":
+            case "remainder_formatted":
+            case "remainder_commas":
+            case "remainder_short":
+            case "remainder_fixed": {
+                Style style = styleFromSuffix("loan_" + rest, "loan_remainder");
+                if (style == null) return "";
+                double v = loan != null && isFiniteNonNegative(loan.getRemaining()) ? loan.getRemaining() : 0.0;
+                return formatMoney(v, style);
+            }
+            case "installment_amount":
+            case "installment_amount_formatted":
+            case "installment_amount_commas":
+            case "installment_amount_short":
+            case "installment_amount_fixed": {
+                Style style = styleFromSuffix("loan_" + rest, "loan_installment_amount");
+                if (style == null) return "";
+                double v = loan != null && isFiniteNonNegative(loan.getInstallmentAmount()) ? loan.getInstallmentAmount() : 0.0;
+                return formatMoney(v, style);
+            }
+            case "installments_left":
+            case "installments_left_formatted": {
+                int left = loan != null && loan.getInstallmentsLeft() > 0 ? loan.getInstallmentsLeft() : 0;
+                if (rest.equals("installments_left_formatted")) {
+                    return formatWithCommas(left);
+                }
+                return String.valueOf(left);
+            }
+            case "interest":
+            case "interest_formatted":
+            case "interest_commas":
+            case "interest_short":
+            case "interest_fixed": {
+                Style style = styleFromSuffix("loan_" + rest, "loan_interest");
+                if (style == null) return "";
+                double interest = 0.0;
+                if (loan != null
+                        && isFiniteNonNegative(loan.getPrincipal())
+                        && isFiniteNonNegative(loan.getRemaining())
+                        && isFiniteNonNegative(loan.getInstallmentsLeft())
+                        && loan.getInstallmentsLeft() > 0
+                        && isFiniteNonNegative(loan.getInstallmentAmount())) {
+                    double total = loan.getInstallmentAmount() * loan.getInstallmentsLeft();
+                    interest = sanitize(total - loan.getRemaining());
+                }
+                return formatMoney(interest, style);
+            }
+            default:
                 return "";
         }
     }
@@ -259,9 +464,9 @@ public class Vault2PlaceholderExpansion extends PlaceholderExpansion {
 
     private double getBalanceForRequest(OfflinePlayer subject, OfflinePlayer requester) {
         if (economy instanceof SimpleEconomy) {
-            return economy.getBalance(subject, requestWorldName(requester));
+            return sanitize(economy.getBalance(subject, requestWorldName(requester)));
         }
-        return economy.getBalance(subject);
+        return sanitize(economy.getBalance(subject));
     }
 
     private String requestWorldName(OfflinePlayer requester) {

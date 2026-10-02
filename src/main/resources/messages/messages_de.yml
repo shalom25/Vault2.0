@@ -307,6 +307,19 @@ loan:
     installment_too_small: "&cFür ein Darlehen von &e%loan_amount% muss die Mindestrate &e%min_installment% betragen."
   pay:
     success: "&aZahlung erhalten: &6%amount%. Verbleibend: &e%remaining%."
+  disabled: "&cKredite sind auf diesem Server deaktiviert."
+  no_active_conversation: "&cDu hast keine aktive Chat-Unterhaltung zum Abbrechen."
+  cmd:
+    menu_fallback: "&aKreditmenü nicht verfügbar. Benutze &f/%label% apply &aoder &f/%label% pay&a."
+    apply:
+      usage: |
+        &eVerwendung: &f/%label% apply <gesamtbetrag> <rate_pro_rate> [dauer]
+        &eBeispiele:
+        &f  /%label% apply 10000 1000      &7→ 10 Raten à 1000
+        &f  /%label% apply 5000 2500 1t    &7→ Rückzahlung in 1 Tag, max 2 Raten
+    pay:
+      usage: "&eVerwendung: &f/%label% pay <betrag> &7(einen bestimmten Betrag zahlen, oder &falle&7 / &fkomplett&7 schreiben fur den Rest)"
+    invalid_duration: "&cUngültige Dauer: &f%value%&c. Verwende &f30m&c, &f1h&c, &f1t&c, &f2w&c."
   charge:
     success: "&cRate eingezogen: &6%amount%. Verbleibend: &e%remaining%."
     missed: "&cRate konnte nicht eingezogen werden (&6%amount%). Fehlversuche &e%missed%/%max_missed%."

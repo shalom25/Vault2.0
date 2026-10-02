@@ -298,6 +298,19 @@ loan:
     installment_too_small: "&cPara um empréstimo de &e%loan_amount%, a parcela mínima deve ser &e%min_installment%."
   pay:
     success: "&aPagamento recebido: &6%amount%. Restante: &e%remaining%."
+  disabled: "&cEmpréstimos estão desativados neste servidor."
+  no_active_conversation: "&cVoce não tem nenhuma conversa de chat ativa para cancelar."
+  cmd:
+    menu_fallback: "&aMenu de empréstimos indisponível. Use &f/%label% apply &aou &f/%label% pay&a."
+    apply:
+      usage: |
+        &eUso: &f/%label% apply <total> <valor_parcela> [duracao]
+        &eExemplos:
+        &f  /%label% apply 10000 1000      &7→ 10 parcelas de 1000
+        &f  /%label% apply 5000 2500 1d    &7→ pagar em 1 dia, max 2 parcelas
+    pay:
+      usage: "&eUso: &f/%label% pay <valor> &7(pague um valor especifico, ou digite &fall&7 / &ftudo&7 para pagar o restante)"
+    invalid_duration: "&cDuracao invalida: &f%value%&c. Use &f30m&c, &f1h&c, &f1d&c, &f2s&c."
   charge:
     success: "&cParcela cobrada: &6%amount%. Restante: &e%remaining%."
     missed: "&cNao foi possivel cobrar a parcela (&6%amount%). Falhas &e%missed%/%max_missed%."

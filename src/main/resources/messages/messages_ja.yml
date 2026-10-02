@@ -286,6 +286,19 @@ loan:
     deposit_failed: "&cローンを作成できませんでした (振込失敗)。"
   pay:
     success: "&a支払いを受け取りました: &6%amount%&a。残高: &e%remaining%"
+  disabled: "&cローンはこのサーバーで無効になっています。"
+  no_active_conversation: "&cキャンセルするアクティブなチャット会話がありません。"
+  cmd:
+    menu_fallback: "&aローンメニューは利用できません。 &f/%label% apply &aまたは &f/%label% pay&a を使用してください。"
+    apply:
+      usage: |
+        &e使用方法: &f/%label% apply <合計金額> <分割1回あたりの金額> [期間]
+        &e例:
+        &f  /%label% apply 10000 1000      &7→ 1000円を10回払い
+        &f  /%label% apply 5000 2500 1d   &7→ 1日以内、最大2回払い
+    pay:
+      usage: "&e使用方法: &f/%label% pay <金額> &7(特定の金額を支払うか、 &fall&7 / &ftodo&7 と入力して残高全額を支払います)"
+    invalid_duration: "&c無効な期間 &f%value%&c。 &f30m&c、&f1h&c、&f1d&c、&f2w&c のいずれかを使用してください。"
   charge:
     success: "&c返済金が引き落とされました: &6%amount%&c。残高: &e%remaining%"
     missed: "&c返済金を引き落とせませんでした (&6%amount%&c)。未払い: &e%missed%/%max_missed%"

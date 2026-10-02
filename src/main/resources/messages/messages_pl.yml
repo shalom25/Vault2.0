@@ -294,6 +294,19 @@ loan:
     deposit_failed: "&cNie udało się utworzyć pożyczki (wpłata nie powiodła się)."
   pay:
     success: "&aOtrzymano płatność: &6%amount%. Pozostało: &e%remaining%."
+  disabled: "&cPożyczki są wyłączone na tym serwerze."
+  no_active_conversation: "&cNie masz aktywnej rozmowy w czacie do anulowania."
+  cmd:
+    menu_fallback: "&aMenu pożyczek niedostępne. Użyj &f/%label% apply &alub &f/%label% pay&a."
+    apply:
+      usage: |
+        &eUżycie: &f/%label% apply <całkowita_kwota> <kwota_na_rate> [okres]
+        &ePrzykłady:
+        &f  /%label% apply 10000 1000      &7→ 10 rat po 1000
+        &f  /%label% apply 5000 2500 1d   &7→ termin w 1 dniu, maks 2 raty
+    pay:
+      usage: "&eUżycie: &f/%label% pay <kwota> &7(zapłać określoną kwotę, lub wpisz &fall&7 / &ftodo&7 aby spłacić resztę)"
+    invalid_duration: "&cNieprawidłowy okres &f%value%&c. Użyj &f30m&c, &f1h&c, &f1d&c, &f2w&c."
   charge:
     success: "&cPobrano ratę: &6%amount%. Pozostało: &e%remaining%."
     missed: "&cNie pobrano raty (&6%amount%). Brak &e%missed%/%max_missed%."

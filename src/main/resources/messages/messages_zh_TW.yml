@@ -298,6 +298,19 @@ loan:
     installment_too_small: "&c對於 &e%loan_amount% 的貸款，最低分期金額必須為 &e%min_installment%。"
   pay:
     success: "&a已收到付款：&6%amount%。剩餘：&e%remaining%。"
+  disabled: "&c此伺服器已停用貸款功能。"
+  no_active_conversation: "&c您沒有可取消的進行中聊天對話。"
+  cmd:
+    menu_fallback: "&a貸款選單無法使用。請使用 &f/%label% apply &a或 &f/%label% pay&a。"
+    apply:
+      usage: |
+        &e用法: &f/%label% apply <總金額> <每期金額> [期限]
+        &e範例：
+        &f  /%label% apply 10000 1000      &7→ 分 10 期，每期 1000
+        &f  /%label% apply 5000 2500 1d   &7→ 1 天內到期，最多 2 期
+    pay:
+      usage: "&e用法: &f/%label% pay <金額> &7(償還特定金額，或輸入 &fall&7 / &ftodo&7 繳清餘額)"
+    invalid_duration: "&c無效的期限 &f%value%&c。請使用 &f30m&c、&f1h&c、&f1d&c、&f2w&c。"
   charge:
     success: "&c已收取分期款：&6%amount%。剩餘：&e%remaining%。"
     missed: "&c無法收取分期款（&6%amount%）。失敗次數 &e%missed%/%max_missed%。"

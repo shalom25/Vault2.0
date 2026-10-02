@@ -1,9 +1,9 @@
 ---
 title: Config Reference
-description: Exhaustive breakdown of Vault v2.1.0's config.yml — every key with its type, default value, detailed explanation, and related source code. Covers language, currency.*, storage, currencies, top.*, bank (interest+tax), discord.*, world_balances, import.essentials, offline-uuid-fallback, update_check*, pay_menu, pay_pending, pay_limits and loans.* (defaulted_effects).
+description: Exhaustive breakdown of Vault v2.1.2's config.yml — every key with its type, default value, detailed explanation, and related source code. Covers language, currency.*, storage, currencies, top.*, bank (interest+tax), discord.*, world_balances, import.essentials, offline-uuid-fallback, update_check*, pay_menu, pay_pending, pay_limits and loans.* (defaulted_effects). Includes docs section with updated commands/permissions/placeholders for v2.1.2.
 ---
 
-# ⚙️ Config Reference (v2.1.0)
+# ⚙️ Config Reference (v2.1.2)
 
 We examine **every single key** in `src/main/resources/config.yml:4-206`. Each entry shows:
 
@@ -41,7 +41,7 @@ We examine **every single key** in `src/main/resources/config.yml:4-206`. Each e
 
 | Key | Type | Default | Explanation |
 | :--- | :--- | :--- | :--- |
-| `plugin_version` | String | `v2.1.0` | Informational only (never edit by hand). Used by `VaultPlugin.onEnable()` to print the startup logo. |
+| `plugin_version` | String | `v2.1.2` | Informational only (never edit by hand). Used by `VaultPlugin.onEnable()` to print the startup logo. |
 | `language` | String | `en` | ISO 639-1 / BCP-47 code of the `messages_<code>.yml` to load. Supported values: `en`, `es`, `pt`, `de`, `fr`, `nl`, `pl`, `ru`, `hi`, `zh_CN`, `zh_TW`. If you set a nonexistent code, **fallback to messages_en.yml**. |
 
 ```java

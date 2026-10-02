@@ -2,6 +2,7 @@ package com.example.vault;
 
 import com.example.vault.commands.BalanceCommand;
 import com.example.vault.commands.EcoCommand;
+import com.example.vault.commands.LoanCommand;
 import com.example.vault.commands.PayCommand;
 import com.example.vault.commands.VaultCommand;
 import com.example.vault.commands.VaultOpCommand;
@@ -76,6 +77,7 @@ public class VaultPlugin extends JavaPlugin implements Listener {
     public Messages getMessages() { return messages; }
     public BankService getBankService() { return bankService; }
     public TopCacheService getTopCache() { return topCache; }
+    public LoanService getLoanService() { return loanService; }
 
     @Override
     public void onEnable() {
@@ -133,7 +135,7 @@ public class VaultPlugin extends JavaPlugin implements Listener {
         // --- NUEVOS SERVICIOS v2.1 ---
         topCache = new TopCacheService(this, provider);
         topCache.start(getConfig().getLong("top.refresh_seconds", 300L));
-        offlinePay = new OfflinePayQueueService(this, provider);
+        offlinePay = new OfflinePayQueueService(this, provider, messages);
         noteService = new PhysicalNoteService(this, provider, messages);
         bankService = new BankService(this, provider);
         bankService.start();
@@ -199,21 +201,7 @@ public class VaultPlugin extends JavaPlugin implements Listener {
             getCommand("vault").setExecutor(vaultCmd);
         }
         if (getCommand("loan") != null) {
-            getCommand("loan").setExecutor((sender, command, label, args) -> {
-                if (!(sender instanceof org.bukkit.entity.Player)) {
-                    sender.sendMessage("Only players can use this command.");
-                    return true;
-                }
-                org.bukkit.entity.Player p = (org.bukkit.entity.Player) sender;
-                if (!p.hasPermission("vault.loan")) {
-                    p.sendMessage(messages.chat("loan.no_permission"));
-                    return true;
-                }
-                if (vaultMenuService != null && vaultMenuService.getLoanMenuService() != null) {
-                    vaultMenuService.getLoanMenuService().openLoanMenu(p);
-                }
-                return true;
-            });
+            getCommand("loan").setExecutor(new LoanCommand(this, messages, loanService, vaultMenuService));
         }
         if (getCommand("vaultop") != null) {
             getCommand("vaultop").setExecutor(new VaultOpCommand(this, economy, messages));
@@ -613,7 +601,7 @@ public class VaultPlugin extends JavaPlugin implements Listener {
     private void notifyOnlineOps(String newVersion) {
         String msg = buildUpdateMessage(newVersion);
         for (Player p : getServer().getOnlinePlayers()) {
-            if (p.isOp()) {
+            if (p.isOp() || p.hasPermission("vault.admin")) {
                 sendClickableUpdateMessage(p, msg);
             }
         }
@@ -623,7 +611,7 @@ public class VaultPlugin extends JavaPlugin implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         if (!getConfig().getBoolean("update_check", true)) return;
         Player p = event.getPlayer();
-        if (!p.isOp()) return;
+        if (!p.isOp() && !p.hasPermission("vault.admin")) return;
         if (updateAvailable) {
             p.sendMessage(buildUpdateMessage(remoteVersion) + " " + UPDATE_LINK);
             return;

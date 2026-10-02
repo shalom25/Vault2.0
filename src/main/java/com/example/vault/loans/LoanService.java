@@ -293,6 +293,144 @@ public class LoanService implements Listener {
         return after != null && after.getStatus() == LoanStatus.ACTIVE && (loans.size() >= before);
     }
 
+    public boolean applyLoan(Player player, double total, double payment, Long durationMsOrNull) {
+        if (!canUseLoans(player)) {
+            player.sendMessage(messages.chat("loan.no_permission"));
+            return false;
+        }
+        if (total <= 0.0 || payment <= 0.0) {
+            player.sendMessage(messages.chat("loan.error.invalid_number"));
+            return false;
+        }
+        int maxActive = plugin.getConfig().getInt("loans.max_active_per_player", 1);
+        if (maxActive <= 0) maxActive = 1;
+        Loan existing = loans.get(player.getUniqueId());
+        if (existing != null && existing.getStatus() == LoanStatus.ACTIVE) {
+            player.sendMessage(messages.chat("loan.already_active"));
+            return false;
+        }
+        double min = plugin.getConfig().getDouble("loans.min_amount", 0.0);
+        double max = plugin.getConfig().getDouble("loans.max_amount", 0.0);
+        if (min > 0 && total < min) {
+            player.sendMessage(messages.formatChat("loan.error.too_small", java.util.Collections.singletonMap("min", economy.format(min))));
+            return false;
+        }
+        if (max > 0 && total > max) {
+            player.sendMessage(messages.formatChat("loan.error.too_large", java.util.Collections.singletonMap("max", economy.format(max))));
+            return false;
+        }
+        int maxInstallments = plugin.getConfig().getInt("loans.max_installments", 60);
+        if (maxInstallments < 1) maxInstallments = 60;
+        int installments;
+        long intervalMs = configIntervalMs();
+        long firstDelayMs;
+        if (durationMsOrNull != null && durationMsOrNull > 0) {
+            long duration = Math.max(60000L, durationMsOrNull);
+            installments = (int) Math.ceil((double) duration / (double) Math.max(60000L, intervalMs));
+            if (installments < 1) installments = 1;
+            if (installments > maxInstallments) installments = maxInstallments;
+            firstDelayMs = Math.max(60000L, Math.min(duration, intervalMs));
+        } else {
+            installments = (int) Math.ceil(total / payment);
+            if (installments < 1) installments = 1;
+            if (installments > maxInstallments) {
+                player.sendMessage(messages.formatChat("loan.error.too_many_installments", java.util.Collections.singletonMap("max", String.valueOf(maxInstallments))));
+                return false;
+            }
+            firstDelayMs = intervalMs;
+        }
+        double effectivePayment;
+        if (payment + 1.0E-9 >= total) {
+            effectivePayment = total;
+            installments = 1;
+        } else {
+            effectivePayment = total / (double) installments;
+            if (effectivePayment + 1.0E-9 < payment) {
+                effectivePayment = payment;
+                int newCount = (int) Math.ceil(total / payment);
+                if (newCount > maxInstallments) {
+                    player.sendMessage(messages.formatChat("loan.error.too_many_installments", java.util.Collections.singletonMap("max", String.valueOf(maxInstallments))));
+                    return false;
+                }
+                installments = Math.max(1, newCount);
+            }
+        }
+        if (!validateInstallmentAmount(player, total, effectivePayment)) {
+            return false;
+        }
+        createLoan(player, total, installments, effectivePayment, intervalMs, firstDelayMs);
+        Loan after = loans.get(player.getUniqueId());
+        return after != null && after.getStatus() == LoanStatus.ACTIVE;
+    }
+
+    public boolean payLoan(Player player, double amount) {
+        if (!canUseLoans(player)) {
+            player.sendMessage(messages.chat("loan.no_permission"));
+            return false;
+        }
+        if (amount <= 0.0) {
+            player.sendMessage(messages.chat("loan.error.invalid_number"));
+            return false;
+        }
+        Loan loan = loans.get(player.getUniqueId());
+        if (loan == null || loan.getStatus() != LoanStatus.ACTIVE) {
+            player.sendMessage(messages.chat("loan.none"));
+            return false;
+        }
+        double toPay = Math.min(amount, loan.getRemaining());
+        if (toPay <= 0.0) {
+            player.sendMessage(messages.chat("loan.error.invalid_number"));
+            return false;
+        }
+        net.milkbowl.vault.economy.EconomyResponse r = economy.withdrawPlayer(player, toPay);
+        if (r == null || !r.transactionSuccess()) {
+            player.sendMessage(messages.chat("loan.error.not_enough_money"));
+            return false;
+        }
+        double remaining = Math.max(0.0, loan.getRemaining() - toPay);
+        loan.setRemaining(remaining);
+        if (remaining <= 0.0) {
+            loan.setStatus(LoanStatus.PAID);
+            loan.setNextChargeAtMs(0L);
+            loan.setInstallmentsLeft(0);
+        } else {
+            double perInstallment = Math.max(0.01, loan.getInstallmentAmount());
+            int left = (int) Math.ceil(remaining / perInstallment);
+            loan.setInstallmentsLeft(Math.max(1, left));
+        }
+        persist();
+        Map<String, String> m = new java.util.HashMap<>();
+        m.put("amount", economy.format(toPay));
+        m.put("remaining", economy.format(loan.getRemaining()));
+        player.sendMessage(messages.formatChat("loan.pay.success", m));
+        if (loan.getStatus() == LoanStatus.PAID) {
+            notifyPaid(player.getUniqueId());
+        }
+        return true;
+    }
+
+    public static Long parseDuration(String s) {
+        if (s == null) return null;
+        String v = s.trim();
+        if (v.isEmpty()) return null;
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("^(?<n>\\d+)(?<u>[smhdwSMHDW])$").matcher(v);
+        if (!m.matches()) return null;
+        long n;
+        try { n = Long.parseLong(m.group("n")); } catch (NumberFormatException e) { return null; }
+        if (n <= 0) return null;
+        char u = Character.toLowerCase(m.group("u").charAt(0));
+        long mul = switch (u) {
+            case 's' -> 1000L;
+            case 'm' -> 60000L;
+            case 'h' -> 3600000L;
+            case 'd' -> 86400000L;
+            case 'w' -> 604800000L;
+            default -> -1L;
+        };
+        if (mul < 0) return null;
+        return n * mul;
+    }
+
     private boolean canUseLoans(Player player) {
         if (!plugin.getConfig().getBoolean("loans.enabled", true)) return false;
         String perm = plugin.getConfig().getString("permissions.loan_use", "vault.loan");

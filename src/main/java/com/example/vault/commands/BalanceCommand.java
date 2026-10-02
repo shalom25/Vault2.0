@@ -29,10 +29,11 @@ public class BalanceCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         String permBalance = plugin.getConfig().getString("permissions.balance_use", "vault.balance");
-        if (permBalance != null) {
+        boolean bypass = player.isOp() || player.hasPermission("vault.admin");
+        if (permBalance != null && !bypass) {
             String p = permBalance.trim();
             if (!(p.isEmpty() || p.equalsIgnoreCase("none") || p.equalsIgnoreCase("disabled"))) {
-                if (!player.hasPermission(p)) {
+                if (!player.hasPermission(p) && !player.hasPermission("vault.use")) {
                     player.sendMessage(messages.chat("balance.no_permission"));
                     return true;
                 }

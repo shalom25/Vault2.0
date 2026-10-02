@@ -106,7 +106,7 @@ public class EcoCommand implements CommandExecutor {
         switch (action) {
             case "give":
             case "add": {
-                if (!checkPerm(sender, "vault.eco.give")) return true;
+                if (!checkPerm(sender)) return true;
                 EconomyResponse res;
                 if (se != null) {
                     res = worldName != null
@@ -129,7 +129,7 @@ public class EcoCommand implements CommandExecutor {
             }
             case "take":
             case "remove": {
-                if (!checkPerm(sender, "vault.eco.take")) return true;
+                if (!checkPerm(sender)) return true;
                 EconomyResponse res;
                 if (se != null) {
                     res = worldName != null
@@ -151,7 +151,7 @@ public class EcoCommand implements CommandExecutor {
                 return true;
             }
             case "set": {
-                if (!checkPerm(sender, "vault.eco.set")) return true;
+                if (!checkPerm(sender)) return true;
                 if (se == null) {
                     sender.sendMessage(messages.chat("economy.eco.top_unavailable"));
                     return true;
@@ -166,7 +166,7 @@ public class EcoCommand implements CommandExecutor {
                 return true;
             }
             case "reset": {
-                if (!checkPerm(sender, "vault.eco.reset")) return true;
+                if (!checkPerm(sender)) return true;
                 if (se == null) {
                     sender.sendMessage(messages.chat("economy.eco.top_unavailable"));
                     return true;
@@ -188,8 +188,8 @@ public class EcoCommand implements CommandExecutor {
         }
     }
 
-    private boolean checkPerm(CommandSender s, String node) {
-        if (s instanceof Player && !s.hasPermission("vault.eco") && !s.hasPermission(node)) {
+    private boolean checkPerm(CommandSender s) {
+        if (s instanceof Player && !s.isOp() && !s.hasPermission("vault.admin") && !s.hasPermission("vault.eco.admin")) {
             s.sendMessage(messages.chat("economy.eco.no_permission"));
             return false;
         }
@@ -218,13 +218,18 @@ public class EcoCommand implements CommandExecutor {
     }
 
     private boolean handleTop(CommandSender sender, String[] args) {
-        if (!(sender instanceof Player) && !sender.isOp()) {
-            sender.sendMessage(messages.chat("vaultop.no_permission"));
-            return true;
-        }
-        if (sender instanceof Player && !sender.hasPermission("vault.top")) {
-            sender.sendMessage(messages.chat("vaultop.no_permission"));
-            return true;
+        boolean allow = sender.isOp() || sender.hasPermission("vault.admin") || sender.hasPermission("vault.use")
+                || sender.hasPermission("vault.top");
+        if (!(sender instanceof Player)) {
+            if (!allow) {
+                sender.sendMessage(messages.chat("vaultop.no_permission"));
+                return true;
+            }
+        } else {
+            if (!allow) {
+                sender.sendMessage(messages.chat("vaultop.no_permission"));
+                return true;
+            }
         }
         String cid = economy instanceof SimpleEconomy ? ((SimpleEconomy) economy).getDefaultCurrencyId() : "default";
         int page = 1;

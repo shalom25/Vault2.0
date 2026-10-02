@@ -49,15 +49,33 @@ public class VaultCommand implements CommandExecutor {
         this.loanService = loanService;
     }
 
+    private static boolean hasAnyUser(CommandSender s, String... nodes) {
+        if (s == null) return false;
+        if (!(s instanceof org.bukkit.entity.Player)) return true;
+        for (String n : nodes) if (n != null && s.hasPermission(n)) return true;
+        if (s.hasPermission("vault.use")) return true;
+        return false;
+    }
+
+    private static boolean hasAnyAdmin(CommandSender s, String... nodes) {
+        if (s == null) return false;
+        if (!(s instanceof org.bukkit.entity.Player)) return true;
+        if (s.isOp() || s.hasPermission("vault.admin")) return true;
+        for (String n : nodes) if (n != null && s.hasPermission(n)) return true;
+        return false;
+    }
+
+    private static boolean hasAny(CommandSender s, String... nodes) {
+        return hasAnyUser(s, nodes);
+    }
+
+    private boolean deny(CommandSender s, String perm) {
+        s.sendMessage(messages.chat("cmd.vault.no_permission"));
+        return true;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player) {
-            Player p = (Player) sender;
-            if (!p.isOp() && !p.hasPermission("vault.admin")) {
-                sender.sendMessage(messages.chat("cmd.vault.no_permission"));
-                return true;
-            }
-        }
         if (args.length == 0) {
             if (sender instanceof Player) {
                 menuService.openMainMenu((Player) sender);
@@ -76,6 +94,7 @@ public class VaultCommand implements CommandExecutor {
             return true;
         }
         if ("resetbalances".equals(sub) || "clearbalances".equals(sub)) {
+            if (!hasAny(sender, "vault.admin")) return deny(sender, "vault.admin");
             if (args.length < 2 || !"confirm".equalsIgnoreCase(args[1])) {
                 sender.sendMessage(messages.prefixed("This will delete ALL balances. Use: /vault " + sub + " confirm"));
                 return true;
@@ -123,19 +142,23 @@ public class VaultCommand implements CommandExecutor {
             }
             Player player = (Player) sender;
             if (args.length == 1) {
+                if (!hasAny(player, "vault.loan")) return deny(player, "vault.loan");
                 menuService.getLoanMenuService().openLoanMenu(player);
                 return true;
             }
             String action = args[1].toLowerCase();
             if ("request".equals(action)) {
+                if (!hasAny(player, "vault.loan")) return deny(player, "vault.loan");
                 loanService.openRequestFlow(player);
                 return true;
             }
             if ("pay".equals(action)) {
+                if (!hasAny(player, "vault.loan")) return deny(player, "vault.loan");
                 loanService.openPayFlow(player);
                 return true;
             }
             if ("status".equals(action)) {
+                if (!hasAny(player, "vault.loan")) return deny(player, "vault.loan");
                 loanService.sendStatus(player);
                 return true;
             }
@@ -143,6 +166,7 @@ public class VaultCommand implements CommandExecutor {
             return true;
         }
         if ("top".equals(sub)) {
+            if (!hasAny(sender, "vault.top", "vault.admin")) return deny(sender, "vault.top");
             String cid = plugin.getEconomyProvider() instanceof SimpleEconomy ?
                     ((SimpleEconomy) plugin.getEconomyProvider()).getDefaultCurrencyId() : "default";
             int page = 1;
@@ -212,6 +236,7 @@ public class VaultCommand implements CommandExecutor {
                 sender.sendMessage(messages.chat("cmd.common.only_players"));
                 return true;
             }
+            if (!hasAny(sender, "vault.withdraw")) return deny(sender, "vault.withdraw");
             if (!(plugin.getEconomyProvider() instanceof SimpleEconomy) || noteService == null) {
                 sender.sendMessage(messages.chat("note.withdraw.disabled"));
                 return true;
@@ -253,6 +278,7 @@ public class VaultCommand implements CommandExecutor {
                 sender.sendMessage(messages.chat("cmd.common.only_players"));
                 return true;
             }
+            if (!hasAny(sender, "vault.history")) return deny(sender, "vault.history");
             Player p = (Player) sender;
             if (!(plugin.getEconomyProvider() instanceof SimpleEconomy) ||
                     ((SimpleEconomy) plugin.getEconomyProvider()).getTransactionLogService() == null) {
@@ -319,11 +345,11 @@ public class VaultCommand implements CommandExecutor {
             return true;
         }
         if ("offlinepay".equals(sub)) {
-            if (!(sender instanceof Player) && !sender.isOp()) {
+            if (!(sender instanceof Player) && !sender.isOp() && !hasAnyAdmin(sender, "vault.admin")) {
                 sender.sendMessage(messages.chat("cmd.vault.no_permission"));
                 return true;
             }
-            if (sender instanceof Player && !sender.hasPermission("vault.admin") && !sender.isOp()) {
+            if (sender instanceof Player && !sender.isOp() && !hasAnyAdmin(sender, "vault.admin")) {
                 sender.sendMessage(messages.chat("cmd.vault.no_permission"));
                 return true;
             }
@@ -332,6 +358,10 @@ public class VaultCommand implements CommandExecutor {
                 return true;
             }
             if (args.length >= 2 && "refund".equalsIgnoreCase(args[1])) {
+                if (!hasAnyAdmin(sender, "vault.admin")) {
+                    sender.sendMessage(messages.chat("cmd.vault.no_permission"));
+                    return true;
+                }
                 if (args.length < 3) {
                     sender.sendMessage(messages.prefixed(messages.color("offlinepay.refund.usage")));
                     return true;
@@ -368,7 +398,7 @@ public class VaultCommand implements CommandExecutor {
             return true;
         }
         if ("reload".equals(sub)) {
-            if (sender instanceof Player && !sender.isOp()) {
+            if (!hasAnyAdmin(sender, "vault.admin")) {
                 sender.sendMessage(messages.chat("cmd.vault.no_permission"));
                 return true;
             }
@@ -378,7 +408,7 @@ public class VaultCommand implements CommandExecutor {
             return true;
         }
         if ("update".equals(sub)) {
-            if (sender instanceof Player && !sender.isOp()) {
+            if (!hasAnyAdmin(sender, "vault.admin")) {
                 sender.sendMessage(messages.chat("cmd.vault.no_permission"));
                 return true;
             }
@@ -397,9 +427,10 @@ public class VaultCommand implements CommandExecutor {
             }
             SimpleEconomy se = (SimpleEconomy) plugin.getEconomyProvider();
             String cid = se.getDefaultCurrencyId();
-            String action = args.length >= 2 ? args[1].toLowerCase(java.util.Locale.ROOT) : "balance";
+            String action = args.length >= 2 ? args[1].toLowerCase(java.util.Locale.ROOT) : "menu";
             if ("balance".equals(action) || "bal".equals(action)) {
                 if (args.length >= 3) {
+                    if (!hasAny(sender, "vault.bank")) return deny(sender, "vault.bank");
                     String target = args[2];
                     OfflinePlayer op = PlayerResolver.resolveByNameWithOfflineFallback(plugin, target);
                     if (op == null || (op.getName() == null && !op.hasPlayedBefore())) {
@@ -425,6 +456,7 @@ public class VaultCommand implements CommandExecutor {
                     sender.sendMessage(messages.chat("bank.only_players"));
                     return true;
                 }
+                if (!hasAny(sender, "vault.bank")) return deny(sender, "vault.bank");
                 Player p = (Player) sender;
                 double wallet = se.getBalance(cid, p);
                 double bank = bankService.getBankBalance(p.getUniqueId());
@@ -477,6 +509,7 @@ public class VaultCommand implements CommandExecutor {
                     sender.sendMessage(messages.chat("bank.only_players"));
                     return true;
                 }
+                if (!hasAny(sender, "vault.bank")) return deny(sender, "vault.bank");
                 Player p = (Player) sender;
                 if (args.length < 3) {
                     p.sendMessage(messages.chat("bank.deposit.usage"));
@@ -517,6 +550,7 @@ public class VaultCommand implements CommandExecutor {
                     sender.sendMessage(messages.chat("bank.only_players"));
                     return true;
                 }
+                if (!hasAny(sender, "vault.bank")) return deny(sender, "vault.bank");
                 Player p = (Player) sender;
                 if (args.length < 3) {
                     p.sendMessage(messages.chat("bank.withdraw.usage"));
@@ -553,6 +587,7 @@ public class VaultCommand implements CommandExecutor {
                 return true;
             }
             if ("top".equals(action)) {
+                if (!hasAny(sender, "vault.bank")) return deny(sender, "vault.bank");
                 int page = 1;
                 if (args.length >= 3) {
                     try {
@@ -618,6 +653,7 @@ public class VaultCommand implements CommandExecutor {
                     sender.sendMessage(messages.chat("bank.only_players"));
                     return true;
                 }
+                if (!hasAny(sender, "vault.bank")) return deny(sender, "vault.bank");
                 // Will be handled in VaultMenuService; route through there.
                 menuService.openBankMenu((Player) sender);
                 return true;

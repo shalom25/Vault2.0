@@ -97,3 +97,32 @@ If `defaulted_effects.enabled: true` and the loan is in `DEFAULTED` status, effe
 | etc.             | Resolved by `legacyEffectKey()` |
 
 Config effect levels are **1-based**; internally 1 is subtracted to convert to Bukkit's 0-based `amplifier`.
+
+---
+
+## PlaceholderAPI placeholders (NEW in v2.1.2)
+
+Each numeric loan field has **6 format variants**: `_raw`, `_fixed`, `_int`, `_commas`, `_short`, `_formatted`.
+
+| Placeholder base | Description |
+|---|---|
+| `%vault_loan_total...%` | Total principal disbursed for the active loan. |
+| `%vault_loan_remainder...%` | Remaining principal still to be paid. |
+| `%vault_loan_installment_amount...%` | Amount charged per installment. |
+| `%vault_loan_installments_left%` | **Integer** — how many installments remain. |
+| `%vault_loan_installments_left_formatted%` | Formatted installments remaining. |
+| `%vault_loan_interest...%` | Total interest still to be collected. |
+| `%vault_net...%` | (See Bank docs) **Net worth** = wallet + bank − remaining active loans. |
+
+> Alias expansion `%vault2_...%` works identically for every placeholder.
+
+### Quick copy examples
+
+```
+%vault_loan_total_formatted%              →  $ 10,000.00
+%vault_loan_remainder_formatted%          →  $ 6,200.00
+%vault_loan_installment_amount_formatted% →  $ 500.00
+%vault_loan_installments_left%            →  12
+%vault_loan_interest_formatted%           →  $ 1,200.00
+%vault_net_formatted%                     →  $ 243,800.00
+```

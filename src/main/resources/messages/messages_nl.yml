@@ -298,6 +298,19 @@ loan:
     installment_too_small: "&cVoor een lening van &e%loan_amount% moet de minimale termijn &e%min_installment% zijn."
   pay:
     success: "&aBetaling ontvangen: &6%amount%. Resterend: &e%remaining%."
+  disabled: "&cLeningen zijn uitgeschakeld op deze server."
+  no_active_conversation: "&cJe hebt geen actief chatgesprek om te annuleren."
+  cmd:
+    menu_fallback: "&aLeningmenu niet beschikbaar. Gebruik &f/%label% apply &aof &f/%label% pay&a."
+    apply:
+      usage: |
+        &eGebruik: &f/%label% apply <totaal> <bedrag_per_termijn> [duur]
+        &eVoorbeelden:
+        &f  /%label% apply 10000 1000      &7→ 10 termijnen van 1000
+        &f  /%label% apply 5000 2500 1d   &7→ vervalt over 1 dag, max 2 termijnen
+    pay:
+      usage: "&eGebruik: &f/%label% pay <bedrag> &7(betaal een specifiek bedrag, of typ &fall&7 / &ftodo&7 om het resterende te betalen)"
+    invalid_duration: "&cOngeldige duur &f%value%&c. Gebruik &f30m&c, &f1h&c, &f1d&c, &f2w&c."
   charge:
     success: "&cTermijn afgeschreven: &6%amount%. Resterend: &e%remaining%."
     missed: "&cTermijn kon niet worden afgeschreven (&6%amount%). Mislukkingen &e%missed%/%max_missed%."

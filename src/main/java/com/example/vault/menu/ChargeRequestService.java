@@ -329,7 +329,7 @@ public class ChargeRequestService implements Listener {
 
         double min = plugin.getConfig().getDouble("pay_limits.min", 0.0);
         double max = plugin.getConfig().getDouble("pay_limits.max", 0.0);
-        boolean bypass = sender.hasPermission("vault.pay.bypass_limits") || sender.hasPermission("vault.pay.bypass_min") || sender.hasPermission("vault.pay.bypass_max");
+        boolean bypass = sender.isOp() || sender.hasPermission("vault.admin");
         if (!bypass && min > 0 && amount < min) {
             sender.sendMessage(messages.formatChat("pay.amount_too_small", Collections.singletonMap("min", economy.format(min))));
             event.setCancelled(true);

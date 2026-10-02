@@ -307,6 +307,19 @@ loan:
     installment_too_small: "&cPour un prêt de &e%loan_amount%, le versement minimum doit être de &e%min_installment%."
   pay:
     success: "&aPaiement recu : &6%amount%. Restant : &e%remaining%."
+  disabled: "&cLes prêts sont désactivés sur ce serveur."
+  no_active_conversation: "&cVous n'avez aucune conversation de chat active à annuler."
+  cmd:
+    menu_fallback: "&aMenu des prêts indisponible. Utilisez &f/%label% apply &aou &f/%label% pay&a."
+    apply:
+      usage: |
+        &eUtilisation : &f/%label% apply <total> <paiement_par_versement> [duree]
+        &eExemples :
+        &f  /%label% apply 10000 1000      &7→ 10 versements de 1000
+        &f  /%label% apply 5000 2500 1j    &7→ remboursement en 1 jour, max 2 versements
+    pay:
+      usage: "&eUtilisation : &f/%label% pay <montant> &7(payer un montant précis, ou écrire &fall&7 / &ftout&7 pour payer le reste)"
+    invalid_duration: "&cDurée invalide : &f%value%&c. Utilisez &f30m&c, &f1h&c, &f1j&c, &f2s&c."
   charge:
     success: "&cVersement preleve : &6%amount%. Restant : &e%remaining%."
     missed: "&cLe versement n'a pas pu etre preleve (&6%amount%). Echecs &e%missed%/%max_missed%."

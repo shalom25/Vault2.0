@@ -298,6 +298,19 @@ loan:
     deposit_failed: "&cCould not create the loan (deposit failed)."
   pay:
     success: "&aPayment received: &6%amount%. Remaining: &e%remaining%."
+  disabled: "&cLoans are disabled on this server."
+  no_active_conversation: "&cYou don't have an active chat conversation to cancel."
+  cmd:
+    menu_fallback: "&aLoan menu unavailable. Use &f/%label% apply &aor &f/%label% pay&a."
+    apply:
+      usage: |
+        &eUsage: &f/%label% apply <total> <payment_per_installment> [duration]
+        &eExamples:
+        &f  /%label% apply 10000 1000      &7→ 10 installments of 1000
+        &f  /%label% apply 5000 2500 1d   &7→ due in 1 day, max 2 installments
+    pay:
+      usage: "&eUsage: &f/%label% pay <amount> &7(pay a specific amount, or type &fall&7 / &ftodo&7 to pay the remaining)"
+    invalid_duration: "&cInvalid duration &f%value%&c. Use &f30m&c, &f1h&c, &f1d&c, &f2w&c."
   charge:
     success: "&cInstallment charged: &6%amount%. Remaining: &e%remaining%."
     missed: "&cInstallment not charged (&6%amount%). Missed &e%missed%/%max_missed%."
@@ -380,6 +393,7 @@ note:
       serial: "&7Serial #: &8%serial%"
       hint: "&a» Right click to redeem «"
   redeem:
+    no_permission: "&cYou do not have permission to redeem physical notes."
     already_redeemed: "&cThis note has already been redeemed."
     invalid: "&cThis note could not be validated. It may be forged or expired."
     error: "&cFailed to redeem note: &4%error%"
@@ -429,6 +443,8 @@ history:
 # ===== /vault offlinepay =====
 offlinepay:
   unavailable: "&cOffline payments not available."
+  queued_to_player: "&aPayment of &6%amount% &a queued for &f%player% &a (ID #%id%). Delivered when they join."
+  delivered_on_join: "&aYou had &f%count% &apending offline payment(s) delivered to your wallet."
   list:
     header: "&ePending offline payments: &f%count%"
     line: "  #%id% &f%from_name% &7→ &f%to_name% &e%amount% &7(%time_ago% ago)"

@@ -1,7 +1,7 @@
 name: Vault
 main: net.milkbowl.vault.Vault
 load: STARTUP
-version: 2.1.1
+version: 2.1.2
 api-version: 1.13
 description: Internal Economy provider like Vault 2.0 (no Vault.jar dependency)
 softdepend: [LuckPerms, PlaceholderAPI, SkinsRestorer]
@@ -19,10 +19,10 @@ commands:
     description: Show top players with the most money
     usage: /vaultop [page]
   vault:
-    description: Vault menu and admin command
-    usage: /vault [reload|update|loan|top|withdraw|history|offlinepay]
+    description: Vault main command (menu, bank, notes, history, loans, top, admin)
+    usage: /vault [reload|update|loan|top|withdraw|history|offlinepay|bank]
     aliases: [v, cofre, vault2]
-    permission: vault.admin
+
   loan:
     description: Open the loan menu
     usage: /loan
@@ -38,57 +38,45 @@ permissions:
   vault.pay:
     description: Allows using /pay menu and direct payments
     default: true
-  vault.pay.bypass_min:
-    description: Bypass minimum amount limit
-    default: op
-  vault.pay.bypass_max:
-    description: Bypass maximum amount limit
-    default: op
-  vault.eco:
-    description: Allow using /eco command
-    default: op
-    children:
-      vault.eco.give: true
-      vault.eco.take: true
-      vault.eco.set: true
-      vault.eco.reset: true
-      vault.eco.top: true
-  vault.eco.give:
-    description: Allow using /eco give|add
-    default: op
-  vault.eco.take:
-    description: Allow using /eco take|remove
-    default: op
-  vault.eco.set:
-    description: Allow using /eco set
-    default: op
-  vault.eco.reset:
-    description: Allow using /eco reset
-    default: op
-  vault.eco.top:
-    description: Allow using /eco top and /vault top
-    default: true
   vault.top:
-    description: Allows using /vaultop
+    description: Allows viewing the top-richest players ranking via /vaultop, /eco top, and /vault top
     default: true
   vault.loan:
-    description: Allows using /vault loan
+    description: Allows using the whole loan system (/loan or /vault loan: request, pay, status, menu)
     default: true
   vault.withdraw:
-    description: Allows using /vault withdraw (physical notes)
-    default: true
-  vault.redeem:
-    description: Allows right-clicking physical notes to redeem them
+    description: Allows using /vault withdraw to create physical notes, AND right-clicking physical notes to redeem (cash) them
     default: true
   vault.history:
     description: Allows using /vault history (transaction GUI)
     default: true
-  vault.offlinepay.view:
-    description: View the offline pay queue (/vault offlinepay list)
-    default: op
-  vault.offlinepay.refund:
-    description: Refund an offline pay (/vault offlinepay refund <id>)
+  vault.use:
+    description: Master "user" permission. Grants every NON-admin feature of the plugin (balance, pay, top ranking, loans, bank, physical notes, history, everything normal players need). Does NOT grant admin bypasses (pay min/max bypass, eco give/take/set/reset, offlinepay view/refund, reload/update/resetbalances). Those remain only for vault.admin / OP.
+    default: true
+    children:
+      vault.balance: true
+      vault.pay: true
+      vault.top: true
+      vault.loan: true
+      vault.withdraw: true
+      vault.history: true
+      vault.bank: true
+  vault.bank:
+    description: Allows using the whole /vault bank section (balance / deposit / withdraw / top / menu / see other players)
+    default: true
+  vault.eco.admin:
+    description: Allows ALL admin /eco subcommands (give/add, take/remove, set, reset, top). Single permission that covers the entire admin economy command.
     default: op
   vault.admin:
-    description: Allows using /vault (admin command)
+    description: Allows admin-only subcommands of /vault (reload, update, resetbalances, offlinepay). Also implicitly grants every vault.* permission.
     default: op
+    children:
+      vault.use: true
+      vault.balance: true
+      vault.pay: true
+      vault.eco.admin: true
+      vault.top: true
+      vault.loan: true
+      vault.withdraw: true
+      vault.history: true
+      vault.bank: true

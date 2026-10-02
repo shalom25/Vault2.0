@@ -482,6 +482,11 @@ public final class PhysicalNoteService implements Listener {
     }
 
     public boolean redeemNote(Player player, ItemStack stack) {
+        if (player == null || stack == null) return false;
+        if (!player.hasPermission("vault.withdraw") && !player.isOp() && !player.hasPermission("vault.admin") && !player.hasPermission("vault.use")) {
+            player.sendMessage(messages.chat("note.redeem.no_permission"));
+            return false;
+        }
         Map<String, Object> data = extractNoteData(stack);
         if (data == null) return false;
         String noteId = (String) data.get("note_id");
@@ -558,8 +563,16 @@ public final class PhysicalNoteService implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         ItemStack stack = event.getItem();
         if (stack == null || stack.getType() != Material.PAPER) return;
-        Map<String, Object> data = extractNoteData(stack);
         Player p = event.getPlayer();
+        if (!p.hasPermission("vault.withdraw") && !p.isOp() && !p.hasPermission("vault.admin") && !p.hasPermission("vault.use")) {
+            Map<String, Object> peek = extractNoteData(stack);
+            if (peek != null || looksLikeNote(stack)) {
+                p.sendMessage(messages.chat("note.redeem.no_permission"));
+                event.setCancelled(true);
+            }
+            return;
+        }
+        Map<String, Object> data = extractNoteData(stack);
         if (data == null) {
             if (looksLikeNote(stack)) {
                 p.sendMessage(messages.chat("note.redeem.invalid"));

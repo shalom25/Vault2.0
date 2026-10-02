@@ -298,6 +298,19 @@ loan:
     deposit_failed: "&cKredi oluşturulamadı (yatırma işlemi başarısız)."
   pay:
     success: "&aÖdeme alındı: &6%amount%. Kalan: &e%remaining%."
+  disabled: "&cBu sunucuda krediler devre dışı."
+  no_active_conversation: "&cİptal edilecek aktif bir sohbet konuşmanız yok."
+  cmd:
+    menu_fallback: "&aKredi menüsü kullanılamıyor. Kullan: &f/%label% apply &a veya &f/%label% pay&a."
+    apply:
+      usage: |
+        &eKullanım: &f/%label% apply <toplam_tutar> <taksit_tutari> [süre]
+        &eÖrnekler:
+        &f  /%label% apply 10000 1000      &7→ 1000'lik 10 taksit
+        &f  /%label% apply 5000 2500 1g    &7→ 1 günde öde, maks 2 taksit
+    pay:
+      usage: "&eKullanım: &f/%label% pay <tutar> &7(belli bir tutar öde, ya da kalan için &ftamam&7 / &ftüm&7 yaz)"
+    invalid_duration: "&cGeçersiz süre: &f%value%&c. Kullan: &f30d&c, &f1s&c, &f1g&c, &f2h&c."
   charge:
     success: "&cTaksit tahsil edildi: &6%amount%. Kalan: &e%remaining%."
     missed: "&cTaksit tahsil edilemedi (&6%amount%&c). Kaçırılan &e%missed%/%max_missed%."

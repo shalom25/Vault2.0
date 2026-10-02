@@ -1,7 +1,7 @@
-# Vault 2.0 — internal economy compatible with the Vault API
+﻿# Vault 2.0 — internal economy compatible with the Vault API
 # Provides balance, player-to-player payments, and config/message reload.
 # Commands: /balance, /pay, /vault reload. No external Vault.jar required.
-plugin_version: v2.1.1
+plugin_version: v2.1.2
 # languages_supported: ["en", "es", "fr", "de", "nl", "pl", "zh_CN", "zh_TW", "ru", "pt", "hi", "ja", "tr"]
 language: en
 # Vault 2.0 — internal economy compatible with the Vault API
@@ -224,7 +224,20 @@ loans:
 #   - permission_required: op
 #   - notes: Supports subcommands: give and take. Example: /eco take <player> <amount>
 #   - permissions:
-#     - vault.eco (default: op) — Allows using /eco including give and take subcommands.
+#     - vault.eco.admin (default: op) — Single permission for ALL /eco subcommands (give/add/take/remove/set/reset/top).
+# - /vault bank | /vault bank menu | gui | open
+#   - Opens the bank GUI menu directly (no extra args needed).
+#   - Submenu actions: Deposit, Withdraw, Balance, Top rankings.
+#   - permission: vault.bank (default: true)
+# - /vault withdraw <amount>
+#   - Withdraw physical banknotes signed with HMAC (right-click to redeem).
+#   - permission: vault.withdraw (default: true)
+# - /vault history
+#   - Open transaction history GUI.
+#   - permission: vault.history (default: true)
+# - /vault offlinepay list | refund <id>
+#   - View / refund pending offline payment queue.
+#   - permission: vault.admin (default: op — implicit; not declared separately)
 #
 # Placeholders
 # - %vault_balance% - Current player's raw balance.
@@ -242,6 +255,16 @@ loans:
 # - %vault_top_<n>% - Full top entry for rank n.
 # - %vault_top_name_<n>% - Player name at rank n.
 # - %vault_top_amount_<n>% - Formatted balance at rank n.
+# - %vault_top_uuid_<n>% - Player UUID at rank n.
+# - %vault_bank% - Player's raw bank balance.
+# - %vault_bank_formatted% / _fixed% / _commas% / _short% - Bank balance in all formats.
+# - %vault_interest% / _formatted% - Next interest amount (per bank.interest settings).
+# - %vault_tax% / _formatted% - Next tax amount (per bank.tax threshold & settings).
+# - %vault_net% / _formatted% - Net worth (wallet + bank - remaining active loans).
+# - %vault_wallet% / _formatted% - Alias for vault_balance (wallet only without bank).
+# - %vault_loan_total% / _remainder% / _installment_amount% (all formats) - Loan amounts.
+# - %vault_loan_installments_left% - Number of installments remaining (integer).
+# - %vault_loan_interest% (all formats) - Total remaining interest to pay.
 #
 # Guides
 # - Pay
@@ -266,9 +289,20 @@ loans:
 #   - Online: Balance is updated instantly for online targets.
 #   - Offline: Works for offline players; accounts are created automatically if needed.
 #   - Limits: Pay limits do not apply; operator-only administration command.
+# - Bank
+#   - Open /vault bank (or Bank option in /vault main menu) to open the bank GUI.
+#   - Deposit / withdraw instantly updates wallet and bank balances.
+#   - Interest is applied every bank.interest.every_minutes minutes.
+#   - Tax (if enabled) only applies to the part strictly above bank.tax.threshold.
 
 # permissions:
-#   vault.pay      # use /pay and open the payment menu (default: op)
-#   vault.eco      # give and take money (default: op)
-#   vault.balance  # use /balance (default: op)
-#   vault.loan     # use /vault loan and open the loan menu (default: true)
+#   vault.balance    # use /balance
+#   vault.pay        # use /pay and open the payment menu
+#   vault.top        # /vaultop, /eco top, /vault top rankings
+#   vault.loan       # use /loan | /prestamo and open the loan menu
+#   vault.withdraw   # /vault withdraw physical notes + redeem
+#   vault.history    # /vault history transaction GUI
+#   vault.bank       # /vault bank menu, deposit, withdraw, top
+#   vault.use        # Master "user" — grants all non-admin permissions above
+#   vault.eco.admin  # ALL /eco subcommands (give/add/take/remove/set/reset/top) (op)
+#   vault.admin      # Admin subcommands in /vault + grants everything vault.* (op)

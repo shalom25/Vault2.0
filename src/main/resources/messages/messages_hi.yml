@@ -298,6 +298,19 @@ loan:
     installment_too_small: "&c&e%loan_amount% के ऋण के लिए न्यूनतम किस्त &e%min_installment% होनी चाहिए।"
   pay:
     success: "&aभुगतान प्राप्त हुआ: &6%amount%. शेष: &e%remaining%."
+  disabled: "&cइस सर्वर पर ऋण अक्षम हैं।"
+  no_active_conversation: "&cआपके पास रद्द करने के लिए कोई सक्रिय चैट बातचीत नहीं है।"
+  cmd:
+    menu_fallback: "&aऋण मेन्यू अनुपलब्ध है। &f/%label% apply &aया &f/%label% pay&a का प्रयोग करें।"
+    apply:
+      usage: |
+        &eउपयोग: &f/%label% apply <कुल_राशि> <प्रति_किस्त> [अवधि]
+        &eउदाहरण:
+        &f  /%label% apply 10000 1000      &7→ 1000 की 10 किस्तें
+        &f  /%label% apply 5000 2500 1d   &7→ 1 दिन में देय, अधिकतम 2 किस्तें
+    pay:
+      usage: "&eउपयोग: &f/%label% pay <राशि> &7(एक विशिष्ट राशि का भुगतान करें, या शेष भुगतान करने के लिए &fall&7 / &ftodo&7 टाइप करें)"
+    invalid_duration: "&cअमान्य अवधि &f%value%&c। &f30m&c, &f1h&c, &f1d&c, &f2w&c का प्रयोग करें।"
   charge:
     success: "&cकिस्त वसूल की गई: &6%amount%. शेष: &e%remaining%."
     missed: "&cकिस्त वसूल नहीं की जा सकी (&6%amount%). चूक &e%missed%/%max_missed%."

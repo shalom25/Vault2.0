@@ -31,10 +31,11 @@ public class VaultOpCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String perm = plugin.getConfig().getString("permissions.vaultop_use", "vault.top");
-        if (perm != null) {
+        boolean bypass = sender.isOp() || sender.hasPermission("vault.admin");
+        if (perm != null && !bypass) {
             String p = perm.trim();
             if (!(p.isEmpty() || p.equalsIgnoreCase("none") || p.equalsIgnoreCase("disabled"))) {
-                if (!sender.hasPermission(p)) {
+                if (!sender.hasPermission(p) && !sender.hasPermission("vault.use")) {
                     sender.sendMessage(messages.chat("vaultop.no_permission"));
                     return true;
                 }

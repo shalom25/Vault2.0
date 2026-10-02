@@ -1,5 +1,6 @@
 package com.example.vault.economy;
 
+import com.example.vault.i18n.Messages;
 import com.example.vault.transactions.TxRecord;
 import com.example.vault.transactions.TxType;
 import com.example.vault.transactions.TransactionLogService;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -51,14 +53,16 @@ public final class OfflinePayQueueService implements Listener {
 
     private final Plugin plugin;
     private final SimpleEconomy economy;
+    private final Messages messages;
     private final File storageFile;
     private final Map<Long, QueuedPay> queueById = new ConcurrentHashMap<>();
     private final Map<UUID, List<QueuedPay>> byToUuid = new ConcurrentHashMap<>();
     private final AtomicLong idSeq = new AtomicLong(1L);
 
-    public OfflinePayQueueService(Plugin plugin, SimpleEconomy economy) {
+    public OfflinePayQueueService(Plugin plugin, SimpleEconomy economy, Messages messages) {
         this.plugin = plugin;
         this.economy = economy;
+        this.messages = messages;
         this.storageFile = new File(plugin.getDataFolder(), "offline_pay_queue.yml");
         load();
     }
@@ -184,7 +188,9 @@ public final class OfflinePayQueueService implements Listener {
         Bukkit.getScheduler().runTask(plugin, () -> {
             int n = deliverFor(p);
             if (n > 0) {
-                p.sendMessage(com.example.vault.util.ColorUtil.colorize("&aTienes " + n + " pago(s) pendiente(s) entregado(s)."));
+                Map<String, String> ctx = new HashMap<>();
+                ctx.put("count", String.valueOf(n));
+                p.sendMessage(messages.formatChat("offlinepay.delivered_on_join", ctx));
             }
         });
     }

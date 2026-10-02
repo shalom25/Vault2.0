@@ -298,6 +298,19 @@ loan:
     installment_too_small: "&c对于 &e%loan_amount% 的贷款，最低分期金额必须为 &e%min_installment%。"
   pay:
     success: "&a已收到付款：&6%amount%。剩余：&e%remaining%。"
+  disabled: "&c此服务器已禁用贷款功能。"
+  no_active_conversation: "&c你没有任何可取消的激活聊天对话。"
+  cmd:
+    menu_fallback: "&a贷款菜单不可用，请使用 &f/%label% apply &a或 &f/%label% pay&a。"
+    apply:
+      usage: |
+        &e用法：&f/%label% apply <总额> <每期还款> [期限]
+        &e示例：
+        &f  /%label% apply 10000 1000      &7→ 分10期，每期还1000
+        &f  /%label% apply 5000 2500 1d    &7→ 1天内还清，最多2期
+    pay:
+      usage: "&e用法：&f/%label% pay <金额> &7(偿还指定金额，或者输入 &f全部&7 / &fall&7 还清剩余)"
+    invalid_duration: "&c无效期限：&f%value%&c。请使用 &f30分钟&c、&f1小时&c、&f1天&c、&f2周&c（缩写 30m / 1h / 1d / 2w）。"
   charge:
     success: "&c已收取分期款：&6%amount%。剩余：&e%remaining%。"
     missed: "&c无法收取分期款（&6%amount%）。失败次数 &e%missed%/%max_missed%。"

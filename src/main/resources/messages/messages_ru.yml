@@ -298,6 +298,19 @@ loan:
     installment_too_small: "&cДля кредита на &e%loan_amount% минимальный платеж должен быть &e%min_installment%."
   pay:
     success: "&aПлатеж получен: &6%amount%. Осталось: &e%remaining%."
+  disabled: "&cКредиты отключены на этом сервере."
+  no_active_conversation: "&cУ вас нет активного чата для отмены."
+  cmd:
+    menu_fallback: "&aМеню кредитов недоступно. Используйте &f/%label% apply &aили &f/%label% pay&a."
+    apply:
+      usage: |
+        &eИспользование: &f/%label% apply <общая_сумма> <платеж_в_срок> [срок]
+        &eПримеры:
+        &f  /%label% apply 10000 1000      &7→ 10 платежей по 1000
+        &f  /%label% apply 5000 2500 1d   &7→ срок 1 день, максимум 2 платежа
+    pay:
+      usage: "&eИспользование: &f/%label% pay <сумма> &7(оплатить конкретную сумму, или напишите &fall&7 / &ftodo&7 чтобы оплатить остаток)"
+    invalid_duration: "&cНеверный срок &f%value%&c. Используйте &f30m&c, &f1h&c, &f1d&c, &f2w&c."
   charge:
     success: "&cПлатеж списан: &6%amount%. Осталось: &e%remaining%."
     missed: "&cНе удалось списать платеж (&6%amount%). Пропуски &e%missed%/%max_missed%."

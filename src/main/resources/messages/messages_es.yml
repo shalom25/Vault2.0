@@ -297,6 +297,19 @@ loan:
     deposit_failed: "&cNo se pudo crear el préstamo (falló el depósito)."
   pay:
     success: "&aPago recibido: &6%amount%. Restante: &e%remaining%."
+  disabled: "&cLos préstamos están desactivados en este servidor."
+  no_active_conversation: "&cNo tienes ninguna conversación de chat activa para cancelar."
+  cmd:
+    menu_fallback: "&aMenú de préstamos no disponible. Usa &f/%label% apply &ao &f/%label% pay&a."
+    apply:
+      usage: |
+        &eUso: &f/%label% apply <total> <pago_por_cuota> [duracion]
+        &eEjemplos:
+        &f  /%label% apply 10000 1000      &7→ 10 cuotas de 1000
+        &f  /%label% apply 5000 2500 1d   &7→ pagar en 1 día, max 2 cuotas
+    pay:
+      usage: "&eUso: &f/%label% pay <monto> &7(paga una cantidad concreta, o escribe &fall&7 / &ftodo&7 para pagar lo restante)"
+    invalid_duration: "&cDuración inválida: &f%value%&c. Usa &f30m&c, &f1h&c, &f1d&c, &f2w&c."
   charge:
     success: "&cCuota cobrada: &6%amount%. Restante: &e%remaining%."
     missed: "&cNo se pudo cobrar la cuota (&6%amount%). Fallos &e%missed%/%max_missed%."

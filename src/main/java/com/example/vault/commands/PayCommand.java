@@ -41,10 +41,11 @@ public class PayCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         String permPay = plugin.getConfig().getString("permissions.pay_use", "vault.pay");
-        if (permPay != null) {
+        boolean bypassAll = player.isOp() || player.hasPermission("vault.admin");
+        if (permPay != null && !bypassAll) {
             String p = permPay.trim();
             if (!(p.isEmpty() || p.equalsIgnoreCase("none") || p.equalsIgnoreCase("disabled"))) {
-                if (!player.hasPermission(p)) {
+                if (!player.hasPermission(p) && !player.hasPermission("vault.use")) {
                     player.sendMessage(messages.chat("pay.no_permission"));
                     return true;
                 }
@@ -103,15 +104,15 @@ public class PayCommand implements CommandExecutor {
                 return true;
             }
             amount = parsed;
-            String permBypassMin = plugin.getConfig().getString("permissions.pay_bypass_min", "vault.pay.bypass_min");
-            String permBypassMax = plugin.getConfig().getString("permissions.pay_bypass_max", "vault.pay.bypass_max");
             double min = plugin.getConfig().getDouble("pay_limits.min", 0.0);
             double max = plugin.getConfig().getDouble("pay_limits.max", 0.0);
-            if (min > 0 && amount < min && !player.hasPermission(permBypassMin)) {
+            boolean bypassMin = bypassAll;
+            boolean bypassMax = bypassAll;
+            if (min > 0 && amount < min && !bypassMin) {
                 player.sendMessage(messages.formatChat("pay.amount_too_small", java.util.Collections.singletonMap("min", economy.format(min))));
                 return true;
             }
-            if (max > 0 && amount > max && !player.hasPermission(permBypassMax)) {
+            if (max > 0 && amount > max && !bypassMax) {
                 player.sendMessage(messages.formatChat("pay.amount_too_large", java.util.Collections.singletonMap("max", economy.format(max))));
                 return true;
             }
@@ -172,8 +173,11 @@ public class PayCommand implements CommandExecutor {
             String note = args.length >= 3 ? String.join(" ", java.util.Arrays.copyOfRange(args, 2, args.length)) : null;
             OfflinePayQueueService.QueuedPay q = offlinePay.queuePay(cid, player, targetOffline, amount, note);
             String tname = targetOffline.getName() != null ? targetOffline.getName() : args[0];
-            player.sendMessage(messages.prefixed(ColorUtil.colorize("&aPago de " + se.format(cid, amount) + " en cola para " + tname +
-                    " (ID #" + q.id + "). Se entregará cuando entre.")));
+            java.util.Map<String, String> ctx = new java.util.HashMap<>();
+            ctx.put("amount", se.format(cid, amount));
+            ctx.put("player", tname);
+            ctx.put("id", String.valueOf(q.id));
+            player.sendMessage(messages.formatChat("offlinepay.queued_to_player", ctx));
             return true;
         }
         return true;

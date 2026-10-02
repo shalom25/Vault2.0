@@ -392,7 +392,7 @@ public class PayMenuService implements Listener {
                 chargeRequestService.requestAmountAndCharge(player);
             } else if (display("pay.menu.item.loan", "Loan").equals(name)) {
                 player.closeInventory();
-                if (!player.hasPermission("vault.loan")) {
+                if (!player.isOp() && !player.hasPermission("vault.admin") && !player.hasPermission("vault.use") && !player.hasPermission("vault.loan")) {
                     player.sendMessage(messages.chat("loan.no_permission"));
                     return;
                 }
