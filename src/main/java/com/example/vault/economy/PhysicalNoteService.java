@@ -342,76 +342,8 @@ public final class PhysicalNoteService implements Listener {
         return null;
     }
 
-    private java.util.Set<String> displayNameStarts() {
-        // note.item.name → e.g. "&6&lBillete: &f%amount% %currency%" -> strip -> "Billete: $1000 USD" -> head before first %
-        java.util.Set<String> out = new java.util.HashSet<>(labelStarts("note.item.name"));
-        // Safety fallback for legacy / mixed-lang setups: original English / Spanish / Portuguese tokens
-        out.add("Billete"); out.add("Billete:");
-        out.add("Note"); out.add("Note:");
-        out.add("Ticket"); out.add("Ticket:");
-        out.add("Billet"); out.add("Billet:");
-        out.add("Schein"); out.add("Schein:");
-        out.add("Nota"); out.add("Nota:");
-        out.add("Bilety"); out.add("Bilety:");
-        out.add("Билет"); out.add("Билет:");
-        out.add("钞票"); out.add("票券"); out.add("紙鈔");
-        out.add("नोट"); out.add("नोट:");
-        return out;
-    }
-
-    private java.util.List<String> loreContainsAnyTokens() {
-        // Contains-matchers for detection of "looks-like-note" hint + labels
-        java.util.List<String> out = new ArrayList<>();
-        // Label tokens from i18n
-        addLabelTokens(out, "note.item.lore.currency");
-        addLabelTokens(out, "note.item.lore.amount");
-        addLabelTokens(out, "note.item.lore.issuer");
-        addLabelTokens(out, "note.item.lore.serial");
-        addLabelTokens(out, "note.item.lore.hint");
-        // Legacy raw hints from i18n full line
-        String hint = sc(getRaw("note.item.lore.hint"));
-        if (hint != null && !hint.isEmpty()) {
-            // Split by common separators to get words
-            for (String w : hint.split("[\\s:,.!?()\\[\\]\\-]+")) {
-                if (w != null && w.length() >= 3) out.add(w.toLowerCase(Locale.ROOT));
-            }
-        }
-        // Fallback words (legacy safety across 11 langs)
-        String[] legacy = {
-                "canjear", "redeem", "cambiar", "cobrar", "cash",
-                "click derecho", "right click", "right-click", "clique droit", "direito",
-                "rechtsklick", "kliknij prawym", "правая кнопка", "пкм",
-                "右键", "右鍵", "दाएँ क्लिक", "seri", "serial", "nº", "№", "s/n",
-                "moneda", "currency", "moeda", "devise", "währung", "valuta", "waluta", "валюта", "货币", "मुद्रा",
-                "importe", "amount", "valor", "montant", "betrag", "kwota", "сумма", "金额", "金額", "राशि",
-                "emisor", "issuer", "emitente", "émetteur", "aussteller", "wydawca", "эмитент", "发行方", "發行人", "जारी"
-        };
-        for (String w : legacy) out.add(w.toLowerCase(Locale.ROOT));
-        return out;
-    }
-
-    private void addLabelTokens(java.util.List<String> out, String key) {
-        for (String s : labelStarts(key)) {
-            String t = s == null ? "" : s.trim().replace(":", "").replace(" ", "").toLowerCase(Locale.ROOT);
-            if (!t.isEmpty() && t.length() >= 2) out.add(t);
-            String t2 = s == null ? "" : s.trim().toLowerCase(Locale.ROOT);
-            if (t2.length() >= 3) out.add(t2);
-        }
-        String whole = sc(getRaw(key));
-        if (whole != null) {
-            int idx = whole.indexOf('%');
-            String head = (idx >= 0 ? whole.substring(0, idx) : whole).trim().toLowerCase(Locale.ROOT);
-            if (!head.isEmpty()) out.add(head);
-        }
-    }
-
-    private Map<String, Object> extractFallback(ItemMeta meta) {
-        if (!meta.hasLore()) return null;
-        List<String> lore = meta.getLore();
+    private java.util.Set<String> serialPrefixes() {
         java.util.Set<String> serialPrefixes = labelStarts("note.item.lore.serial");
-        java.util.Set<String> currencyPrefixes = labelStarts("note.item.lore.currency");
-        java.util.Set<String> amountPrefixes = labelStarts("note.item.lore.amount");
-        // Legacy prefixes fallback (mixed lang / legacy bills already generated pre-v2.1)
         serialPrefixes.add("Nº serie"); serialPrefixes.add("Nº serie:");
         serialPrefixes.add("Serial"); serialPrefixes.add("Serial:"); serialPrefixes.add("Serial #:");
         serialPrefixes.add("S/N"); serialPrefixes.add("S/N:");
@@ -422,6 +354,16 @@ public final class PhysicalNoteService implements Listener {
         serialPrefixes.add("Серийный номер"); serialPrefixes.add("Серийный номер:");
         serialPrefixes.add("序列号"); serialPrefixes.add("序號");
         serialPrefixes.add("क्रम संख्या"); serialPrefixes.add("क्रम संख्या:");
+        return serialPrefixes;
+    }
+
+    private Map<String, Object> extractFallback(ItemMeta meta) {
+        if (!meta.hasLore()) return null;
+        List<String> lore = meta.getLore();
+        java.util.Set<String> serialPrefixes = serialPrefixes();
+        java.util.Set<String> currencyPrefixes = labelStarts("note.item.lore.currency");
+        java.util.Set<String> amountPrefixes = labelStarts("note.item.lore.amount");
+        // Legacy prefixes fallback (mixed lang / legacy bills already generated pre-v2.1)
         currencyPrefixes.add("Moneda"); currencyPrefixes.add("Moneda:");
         currencyPrefixes.add("Currency"); currencyPrefixes.add("Currency:");
         currencyPrefixes.add("Moeda"); currencyPrefixes.add("Moeda:");
@@ -522,40 +464,25 @@ public final class PhysicalNoteService implements Listener {
         if (stack == null || stack.getType() != Material.PAPER || !stack.hasItemMeta()) return false;
         ItemMeta meta = stack.getItemMeta();
         if (meta == null) return false;
-        java.util.Set<String> dnStarts = displayNameStarts();
-        if (meta.hasDisplayName()) {
-            String dn = sc(meta.getDisplayName());
-            if (dn != null) {
-                String dnLow = dn.trim().toLowerCase(Locale.ROOT);
-                for (String p : dnStarts) {
-                    if (p == null || p.isEmpty()) continue;
-                    String pp = p.trim().toLowerCase(Locale.ROOT);
-                    if (pp.isEmpty()) continue;
-                    if (dnLow.startsWith(pp)) return true;
-                    if (dnLow.contains(pp)) return true;
-                }
+
+        // A genuine (or tampered) note carries the Vault-specific note ID. Do not
+        // treat unrelated PAPER items as forged notes just because they say
+        // "right-click", "charge", "redeem", etc.
+        if (pdcAvailable) {
+            try {
+                Object pdc = metaGetPdc.invoke(meta);
+                if (Boolean.TRUE.equals(pdcHas.invoke(pdc, noteIdKey, stringType))) return true;
+            } catch (Throwable ignored) {
+                // Older Bukkit/Paper versions can use signed legacy lore instead.
             }
         }
-        java.util.List<String> tokens = loreContainsAnyTokens();
-        if (meta.hasLore()) {
-            for (String l : meta.getLore()) {
-                String s = sc(l);
-                if (s == null) continue;
-                String sLow = s.trim().toLowerCase(Locale.ROOT);
-                if (sLow.isEmpty()) continue;
-                for (String p : dnStarts) {
-                    if (p == null || p.isEmpty()) continue;
-                    String pp = p.trim().toLowerCase(Locale.ROOT);
-                    if (pp.isEmpty()) continue;
-                    if (sLow.startsWith(pp) || sLow.contains(pp)) return true;
-                }
-                for (String tok : tokens) {
-                    if (tok == null || tok.isEmpty()) continue;
-                    if (sLow.contains(tok)) return true;
-                }
-            }
-        }
-        return false;
+
+        if (!meta.hasLore()) return false;
+        List<String> lore = meta.getLore();
+        if (lore == null) return false;
+        List<String> normalized = new ArrayList<>(lore.size());
+        for (String line : lore) normalized.add(sc(line));
+        return PhysicalNoteCandidate.hasSignedLegacyLore(normalized, serialPrefixes());
     }
 
     @EventHandler

@@ -28,7 +28,7 @@ jobs:
           java-version: '${{ matrix.java }}'
           cache: 'maven'
       - name: "Build with Maven -P${{ matrix.profile }}"
-        run: mvn -B -P${{ matrix.profile }} -DskipTests package
+        run: mvn -B -P${{ matrix.profile }} verify
       - name: "Upload artifact (${{ matrix.profile }})"
         uses: actions/upload-artifact@v4
         with:
