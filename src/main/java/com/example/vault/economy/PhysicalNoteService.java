@@ -343,7 +343,7 @@ public final class PhysicalNoteService implements Listener {
     }
 
     private java.util.Set<String> serialPrefixes() {
-        java.util.Set<String> serialPrefixes = serialPrefixes();
+        java.util.Set<String> serialPrefixes = labelStarts("note.item.lore.serial");
         serialPrefixes.add("Nº serie"); serialPrefixes.add("Nº serie:");
         serialPrefixes.add("Serial"); serialPrefixes.add("Serial:"); serialPrefixes.add("Serial #:");
         serialPrefixes.add("S/N"); serialPrefixes.add("S/N:");
@@ -360,7 +360,7 @@ public final class PhysicalNoteService implements Listener {
     private Map<String, Object> extractFallback(ItemMeta meta) {
         if (!meta.hasLore()) return null;
         List<String> lore = meta.getLore();
-        java.util.Set<String> serialPrefixes = labelStarts("note.item.lore.serial");
+        java.util.Set<String> serialPrefixes = serialPrefixes();
         java.util.Set<String> currencyPrefixes = labelStarts("note.item.lore.currency");
         java.util.Set<String> amountPrefixes = labelStarts("note.item.lore.amount");
         // Legacy prefixes fallback (mixed lang / legacy bills already generated pre-v2.1)
