@@ -26,7 +26,9 @@ final class PhysicalNoteCandidate {
                 String marker = prefix.trim();
                 if (!lower.startsWith(marker.toLowerCase(Locale.ROOT))) continue;
                 String remainder = trimmed.substring(marker.length()).trim();
-                if (remainder.startsWith(":")) remainder = remainder.substring(1).trim();
+                while (remainder.startsWith(":") || remainder.startsWith("#")) {
+                    remainder = remainder.substring(1).trim();
+                }
                 if (!remainder.isEmpty()) {
                     hasSerial = true;
                     break;
