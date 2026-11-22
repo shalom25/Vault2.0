@@ -33,21 +33,21 @@ public class EssentialsImportService {
         File internalDir = new File(plugin.getDataFolder(), ".internal");
         File marker = new File(internalDir, "essentials_import.done");
         if (legacyMarker.exists() || marker.exists()) {
-            plugin.getLogger().info("Importación de Essentials ya realizada; se omite.");
+            plugin.getLogger().info("Essentials import already completed; skipping.");
             return;
         }
 
         File pluginsDir = plugin.getDataFolder().getParentFile(); // 'plugins/'
         File essentialsUserdata = new File(pluginsDir, "Essentials/userdata");
         if (!essentialsUserdata.exists() || !essentialsUserdata.isDirectory()) {
-            plugin.getLogger().info("No se encontró el directorio userdata de Essentials: " + essentialsUserdata.getAbsolutePath());
-            plugin.getLogger().info("No se creó marcador de importación; se volverá a intentar en el próximo inicio si habilitas import.essentials.enabled.");
+            plugin.getLogger().info("Essentials userdata directory not found: " + essentialsUserdata.getAbsolutePath());
+            plugin.getLogger().info("Import marker not created; will retry on next startup if import.essentials.enabled is on.");
             return;
         }
         File[] files = essentialsUserdata.listFiles((dir, name) -> name.endsWith(".yml"));
         if (files == null || files.length == 0) {
-            plugin.getLogger().info("No hay archivos de Essentials para importar.");
-            plugin.getLogger().info("No se creó marcador de importación; se volverá a intentar en el próximo inicio si habilitas import.essentials.enabled.");
+            plugin.getLogger().info("No Essentials files found to import.");
+            plugin.getLogger().info("Import marker not created; will retry on next startup if import.essentials.enabled is on.");
             return;
         }
 
@@ -62,19 +62,19 @@ public class EssentialsImportService {
                 economy.save();
             }
         } catch (IOException e) {
-            plugin.getLogger().warning("Fallo al guardar balances tras importación: " + e.getMessage());
+            plugin.getLogger().warning("Failed to save balances after import: " + e.getMessage());
         }
         if (stats.failed == 0) {
             try {
                 if (!internalDir.exists()) internalDir.mkdirs();
                 if (!marker.exists() && !marker.createNewFile()) {
-                    plugin.getLogger().warning("No se pudo crear el marcador de importación; podría ejecutarse de nuevo en el próximo inicio.");
+                    plugin.getLogger().warning("Could not create import marker; import may run again on next startup.");
                 }
             } catch (IOException e) {
-                plugin.getLogger().warning("Error al escribir el marcador: " + e.getMessage());
+                plugin.getLogger().warning("Error writing import marker: " + e.getMessage());
             }
         } else {
-            plugin.getLogger().warning("La importación de Essentials terminó con errores; no se creó el marcador para permitir reintentar.");
+            plugin.getLogger().warning("Essentials import finished with errors; marker not created so it can be retried.");
         }
         // Intentar ocultar en Windows (atributo DOS hidden); en Unix basta prefijo '.'
         try {
@@ -84,13 +84,13 @@ public class EssentialsImportService {
             Files.setAttribute(markerPath, "dos:hidden", true);
         } catch (Exception ignored) { /* atributo oculto no soportado; se mantiene prefijo '.' */ }
 
-        plugin.getLogger().info("Importación de Essentials finalizada. Escaneados: " + stats.scanned +
-                ", importados: " + stats.imported +
-                ", omitidos: " + stats.skipped +
-                ", duplicados: " + stats.duplicates +
-                ", errores: " + stats.failed +
-                (forceFile ? " (guardado en balances.yml)" : "") +
-                (stats.failed == 0 ? " (marcador interno oculto)" : ""));
+        plugin.getLogger().info("Essentials import finished. Scanned: " + stats.scanned +
+                ", imported: " + stats.imported +
+                ", skipped: " + stats.skipped +
+                ", duplicates: " + stats.duplicates +
+                ", errors: " + stats.failed +
+                (forceFile ? " (saved to balances.yml)" : "") +
+                (stats.failed == 0 ? " (hidden internal marker)" : ""));
     }
 
     public int importFromEssentials(int mode) {
@@ -101,12 +101,12 @@ public class EssentialsImportService {
         File pluginsDir = plugin.getDataFolder().getParentFile(); // 'plugins/'
         File essentialsUserdata = new File(pluginsDir, "Essentials/userdata");
         if (!essentialsUserdata.exists() || !essentialsUserdata.isDirectory()) {
-            plugin.getLogger().info("No se encontró el directorio userdata de Essentials: " + essentialsUserdata.getAbsolutePath());
+            plugin.getLogger().info("Essentials userdata directory not found: " + essentialsUserdata.getAbsolutePath());
             return new ImportStats();
         }
         File[] files = essentialsUserdata.listFiles((dir, name) -> name.endsWith(".yml"));
         if (files == null || files.length == 0) {
-            plugin.getLogger().info("No hay archivos de Essentials para importar.");
+            plugin.getLogger().info("No Essentials files found to import.");
             return new ImportStats();
         }
         Arrays.sort(files, Comparator.comparing(File::getName, String.CASE_INSENSITIVE_ORDER));
@@ -122,7 +122,7 @@ public class EssentialsImportService {
                 ResolvedPlayer resolved = resolvePlayer(f, cfg);
                 if (resolved == null || resolved.player == null) {
                     stats.failed++;
-                    plugin.getLogger().warning("Fallo al importar " + f.getName() + ": no se pudo resolver el jugador.");
+                    plugin.getLogger().warning("Failed to import " + f.getName() + ": could not resolve player.");
                     continue;
                 }
                 UUID uuid = resolved.player.getUniqueId();
@@ -134,7 +134,7 @@ public class EssentialsImportService {
                 Double money = parseMoney(cfg.get("money"));
                 if (money == null) {
                     stats.failed++;
-                    plugin.getLogger().warning("Fallo al importar " + f.getName() + ": valor 'money' inválido.");
+                    plugin.getLogger().warning("Failed to import " + f.getName() + ": invalid 'money' value.");
                     continue;
                 }
 
@@ -152,7 +152,7 @@ public class EssentialsImportService {
                 }
             } catch (Exception ex) {
                 stats.failed++;
-                plugin.getLogger().warning("Fallo al importar " + f.getName() + ": " + ex.getMessage());
+                plugin.getLogger().warning("Failed to import " + f.getName() + ": " + ex.getMessage());
             }
         }
         return stats;

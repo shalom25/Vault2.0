@@ -5,6 +5,7 @@ pay:
   no_permission: "&c/pay を使用する権限がありません。"
   invalid_amount: "&c無効な金額です。"
   player_offline: "&cプレイヤー &f%player% &cはオフラインです。リクエストは送信されませんでした。"
+  player_not_found: "&cプレイヤーが見つかりません: &f%player%"
   amount_too_small: "&c金額は少なくとも &6%min% &c以上である必要があります。"
   amount_too_large: "&c金額は最大で &6%max% &c以下である必要があります。"
   not_enough_money: "&c所持金が不足しています。"
@@ -113,6 +114,8 @@ plugin:
   enabled: "Vault.jar に依存しない内部経済システムが登録されました"
   disabled: "Vault (内部経済システム) が無効化されました。"
   reloaded: "設定とメッセージを再読み込みしました (言語: %lang%)。"
+  update_available: "&eVault 2.0 の新しいアップデート (%version%) があります。&bダウンロード: "
+  version_unknown: "不明"
 prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
 top:
   unknown_player: "プレイヤー"
@@ -122,6 +125,16 @@ vaultop:
   top_header: "&6所持金ランキング &7(%page%/%pages% ページ):"
   no_data: "&7所持金データがまだありません。"
 vault:
+  usage: |
+    &eVault サブコマンド:
+    &7  /vault (メニュー)
+    &7  /vault top [page] [currency]
+    &7  /vault withdraw <amount> [currency]
+    &7  /vault history [page]
+    &7  /vault offlinepay [list|refund <id>]
+    &7  /vault bank [balance|deposit|withdraw|top|menu]
+    &7  /vault loan [request|pay|status]
+    &7  /vault reload | update | resetbalances confirm
   menu:
     title: "&bVault メニュー"
     item:
@@ -299,6 +312,13 @@ loan:
     pay:
       usage: "&e使用方法: &f/%label% pay <金額> &7(特定の金額を支払うか、 &fall&7 / &ftodo&7 と入力して残高全額を支払います)"
     invalid_duration: "&c無効な期間 &f%value%&c。 &f30m&c、&f1h&c、&f1d&c、&f2w&c のいずれかを使用してください。"
+    help: |
+      &6===== &e/loan ヘルプ&6 =====
+      &f/%label%                  &7ローンメニューを開く (GUI)
+      &f/%label% apply <total> <payment> [dur] &7ローンを申請。Dur: 30m/1h/1d/2w
+      &f/%label% pay <amount|all>   &7ローンの一部（または全額）を返済
+      &f/%label% status            &7ローンの状態
+      &f/%label% cancel            &7アクティブなチャット会話をキャンセル
   charge:
     success: "&c返済金が引き落とされました: &6%amount%&c。残高: &e%remaining%"
     missed: "&c返済金を引き落とせませんでした (&6%amount%&c)。未払い: &e%missed%/%max_missed%"
@@ -481,6 +501,7 @@ bank:
     self_interest: "&7次回利息: &a+%interest_next% &7(%interest_min%分ごとに %interest_pct%%)"
     self_tax: "&7次回税金: &c-%tax_next% &7(%tax_min%分ごとに %tax_threshold% 超過分から %tax_pct%%)"
     self_no_tax: "&7次回税金: &aなし &7(残高がしきい値を下回っています)"
+    interest_disabled: "&a無効"
     other_header: "&6=== &e%player% &aの銀行残高 &6==="
     other_wallet: "&7財布: &f%wallet%"
     other_bank: "&7銀行: &f%bank%"
@@ -499,6 +520,10 @@ bank:
     line: "&7#%pos% &e%player% &8- &b銀行: &f%bank% &8| &7合計: &6%total%"
     footer: "&7次のページを見るには /vault bank top 2 と入力してください。"
   gui:
+    tax_disabled: "&a無効"
+    tax_under_threshold: "&7しきい値未満"
+    tax_over_threshold: "%tax_next% &7(超過分の %tax_pct%%)"
+    interest_disabled: "&a無効"
     title: "&8🏦 銀行"
     wallet_name: "&6💳 あなたの財布"
     wallet_lore:

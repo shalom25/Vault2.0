@@ -42,16 +42,16 @@ permissions:
     description: Allows viewing the top-richest players ranking via /vaultop, /eco top, and /vault top
     default: true
   vault.loan:
-    description: Allows using the whole loan system (/loan or /vault loan: request, pay, status, menu)
+    description: "Allows using the whole loan system (/loan or /vault loan - request, pay, status, menu)"
     default: true
   vault.withdraw:
-    description: Allows using /vault withdraw to create physical notes, AND right-clicking physical notes to redeem (cash) them
+    description: "Allows using /vault withdraw to create physical notes, AND right-clicking physical notes to redeem (cash) them"
     default: true
   vault.history:
     description: Allows using /vault history (transaction GUI)
     default: true
   vault.use:
-    description: Master "user" permission. Grants every NON-admin feature of the plugin (balance, pay, top ranking, loans, bank, physical notes, history, everything normal players need). Does NOT grant admin bypasses (pay min/max bypass, eco give/take/set/reset, offlinepay view/refund, reload/update/resetbalances). Those remain only for vault.admin / OP.
+    description: "Master user permission. Grants every NON-admin feature of the plugin (balance, pay, top ranking, loans, bank, physical notes, history, everything normal players need). Does NOT grant admin bypasses (pay min/max bypass, eco give/take/set/reset, offlinepay view/refund, reload/update/resetbalances). Those remain only for vault.admin / OP."
     default: true
     children:
       vault.balance: true

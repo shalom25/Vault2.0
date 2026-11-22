@@ -71,16 +71,16 @@ public final class BankMenuService implements Listener {
         String taxDesc;
         if (!taxOn || trate <= 0) {
             String t = messages.getOptional("bank.gui.tax_disabled");
-            taxDesc = messages.colorize(t == null || t.isEmpty() ? "&aDesactivado" : t);
+            taxDesc = messages.colorize(t == null || t.isEmpty() ? "&aDisabled" : t);
         } else if (bankBal <= tthresh) {
             String t = messages.getOptional("bank.gui.tax_under_threshold");
-            taxDesc = messages.colorize(t == null || t.isEmpty() ? "&7Umbral no alcanzado" : t);
+            taxDesc = messages.colorize(t == null || t.isEmpty() ? "&7Below threshold" : t);
         } else {
             Map<String, String> tctx = new LinkedHashMap<>();
             tctx.put("tax_next", se.format(cid, taxNext));
             tctx.put("tax_pct", String.format("%.2f", trateRaw));
             String fmt = messages.getOptional("bank.gui.tax_over_threshold");
-            if (fmt == null || fmt.isEmpty()) fmt = "%tax_next% &7(%tax_pct% sobre el excedente)";
+            if (fmt == null || fmt.isEmpty()) fmt = "%tax_next% &7(%tax_pct%% on excess)";
             for (Map.Entry<String, String> e : tctx.entrySet()) {
                 fmt = fmt.replace("%" + e.getKey() + "%", e.getValue());
             }
@@ -89,7 +89,7 @@ public final class BankMenuService implements Listener {
         String interestNextFmt;
         if (!interestOn || irate <= 0) {
             String t = messages.getOptional("bank.gui.interest_disabled");
-            interestNextFmt = messages.colorize(t == null || t.isEmpty() ? "&aDesactivado" : t);
+            interestNextFmt = messages.colorize(t == null || t.isEmpty() ? "&aDisabled" : t);
         } else {
             interestNextFmt = se.format(cid, interestNext);
         }

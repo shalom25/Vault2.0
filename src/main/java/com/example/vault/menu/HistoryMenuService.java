@@ -234,8 +234,8 @@ public class HistoryMenuService implements Listener {
             List<String> lore = messages.formatList("history.gui.info_lore", ctx);
             if (lore.isEmpty()) {
                 lore = new ArrayList<>();
-                lore.add(ChatColor.GRAY + "Página " + ctx.get("page") + " / " + ctx.get("pages"));
-                lore.add(ChatColor.GRAY + "Total transacciones: " + ChatColor.AQUA + ctx.get("total"));
+                lore.add(ChatColor.GRAY + "Page " + ctx.get("page") + " / " + ctx.get("pages"));
+                lore.add(ChatColor.GRAY + "Total transactions: " + ChatColor.AQUA + ctx.get("total"));
             }
             m.setLore(lore);
             s.setItemMeta(m);

@@ -9,15 +9,21 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.util.StringUtil;
 import com.example.vault.menu.PayMenuService;
 import com.example.vault.i18n.Messages;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
-public class PayCommand implements CommandExecutor {
+
+public class PayCommand implements TabExecutor {
     private final Plugin plugin;
     private final Economy economy;
     private final PayMenuService payMenuService;
@@ -70,7 +76,13 @@ public class PayCommand implements CommandExecutor {
             payMenuService.getChargeRequestService().cancelRequest(player);
             Player target = Bukkit.getPlayerExact(args[0]);
             if (target == null || !target.isOnline()) {
-                player.sendMessage(messages.formatChat("pay.player_offline", java.util.Collections.singletonMap("player", args[0])));
+                // Prefer "not found" when the name has never joined; otherwise offline.
+                OfflinePlayer known = com.example.vault.util.PlayerResolver.resolveByName(plugin, args[0]);
+                if (known == null) {
+                    player.sendMessage(messages.formatChat("pay.player_not_found", Collections.singletonMap("player", args[0])));
+                } else {
+                    player.sendMessage(messages.formatChat("pay.player_offline", Collections.singletonMap("player", args[0])));
+                }
                 return true;
             }
             payMenuService.openPlayerMenu(player, target);
@@ -78,22 +90,23 @@ public class PayCommand implements CommandExecutor {
         }
         if (args.length >= 2) {
             payMenuService.getChargeRequestService().cancelRequest(player);
-            boolean targetOnline;
             Player targetOnlinePlayer = Bukkit.getPlayerExact(args[0]);
-            OfflinePlayer targetOffline = null;
-            if (targetOnlinePlayer != null && targetOnlinePlayer.isOnline()) {
-                targetOnline = true;
+            boolean targetOnline = targetOnlinePlayer != null && targetOnlinePlayer.isOnline();
+            OfflinePlayer targetOffline;
+            if (targetOnline) {
                 targetOffline = targetOnlinePlayer;
             } else {
-                targetOnline = false;
-                boolean allow = plugin.getConfig().getBoolean("offline-uuid-fallback", true);
-                if (!allow) {
-                    player.sendMessage(messages.formatChat("pay.player_offline", java.util.Collections.singletonMap("player", args[0])));
+                // Only known players (online or have played before). Never invent offline UUIDs for pay.
+                targetOffline = com.example.vault.util.PlayerResolver.resolveByName(plugin, args[0]);
+                if (targetOffline == null) {
+                    player.sendMessage(messages.formatChat("pay.player_not_found", Collections.singletonMap("player", args[0])));
                     return true;
                 }
-                targetOffline = com.example.vault.util.PlayerResolver.resolveByNameWithOfflineFallback(plugin, args[0]);
-                if (targetOffline == null) {
-                    player.sendMessage(messages.formatChat("pay.player_offline", java.util.Collections.singletonMap("player", args[0])));
+                boolean allowOfflinePay = plugin.getConfig().getBoolean("offline-uuid-fallback", true)
+                        && economy instanceof SimpleEconomy
+                        && offlinePay != null;
+                if (!allowOfflinePay) {
+                    player.sendMessage(messages.formatChat("pay.player_offline", Collections.singletonMap("player", args[0])));
                     return true;
                 }
             }
@@ -109,11 +122,11 @@ public class PayCommand implements CommandExecutor {
             boolean bypassMin = bypassAll;
             boolean bypassMax = bypassAll;
             if (min > 0 && amount < min && !bypassMin) {
-                player.sendMessage(messages.formatChat("pay.amount_too_small", java.util.Collections.singletonMap("min", economy.format(min))));
+                player.sendMessage(messages.formatChat("pay.amount_too_small", Collections.singletonMap("min", economy.format(min))));
                 return true;
             }
             if (max > 0 && amount > max && !bypassMax) {
-                player.sendMessage(messages.formatChat("pay.amount_too_large", java.util.Collections.singletonMap("max", economy.format(max))));
+                player.sendMessage(messages.formatChat("pay.amount_too_large", Collections.singletonMap("max", economy.format(max))));
                 return true;
             }
             String worldName = player.getWorld() != null ? player.getWorld().getName() : null;
@@ -140,10 +153,19 @@ public class PayCommand implements CommandExecutor {
                     player.sendMessage(messages.chat("pay.withdraw_failed"));
                     return true;
                 }
-                if (economy instanceof SimpleEconomy) {
-                    economy.depositPlayer(targetOnlinePlayer, worldName, amount);
-                } else {
-                    economy.depositPlayer(targetOnlinePlayer, amount);
+                EconomyResponse dep = economy instanceof SimpleEconomy
+                        ? economy.depositPlayer(targetOnlinePlayer, worldName, amount)
+                        : economy.depositPlayer(targetOnlinePlayer, amount);
+                if (!dep.transactionSuccess()) {
+                    if (economy instanceof SimpleEconomy) {
+                        economy.depositPlayer(player, worldName, amount);
+                    } else {
+                        economy.depositPlayer(player, amount);
+                    }
+                    java.util.Map<String, String> err = new java.util.HashMap<>();
+                    err.put("error", dep.errorMessage != null ? dep.errorMessage : "deposit failed");
+                    player.sendMessage(messages.formatChat("pay.error.deposit_error", err));
+                    return true;
                 }
                 java.util.Map<String, String> placeholders = new java.util.HashMap<>();
                 placeholders.put("player", targetOnlinePlayer.getName());
@@ -157,7 +179,7 @@ public class PayCommand implements CommandExecutor {
             }
 
             if (!(economy instanceof SimpleEconomy) || offlinePay == null) {
-                player.sendMessage(messages.formatChat("pay.player_offline", java.util.Collections.singletonMap("player", args[0])));
+                player.sendMessage(messages.formatChat("pay.player_offline", Collections.singletonMap("player", args[0])));
                 return true;
             }
 
@@ -181,6 +203,27 @@ public class PayCommand implements CommandExecutor {
             return true;
         }
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (!(sender instanceof Player)) {
+            return Collections.emptyList();
+        }
+        if (args.length == 1) {
+            String prefix = args[0] == null ? "" : args[0].toLowerCase(Locale.ROOT);
+            List<String> names = new ArrayList<>();
+            for (Player online : Bukkit.getOnlinePlayers()) {
+                if (online == null || online.getName() == null) continue;
+                names.add(online.getName());
+            }
+            names.add("cancel");
+            List<String> out = new ArrayList<>();
+            StringUtil.copyPartialMatches(prefix, names, out);
+            Collections.sort(out, String.CASE_INSENSITIVE_ORDER);
+            return out;
+        }
+        return Collections.emptyList();
     }
 
 }

@@ -192,6 +192,7 @@ public class VaultPlugin extends JavaPlugin implements Listener {
             // Register commands
             payCmd = new PayCommand(this, economy, payMenuService, messages);
             getCommand("pay").setExecutor(payCmd);
+            getCommand("pay").setTabCompleter(payCmd);
             if (vaultMenuService != null) {
                 vaultMenuService.setPayMenuService(payMenuService);
             }
@@ -544,41 +545,22 @@ public class VaultPlugin extends JavaPlugin implements Listener {
     }
 
     private String buildUpdateMessage(String version) {
-        String lang = getConfig().getString("language", "en");
         String norm = (version != null ? normalizeVersion(version) : null);
         String ver;
         if (norm != null && !norm.isEmpty()) {
             ver = "v" + norm;
         } else {
-            String lname = lang.toLowerCase(java.util.Locale.ROOT);
-            if ("es".equals(lname)) {
-                ver = "desconocida";
-            } else if ("zh_cn".equals(lname)) {
-                ver = "未知";
-            } else if ("zh_tw".equals(lname)) {
-                ver = "未知";
-            } else if ("fr".equals(lname)) {
-                ver = "inconnue";
-            } else if ("de".equals(lname)) {
-                ver = "unbekannt";
-            } else {
-                ver = "unknown";
+            String unknown = messages != null ? messages.getOptional("plugin.version_unknown") : null;
+            ver = (unknown == null || unknown.isEmpty()) ? "unknown" : unknown;
+        }
+        java.util.Map<String, String> ctx = java.util.Collections.singletonMap("version", ver);
+        if (messages != null) {
+            String raw = messages.getOptional("plugin.update_available");
+            if (raw != null && !raw.isEmpty()) {
+                return ColorUtil.colorize(messages.format("plugin.update_available", ctx));
             }
         }
-        String lname = lang.toLowerCase(java.util.Locale.ROOT);
-        if ("es".equals(lname)) {
-            return "§eHay una nueva actualización de Vault 2.0 (" + ver + ") disponible. §bDescárgala: ";
-        } else if ("zh_cn".equals(lname)) {
-            return "§eVault 2.0 有新更新 (" + ver + ") 可用。§b下载: ";
-        } else if ("zh_tw".equals(lname)) {
-            return "§eVault 2.0 有新更新 (" + ver + ") 可用。§b下載: ";
-        } else if ("fr".equals(lname)) {
-            return "§eUne nouvelle mise à jour de Vault 2.0 (" + ver + ") est disponible. §bTélécharger : ";
-        } else if ("de".equals(lname)) {
-            return "§eEin neues Update für Vault 2.0 (" + ver + ") ist verfügbar. §bDownload: ";
-        } else {
-            return "§eA new Vault 2.0 update (" + ver + ") is available. §bDownload: ";
-        }
+        return ColorUtil.colorize("&eA new Vault 2.0 update (" + ver + ") is available. &bDownload: ");
     }
 
     private String normalizeVersion(String s) {

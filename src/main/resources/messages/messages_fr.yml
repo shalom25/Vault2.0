@@ -5,6 +5,7 @@ pay:
   no_permission: "&cVous n'avez pas l'autorisation d'utiliser /pay."
   invalid_amount: "&cMontant invalide."
   player_offline: "&cLe joueur &f%player% est hors ligne; demande non livrée."
+  player_not_found: "&cJoueur introuvable : &f%player%"
   amount_too_small: "&cLe montant doit être au moins &6%min%"
   amount_too_large: "&cLe montant doit être au maximum &6%max%"
   not_enough_money: "&cFonds insuffisants."
@@ -128,6 +129,8 @@ plugin:
   enabled: "Économie interne enregistrée sans dépendre de Vault.jar"
   disabled: "Vault (économie interne) désactivé."
   reloaded: "Configuration et messages rechargés (langue : %lang%)."
+  update_available: "&eUne nouvelle mise à jour de Vault 2.0 (%version%) est disponible. &bTélécharger : "
+  version_unknown: "inconnue"
 
 prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
 
@@ -141,6 +144,16 @@ vaultop:
   no_data: "&7Aucune donnée de solde pour le moment."
 
 vault:
+  usage: |
+    &eSous-commandes Vault :
+    &7  /vault (menu)
+    &7  /vault top [page] [currency]
+    &7  /vault withdraw <amount> [currency]
+    &7  /vault history [page]
+    &7  /vault offlinepay [list|refund <id>]
+    &7  /vault bank [balance|deposit|withdraw|top|menu]
+    &7  /vault loan [request|pay|status]
+    &7  /vault reload | update | resetbalances confirm
   menu:
     title: "&bMenu Vault"
     item:
@@ -320,6 +333,13 @@ loan:
     pay:
       usage: "&eUtilisation : &f/%label% pay <montant> &7(payer un montant précis, ou écrire &fall&7 / &ftout&7 pour payer le reste)"
     invalid_duration: "&cDurée invalide : &f%value%&c. Utilisez &f30m&c, &f1h&c, &f1j&c, &f2s&c."
+    help: |
+      &6===== &eAide /loan&6 =====
+      &f/%label%                  &7Ouvrir le menu de prêts (GUI)
+      &f/%label% apply <total> <paiement> [dur] &7Demander un prêt. Dur: 30m/1h/1d/2w
+      &f/%label% pay <amount|all>   &7Payer une partie (ou tout) du prêt
+      &f/%label% status            &7État de votre prêt
+      &f/%label% cancel            &7Annuler la conversation chat active
   charge:
     success: "&cVersement preleve : &6%amount%. Restant : &e%remaining%."
     missed: "&cLe versement n'a pas pu etre preleve (&6%amount%). Echecs &e%missed%/%max_missed%."
@@ -508,6 +528,7 @@ bank:
     self_interest: "&7Prochains intérêts : &a+%interest_next% &7(%interest_pct%% chaque %interest_min%m)"
     self_tax: "&7Prochain impôt : &c-%tax_next% &7(%tax_pct%% sur > %tax_threshold% chaque %tax_min%m)"
     self_no_tax: "&7Prochain impôt : &aAucun (votre solde est inférieur au seuil)"
+    interest_disabled: "&aDésactivé"
     other_header: "&6=== &aSolde Bancaire de &e%player% &6==="
     other_wallet: "&7Portefeuille : &f%wallet%"
     other_bank: "&7À la banque : &f%bank%"
@@ -526,6 +547,10 @@ bank:
     line: "&7#%pos% &e%player% &8- &bBanque : &f%bank% &8| &7Total : &6%total%"
     footer: "&7Utilisez /vault bank top 2 pour voir la page suivante."
   gui:
+    tax_disabled: "&aDésactivé"
+    tax_under_threshold: "&7Seuil non atteint"
+    tax_over_threshold: "%tax_next% &7(%tax_pct%% sur le surplus)"
+    interest_disabled: "&aDésactivé"
     title: "&8🏦 Banque"
     wallet_name: "&6💳 Votre Portefeuille"
     wallet_lore:

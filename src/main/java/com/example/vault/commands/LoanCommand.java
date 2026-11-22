@@ -103,16 +103,17 @@ public class LoanCommand implements CommandExecutor {
 
         if ("apply".equals(sub) || "request".equals(sub) || "pedir".equals(sub)) {
             if (args.length < 3) {
-                Map<String, String> m = new HashMap<>();
-                m.put("label", label);
                 String key = messages.get("loan.cmd.apply.usage");
                 if (key == null || key.isEmpty() || key.equals("loan.cmd.apply.usage")) {
-                    p.sendMessage(color("&eUso: &f/" + label + " apply <total> <pago_por_cuota> [duración]"));
-                    p.sendMessage(color("&eEjemplos:"));
-                    p.sendMessage(color("&f  /" + label + " apply 10000 1000      &7→ 10 cuotas de 1000"));
-                    p.sendMessage(color("&f  /" + label + " apply 5000 2500 1d   &7→ pagar en 1 día, máximo 2 cuotas"));
+                    p.sendMessage(color("&eUsage: &f/" + label + " apply <total> <payment_per_installment> [duration]"));
+                    p.sendMessage(color("&eExamples:"));
+                    p.sendMessage(color("&f  /" + label + " apply 10000 1000      &7→ 10 installments of 1000"));
+                    p.sendMessage(color("&f  /" + label + " apply 5000 2500 1d   &7→ due in 1 day, max 2 installments"));
                 } else {
-                    p.sendMessage(messages.formatChat("loan.cmd.apply.usage", m));
+                    for (String line : key.split("\\r?\\n")) {
+                        p.sendMessage(messages.prefixed(messages.colorize(
+                                line.replace("%label%", label))));
+                    }
                 }
                 return true;
             }
@@ -133,7 +134,7 @@ public class LoanCommand implements CommandExecutor {
                     Map<String, String> m = Collections.singletonMap("value", args[3]);
                     String key = messages.get("loan.cmd.invalid_duration");
                     if (key == null || key.isEmpty() || key.equals("loan.cmd.invalid_duration")) {
-                        p.sendMessage(color("&cDuración inválida: &f%value%&c. Usa 30m, 1h, 1d, 2w.".replace("%value%", args[3])));
+                        p.sendMessage(color("&cInvalid duration: &f%value%&c. Use 30m, 1h, 1d, 2w.".replace("%value%", args[3])));
                     } else {
                         p.sendMessage(messages.formatChat("loan.cmd.invalid_duration", m));
                     }
@@ -150,7 +151,7 @@ public class LoanCommand implements CommandExecutor {
                 m.put("label", label);
                 String key = messages.get("loan.cmd.pay.usage");
                 if (key == null || key.isEmpty() || key.equals("loan.cmd.pay.usage")) {
-                    p.sendMessage(color("&eUso: &f/" + label + " pay <monto>      &7(paga lo que quieras o 'todo'/'all' para pagar el resto)"));
+                    p.sendMessage(color("&eUsage: &f/" + label + " pay <amount>      &7(pay a specific amount, or 'all' for the remainder)"));
                 } else {
                     p.sendMessage(messages.formatChat("loan.cmd.pay.usage", m));
                 }
@@ -183,12 +184,18 @@ public class LoanCommand implements CommandExecutor {
     }
 
     private void sendHelp(Player p, String label) {
-        p.sendMessage(color("&6===== &e/loan Help&6 ====="));
-        p.sendMessage(color("&f/" + label + "                  &7Abrir menú préstamos (GUI)"));
-        p.sendMessage(color("&f/" + label + " apply <total> <pago> [dur] &7Pedir préstamo. Dur: 30m/1h/1d/2w"));
-        p.sendMessage(color("&f/" + label + " pay <amount|all>   &7Pagar una parte (o todo) del préstamo"));
-        p.sendMessage(color("&f/" + label + " status            &7Estado de tu préstamo"));
-        p.sendMessage(color("&f/" + label + " cancel            &7Cancelar conversación chat activa"));
+        String help = messages.getOptional("loan.cmd.help");
+        if (help == null || help.isEmpty()) {
+            help = "&6===== &e/loan Help&6 =====\n"
+                    + "&f/%label%                  &7Open loan menu (GUI)\n"
+                    + "&f/%label% apply <total> <payment> [dur] &7Request a loan. Dur: 30m/1h/1d/2w\n"
+                    + "&f/%label% pay <amount|all>   &7Pay part (or all) of your loan\n"
+                    + "&f/%label% status            &7Your loan status\n"
+                    + "&f/%label% cancel            &7Cancel active chat conversation";
+        }
+        for (String line : help.split("\\r?\\n")) {
+            p.sendMessage(messages.prefixed(messages.colorize(line.replace("%label%", label))));
+        }
     }
 
     private String color(String s) {

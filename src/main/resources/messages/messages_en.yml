@@ -5,6 +5,7 @@ pay:
   no_permission: "&cYou do not have permission to use /pay."
   invalid_amount: "&cInvalid amount."
   player_offline: "&cPlayer &f%player% is offline; request not delivered."
+  player_not_found: "&cPlayer not found: &f%player%"
   amount_too_small: "&cAmount must be at least &6%min%"
   amount_too_large: "&cAmount must be at most &6%max%"
   not_enough_money: "&cInsufficient funds."
@@ -119,6 +120,8 @@ plugin:
   enabled: "Internal economy registered without depending on Vault.jar"
   disabled: "Vault (internal economy) disabled."
   reloaded: "Configuration and messages reloaded (language: %lang%)."
+  update_available: "&eA new Vault 2.0 update (%version%) is available. &bDownload: "
+  version_unknown: "unknown"
 
 prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
 
@@ -132,6 +135,16 @@ vaultop:
   no_data: "&7No balance data yet."
 
 vault:
+  usage: |
+    &eVault subcommands:
+    &7  /vault (menu)
+    &7  /vault top [page] [currency]
+    &7  /vault withdraw <amount> [currency]
+    &7  /vault history [page]
+    &7  /vault offlinepay [list|refund <id>]
+    &7  /vault bank [balance|deposit|withdraw|top|menu]
+    &7  /vault loan [request|pay|status]
+    &7  /vault reload | update | resetbalances confirm
   menu:
     title: "&bVault Menu"
     item:
@@ -311,6 +324,13 @@ loan:
     pay:
       usage: "&eUsage: &f/%label% pay <amount> &7(pay a specific amount, or type &fall&7 / &ftodo&7 to pay the remaining)"
     invalid_duration: "&cInvalid duration &f%value%&c. Use &f30m&c, &f1h&c, &f1d&c, &f2w&c."
+    help: |
+      &6===== &e/loan Help&6 =====
+      &f/%label%                  &7Open loan menu (GUI)
+      &f/%label% apply <total> <payment> [dur] &7Request a loan. Dur: 30m/1h/1d/2w
+      &f/%label% pay <amount|all>   &7Pay part (or all) of your loan
+      &f/%label% status            &7Your loan status
+      &f/%label% cancel            &7Cancel active chat conversation
   charge:
     success: "&cInstallment charged: &6%amount%. Remaining: &e%remaining%."
     missed: "&cInstallment not charged (&6%amount%). Missed &e%missed%/%max_missed%."
@@ -502,6 +522,7 @@ bank:
     self_interest: "&7Next interest: &a+%interest_next% &7(%interest_pct%% every %interest_min%m)"
     self_tax: "&7Next tax: &c-%tax_next% &7(%tax_pct%% on > %tax_threshold% every %tax_min%m)"
     self_no_tax: "&7Next tax: &aNone (your balance is below the threshold)"
+    interest_disabled: "&aDisabled"
     other_header: "&6=== &aBank Balance of &e%player% &6==="
     other_wallet: "&7Wallet: &f%wallet%"
     other_bank: "&7In bank: &f%bank%"
@@ -520,6 +541,10 @@ bank:
     line: "&7#%pos% &e%player% &8- &bBank: &f%bank% &8| &7Total: &6%total%"
     footer: "&7Use /vault bank top 2 to see the next page."
   gui:
+    tax_disabled: "&aDisabled"
+    tax_under_threshold: "&7Below threshold"
+    tax_over_threshold: "%tax_next% &7(%tax_pct%% on excess)"
+    interest_disabled: "&aDisabled"
     title: "&8🏦 Bank"
     wallet_name: "&6💳 Your Wallet"
     wallet_lore:

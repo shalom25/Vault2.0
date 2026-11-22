@@ -8,15 +8,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 /**
- * Resolución segura de jugadores evitando el uso de API deprecada.
+ * Safe player name resolution without deprecated APIs.
  */
 public final class PlayerResolver {
     private PlayerResolver() {}
 
     /**
-     * Resuelve un jugador por nombre priorizando jugadores en línea y
-     * luego buscando entre los jugadores offline registrados por el servidor.
-     * Retorna null si no se encuentra.
+     * Resolve a player by name, preferring online players, then offline players
+     * known to the server. Returns null if not found.
      */
     public static OfflinePlayer resolveByName(Plugin plugin, String name) {
         if (name == null || name.isEmpty()) return null;
@@ -45,9 +44,9 @@ public final class PlayerResolver {
     }
 
     /**
-     * Igual que resolveByName, pero si el servidor está en offline-mode y
-     * no se encuentra el jugador, genera un UUID offline determinista
-     * y retorna el OfflinePlayer asociado a ese UUID.
+     * Same as resolveByName, but if the server is in offline-mode and the player
+     * is not found, generates a deterministic offline UUID and returns that OfflinePlayer.
+     * Do not use this for payments — inventing UUIDs for unknown names can take money.
      */
     public static OfflinePlayer resolveByNameWithOfflineFallback(Server server, String name) {
         OfflinePlayer found = resolveByName(server, name);

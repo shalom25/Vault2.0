@@ -3,6 +3,7 @@ pay:
   no_permission: "&cNie masz uprawnień do używania /pay."
   invalid_amount: "&cNieprawidłowa kwota."
   player_offline: "&cGracz &f%player% jest offline; żądanie nie zostało dostarczone."
+  player_not_found: "&cNie znaleziono gracza: &f%player%"
   amount_too_small: "&cKwota musi wynosić co najmniej &6%min%"
   amount_too_large: "&cKwota może wynosić maksymalnie &6%max%"
   not_enough_money: "&cNiewystarczające środki."
@@ -115,6 +116,8 @@ plugin:
   enabled: "Wewnętrzna ekonomia zarejestrowana bez zależności od Vault.jar"
   disabled: "Vault (wewnętrzna ekonomia) wyłączony."
   reloaded: "Konfiguracja i wiadomości przeładowane (język: %lang%)."
+  update_available: "&eDostępna jest nowa aktualizacja Vault 2.0 (%version%). &bPobierz: "
+  version_unknown: "nieznana"
 
 prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
 
@@ -128,6 +131,16 @@ vaultop:
   no_data: "&7Brak danych o saldach."
 
 vault:
+  usage: |
+    &ePodkomendy Vault:
+    &7  /vault (menu)
+    &7  /vault top [page] [currency]
+    &7  /vault withdraw <amount> [currency]
+    &7  /vault history [page]
+    &7  /vault offlinepay [list|refund <id>]
+    &7  /vault bank [balance|deposit|withdraw|top|menu]
+    &7  /vault loan [request|pay|status]
+    &7  /vault reload | update | resetbalances confirm
   menu:
     title: "&bMenu Vault"
     item:
@@ -307,6 +320,13 @@ loan:
     pay:
       usage: "&eUżycie: &f/%label% pay <kwota> &7(zapłać określoną kwotę, lub wpisz &fall&7 / &ftodo&7 aby spłacić resztę)"
     invalid_duration: "&cNieprawidłowy okres &f%value%&c. Użyj &f30m&c, &f1h&c, &f1d&c, &f2w&c."
+    help: |
+      &6===== &ePomoc /loan&6 =====
+      &f/%label%                  &7Otwórz menu pożyczek (GUI)
+      &f/%label% apply <total> <płatność> [dur] &7Poproś o pożyczkę. Dur: 30m/1h/1d/2w
+      &f/%label% pay <amount|all>   &7Spłać część (lub całość) pożyczki
+      &f/%label% status            &7Status Twojej pożyczki
+      &f/%label% cancel            &7Anuluj aktywną rozmowę na czacie
   charge:
     success: "&cPobrano ratę: &6%amount%. Pozostało: &e%remaining%."
     missed: "&cNie pobrano raty (&6%amount%). Brak &e%missed%/%max_missed%."
@@ -491,6 +511,7 @@ bank:
     self_interest: "&7Następne odsetki: &a+%interest_next% &7(%interest_pct%% co %interest_min%m)"
     self_tax: "&7Następny podatek: &c-%tax_next% &7(%tax_pct%% od > %tax_threshold% co %tax_min%m)"
     self_no_tax: "&7Następny podatek: &aBrak (Twoje saldo jest poniżej progu)"
+    interest_disabled: "&aWyłączone"
     other_header: "&6=== &aSaldo bankowe gracza &e%player% &6==="
     other_wallet: "&7Portfel: &f%wallet%"
     other_bank: "&7W banku: &f%bank%"
@@ -509,6 +530,10 @@ bank:
     line: "&7#%pos% &e%player% &8- &bBank: &f%bank% &8| &7Suma: &6%total%"
     footer: "&7Użyj /vault bank top 2, aby zobaczyć następną stronę."
   gui:
+    tax_disabled: "&aWyłączony"
+    tax_under_threshold: "&7Poniżej progu"
+    tax_over_threshold: "%tax_next% &7(%tax_pct%% od nadwyżki)"
+    interest_disabled: "&aWyłączone"
     title: "&8🏦 Bank"
     wallet_name: "&6💳 Twój portfel"
     wallet_lore:
