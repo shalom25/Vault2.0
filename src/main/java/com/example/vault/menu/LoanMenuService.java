@@ -401,7 +401,8 @@ public class LoanMenuService implements Listener {
         w.step = Step.INTERVAL;
         w.choices.clear();
         Inventory inv = Bukkit.createInventory(null, 27, titleRequestInterval());
-        putHoursOptions(inv, w, lore("loan.request.lore.interval"));
+        // Interval between installments can be shorter than first-delay minimum.
+        putHoursOptions(inv, w, lore("loan.request.lore.interval"), 1);
         inv.setItem(22, item(Material.ARROW, display("loan.request.item.back", "&7Back"), lore("loan.request.lore.back")));
         inv.setItem(26, item(Material.BARRIER, display("loan.request.item.cancel", "&cCancel"), lore("loan.request.lore.cancel")));
         fillEmptyWithGreenGlass(inv);
@@ -538,12 +539,19 @@ public class LoanMenuService implements Listener {
     }
 
     private void putHoursOptions(Inventory inv, Wizard w, java.util.List<String> optionLore) {
+        int minHours = (int) Math.max(0L, plugin.getConfig().getLong("loans.min_first_delay_hours", 6L));
+        putHoursOptions(inv, w, optionLore, Math.max(1, minHours));
+    }
+
+    private void putHoursOptions(Inventory inv, Wizard w, java.util.List<String> optionLore, int minHours) {
         int[] hours = new int[] { 1, 6, 12, 24, 48, 72, 168 };
         int[] slots = new int[] { 10, 11, 12, 13, 14, 15, 16 };
         Material clock = getClockMaterial();
-        for (int i = 0; i < hours.length && i < slots.length; i++) {
-            int h = hours[i];
-            int s = slots[i];
+        int slotIdx = 0;
+        for (int h : hours) {
+            if (h < minHours) continue;
+            if (slotIdx >= slots.length) break;
+            int s = slots[slotIdx++];
             w.choices.put(s, h);
             inv.setItem(s, item(clock, "&e" + h + "h", optionLore));
         }

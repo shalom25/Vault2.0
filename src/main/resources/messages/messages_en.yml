@@ -231,10 +231,15 @@ loan:
   no_permission: "&cYou do not have permission to use loans."
   none: "&aYou do not have an active loan."
   already_active: "&aYou already have an active loan."
+  defaulted_must_pay: "&cYour loan is in default. Pay the remaining &e%remaining% &cbefore requesting a new loan."
+  cooldown: "&cYou cannot request a new loan yet. Cooldown remaining: &e%time_left%&c."
+  cooldown_status: "&7Loan cooldown remaining: &e%time_left%&7."
+  cooldown_after_pay: "&7Loan paid. New-loan cooldown remaining: &e%time_left%&7."
   cancelled: "&cLoan action cancelled."
   created: "&aLoan created: &6%amount% &7| installments: &f%installments% &7| installment: &6%installment_amount% &7| every &f%interval_hours%h"
   paid: "&2Your loan is fully paid."
   status: "&2Loan: principal &f%principal% &7| remaining &f%remaining% &7| installment &6%installment% &7| installments left &f%installments_left% &7| next charge in &c%next_in_minutes%m"
+  status_defaulted: "&4Defaulted loan: principal &f%principal% &7| remaining &c%remaining% &7| use /loan pay to clear the debt"
   menu:
     title: "&aLoan"
     item:
@@ -309,6 +314,7 @@ loan:
     too_many_installments: "&cToo many installments. Max: &e%max%."
     not_enough_money: "&cInsufficient funds to pay."
     deposit_failed: "&cCould not create the loan (deposit failed)."
+    first_delay_too_short: "&cFirst payment delay must be at least &e%min_hours%h&c."
   pay:
     success: "&aPayment received: &6%amount%. Remaining: &e%remaining%."
   disabled: "&cLoans are disabled on this server."
@@ -334,7 +340,10 @@ loan:
   charge:
     success: "&cInstallment charged: &6%amount%. Remaining: &e%remaining%."
     missed: "&cInstallment not charged (&6%amount%). Missed &e%missed%/%max_missed%."
-    defaulted: "&4Loan defaulted. Remaining: &e%remaining%."
+    defaulted: "&4Loan defaulted. Remaining debt: &e%remaining%&4."
+    defaulted_reclaimed: "&eReclaimed &6%reclaimed% &efrom your wallet/bank toward the loan."
+    defaulted_must_pay: "&cPay the remaining &e%remaining% &cwith /loan pay before you can borrow again."
+    defaulted_cooldown: "&cNew loan cooldown: &e%time_left%&c."
 
 economy:
   bank_not_supported: "&cBank support not implemented"

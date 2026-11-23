@@ -43,6 +43,8 @@ public class YamlLoanStorage implements LoanStorage {
                 loan.setInstallmentsLeft(s.getInt("installments_left", 0));
                 loan.setMissedPayments(s.getInt("missed_payments", 0));
                 loan.setCreatedAtMs(s.getLong("created_at_ms", System.currentTimeMillis()));
+                loan.setDefaultedAtMs(s.getLong("defaulted_at_ms", 0L));
+                loan.setCooldownUntilMs(s.getLong("cooldown_until_ms", 0L));
                 String statusRaw = s.getString("status", "ACTIVE");
                 try {
                     loan.setStatus(LoanStatus.valueOf(statusRaw == null ? "ACTIVE" : statusRaw));
@@ -74,6 +76,8 @@ public class YamlLoanStorage implements LoanStorage {
                 s.set("installments_left", loan.getInstallmentsLeft());
                 s.set("missed_payments", loan.getMissedPayments());
                 s.set("created_at_ms", loan.getCreatedAtMs());
+                s.set("defaulted_at_ms", loan.getDefaultedAtMs());
+                s.set("cooldown_until_ms", loan.getCooldownUntilMs());
                 s.set("status", loan.getStatus().name());
             }
         }

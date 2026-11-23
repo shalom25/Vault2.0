@@ -164,6 +164,7 @@ public class VaultPlugin extends JavaPlugin implements Listener {
         }
 
         loanService = new LoanService(this, economy, messages, new YamlLoanStorage(this));
+        loanService.setBankService(bankService);
         getServer().getPluginManager().registerEvents(loanService, this);
         loanService.start();
 
