@@ -94,7 +94,8 @@ public class VaultCommand implements CommandExecutor {
             return true;
         }
         if ("resetbalances".equals(sub) || "clearbalances".equals(sub)) {
-            if (!hasAny(sender, "vault.admin")) return deny(sender, "vault.admin");
+            // Must be admin/OP — hasAny() also accepts vault.use (default true for all players).
+            if (!hasAnyAdmin(sender, "vault.admin")) return deny(sender, "vault.admin");
             if (args.length < 2 || !"confirm".equalsIgnoreCase(args[1])) {
                 sender.sendMessage(messages.prefixed("This will delete ALL balances. Use: /vault " + sub + " confirm"));
                 return true;
