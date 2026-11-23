@@ -166,8 +166,68 @@ public final class PhysicalNoteService implements Listener {
         } catch (Throwable t) { throw new RuntimeException("HMAC failed", t); }
     }
 
-    private void setItemHandNull(Player p) {
+    /**
+     * Remove one note from the hand that actually holds {@code stack}.
+     * Supports offhand on 1.9+ (via reflection; this project compiles against 1.8 API).
+     */
+    private void consumeOneFromHand(Player p, ItemStack stack) {
+        if (p == null || stack == null) return;
+        if (stack.getAmount() > 1) {
+            stack.setAmount(stack.getAmount() - 1);
+            return;
+        }
+        // Prefer identity match so offhand notes are cleared correctly.
+        ItemStack main = p.getInventory().getItemInHand();
+        if (main == stack) {
+            p.getInventory().setItemInHand(null);
+            return;
+        }
+        try {
+            Object inv = p.getInventory();
+            Method getMain = inv.getClass().getMethod("getItemInMainHand");
+            Method setMain = inv.getClass().getMethod("setItemInMainHand", ItemStack.class);
+            ItemStack mainHand = (ItemStack) getMain.invoke(inv);
+            if (mainHand == stack) {
+                setMain.invoke(inv, new ItemStack(Material.AIR));
+                return;
+            }
+            Method getOff = inv.getClass().getMethod("getItemInOffHand");
+            Method setOff = inv.getClass().getMethod("setItemInOffHand", ItemStack.class);
+            ItemStack offHand = (ItemStack) getOff.invoke(inv);
+            if (offHand == stack) {
+                setOff.invoke(inv, new ItemStack(Material.AIR));
+                return;
+            }
+            // Event item may be a copy: match by note serial / signature data.
+            if (isSamePhysicalNote(offHand, stack)) {
+                setOff.invoke(inv, new ItemStack(Material.AIR));
+                return;
+            }
+            if (isSamePhysicalNote(mainHand, stack)) {
+                setMain.invoke(inv, new ItemStack(Material.AIR));
+                return;
+            }
+        } catch (Throwable ignored) {
+            // 1.8 or method missing — fall through
+        }
+        if (isSamePhysicalNote(main, stack)) {
+            p.getInventory().setItemInHand(null);
+            return;
+        }
+        // Last resort (legacy / unexpected copy): clear main hand.
         p.getInventory().setItemInHand(null);
+    }
+
+    private boolean isSamePhysicalNote(ItemStack a, ItemStack b) {
+        if (a == null || b == null) return false;
+        if (a == b) return true;
+        if (a.getType() != Material.PAPER || b.getType() != Material.PAPER) return false;
+        Map<String, Object> da = extractNoteData(a);
+        Map<String, Object> db = extractNoteData(b);
+        if (da == null || db == null) return false;
+        Object idA = da.get("note_id");
+        Object idB = db.get("note_id");
+        return idA != null && idA.equals(idB);
     }
 
     public ItemStack withdrawNote(Player issuer, String currencyId, double amount, String noteIdOverride) {
@@ -509,11 +569,7 @@ public final class PhysicalNoteService implements Listener {
         }
         redeemed.put(noteId, Boolean.TRUE);
         saveRedeemed();
-        if (stack.getAmount() <= 1) {
-            setItemHandNull(player);
-        } else {
-            stack.setAmount(stack.getAmount() - 1);
-        }
+        consumeOneFromHand(player, stack);
         player.sendMessage(messages.formatChat("note.redeem.success", ctx));
         return true;
     }
