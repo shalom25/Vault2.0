@@ -1,5 +1,6 @@
 package com.example.vault.loans;
 
+import com.example.vault.economy.BankService;
 import com.example.vault.i18n.Messages;
 import com.example.vault.util.ChatInputSanitizer;
 import com.example.vault.util.ClickablePromptUtil;
@@ -30,6 +31,7 @@ public class LoanService implements Listener {
     private final Economy economy;
     private final Messages messages;
     private final LoanStorage storage;
+    private volatile BankService bankService;
     private final Map<UUID, Loan> loans = new ConcurrentHashMap<>();
     private final Map<UUID, Conversation> conversations = new ConcurrentHashMap<>();
     private BukkitTask task;
@@ -45,6 +47,10 @@ public class LoanService implements Listener {
         } catch (IOException e) {
             plugin.getLogger().warning("Failed to load loans.yml: " + e.getMessage());
         }
+    }
+
+    public void setBankService(BankService bankService) {
+        this.bankService = bankService;
     }
 
     public void start() {
@@ -206,13 +212,7 @@ public class LoanService implements Listener {
             player.sendMessage(messages.chat("loan.no_permission"));
             return;
         }
-        int maxActive = plugin.getConfig().getInt("loans.max_active_per_player", 1);
-        if (maxActive <= 0) maxActive = 1;
-        Loan existing = loans.get(player.getUniqueId());
-        if (existing != null && existing.getStatus() == LoanStatus.ACTIVE) {
-            player.sendMessage(messages.chat("loan.already_active"));
-            return;
-        }
+        if (!assertCanStartNewLoan(player)) return;
         Conversation c = new Conversation();
         c.state = ConversationState.ASK_AMOUNT;
         conversations.put(player.getUniqueId(), c);
@@ -227,7 +227,7 @@ public class LoanService implements Listener {
             return;
         }
         Loan loan = loans.get(player.getUniqueId());
-        if (loan == null || loan.getStatus() != LoanStatus.ACTIVE) {
+        if (!isPayableLoan(loan)) {
             player.sendMessage(messages.chat("loan.none"));
             return;
         }
@@ -243,7 +243,7 @@ public class LoanService implements Listener {
 
     public void sendStatus(Player player) {
         Loan loan = loans.get(player.getUniqueId());
-        if (loan == null || loan.getStatus() != LoanStatus.ACTIVE) {
+        if (loan == null || (loan.getStatus() != LoanStatus.ACTIVE && loan.getStatus() != LoanStatus.DEFAULTED)) {
             player.sendMessage(messages.chat("loan.none"));
             return;
         }
@@ -252,8 +252,18 @@ public class LoanService implements Listener {
         m.put("remaining", economy.format(loan.getRemaining()));
         m.put("installment", economy.format(loan.getInstallmentAmount()));
         m.put("installments_left", String.valueOf(loan.getInstallmentsLeft()));
+        m.put("status", loan.getStatus().name());
         m.put("next_in_minutes", String.valueOf(Math.max(0, (loan.getNextChargeAtMs() - System.currentTimeMillis()) / 60000L)));
-        player.sendMessage(messages.formatChat("loan.status", m));
+        if (loan.getStatus() == LoanStatus.DEFAULTED) {
+            player.sendMessage(messages.formatChat("loan.status_defaulted", m));
+        } else {
+            player.sendMessage(messages.formatChat("loan.status", m));
+        }
+        long cdLeft = loan.getCooldownUntilMs() - System.currentTimeMillis();
+        if (cdLeft > 0) {
+            m.put("time_left", formatDurationLeft(cdLeft));
+            player.sendMessage(messages.formatChat("loan.cooldown_status", m));
+        }
     }
 
     public boolean cancelConversation(Player player) {
@@ -268,13 +278,7 @@ public class LoanService implements Listener {
             player.sendMessage(messages.chat("loan.no_permission"));
             return false;
         }
-        int maxActive = plugin.getConfig().getInt("loans.max_active_per_player", 1);
-        if (maxActive <= 0) maxActive = 1;
-        Loan existing = loans.get(player.getUniqueId());
-        if (existing != null && existing.getStatus() == LoanStatus.ACTIVE) {
-            player.sendMessage(messages.chat("loan.already_active"));
-            return false;
-        }
+        if (!assertCanStartNewLoan(player)) return false;
         long intervalMs;
         if (intervalHours <= 0) {
             intervalMs = configIntervalMs();
@@ -287,6 +291,8 @@ public class LoanService implements Listener {
         } else {
             firstDelayMs = firstDelayHours * 3600000L;
         }
+        firstDelayMs = enforceMinFirstDelay(player, firstDelayMs);
+        if (firstDelayMs < 0) return false;
         int before = loans.size();
         createLoan(player, amount, installments, installmentAmount, intervalMs, firstDelayMs);
         Loan after = loans.get(player.getUniqueId());
@@ -302,13 +308,7 @@ public class LoanService implements Listener {
             player.sendMessage(messages.chat("loan.error.invalid_number"));
             return false;
         }
-        int maxActive = plugin.getConfig().getInt("loans.max_active_per_player", 1);
-        if (maxActive <= 0) maxActive = 1;
-        Loan existing = loans.get(player.getUniqueId());
-        if (existing != null && existing.getStatus() == LoanStatus.ACTIVE) {
-            player.sendMessage(messages.chat("loan.already_active"));
-            return false;
-        }
+        if (!assertCanStartNewLoan(player)) return false;
         double min = plugin.getConfig().getDouble("loans.min_amount", 0.0);
         double max = plugin.getConfig().getDouble("loans.max_amount", 0.0);
         if (min > 0 && total < min) {
@@ -358,6 +358,8 @@ public class LoanService implements Listener {
         if (!validateInstallmentAmount(player, total, effectivePayment)) {
             return false;
         }
+        firstDelayMs = enforceMinFirstDelay(player, firstDelayMs);
+        if (firstDelayMs < 0) return false;
         createLoan(player, total, installments, effectivePayment, intervalMs, firstDelayMs);
         Loan after = loans.get(player.getUniqueId());
         return after != null && after.getStatus() == LoanStatus.ACTIVE;
@@ -373,7 +375,7 @@ public class LoanService implements Listener {
             return false;
         }
         Loan loan = loans.get(player.getUniqueId());
-        if (loan == null || loan.getStatus() != LoanStatus.ACTIVE) {
+        if (!isPayableLoan(loan)) {
             player.sendMessage(messages.chat("loan.none"));
             return false;
         }
@@ -393,7 +395,7 @@ public class LoanService implements Listener {
             loan.setStatus(LoanStatus.PAID);
             loan.setNextChargeAtMs(0L);
             loan.setInstallmentsLeft(0);
-        } else {
+        } else if (loan.getStatus() == LoanStatus.ACTIVE) {
             double perInstallment = Math.max(0.01, loan.getInstallmentAmount());
             int left = (int) Math.ceil(remaining / perInstallment);
             loan.setInstallmentsLeft(Math.max(1, left));
@@ -405,6 +407,11 @@ public class LoanService implements Listener {
         player.sendMessage(messages.formatChat("loan.pay.success", m));
         if (loan.getStatus() == LoanStatus.PAID) {
             notifyPaid(player.getUniqueId());
+            long cdLeft = loan.getCooldownUntilMs() - System.currentTimeMillis();
+            if (cdLeft > 0) {
+                m.put("time_left", formatDurationLeft(cdLeft));
+                player.sendMessage(messages.formatChat("loan.cooldown_after_pay", m));
+            }
         }
         return true;
     }
@@ -495,13 +502,10 @@ public class LoanService implements Listener {
         int missed = loan.getMissedPayments() + 1;
         loan.setMissedPayments(missed);
         loan.setNextChargeAtMs(now + Math.max(60000L, loan.getIntervalMs()));
-        int maxMissed = plugin.getConfig().getInt("loans.max_missed_payments", 3);
+        int maxMissed = plugin.getConfig().getInt("loans.max_missed_payments", 1);
         if (maxMissed < 1) maxMissed = 1;
         if (missed >= maxMissed) {
-            loan.setStatus(LoanStatus.DEFAULTED);
-            loan.setNextChargeAtMs(0L);
-            persist();
-            notifyDefaulted(uuid, loan.getRemaining());
+            applyDefault(uuid, loan);
             return;
         }
         persist();
@@ -535,12 +539,161 @@ public class LoanService implements Listener {
         p.sendMessage(messages.formatChat("loan.charge.missed", m));
     }
 
-    private void notifyDefaulted(UUID uuid, double remaining) {
+    private void notifyDefaulted(UUID uuid, double remaining, double reclaimed, long cooldownUntilMs) {
         Player p = Bukkit.getPlayer(uuid);
         if (p == null || !p.isOnline()) return;
         Map<String, String> m = new java.util.HashMap<>();
         m.put("remaining", economy.format(remaining));
+        m.put("reclaimed", economy.format(reclaimed));
+        long cdLeft = cooldownUntilMs - System.currentTimeMillis();
+        m.put("time_left", cdLeft > 0 ? formatDurationLeft(cdLeft) : "0m");
         p.sendMessage(messages.formatChat("loan.charge.defaulted", m));
+        if (reclaimed > 0) {
+            p.sendMessage(messages.formatChat("loan.charge.defaulted_reclaimed", m));
+        }
+        if (remaining > 1.0E-9) {
+            p.sendMessage(messages.formatChat("loan.charge.defaulted_must_pay", m));
+        }
+        if (cdLeft > 0) {
+            p.sendMessage(messages.formatChat("loan.charge.defaulted_cooldown", m));
+        }
+    }
+
+    private void applyDefault(UUID uuid, Loan loan) {
+        double owed = Math.max(0.0, loan.getRemaining());
+        double reclaimed = clawbackFunds(uuid, owed);
+        double stillOwed = Math.max(0.0, owed - reclaimed);
+        loan.setRemaining(stillOwed);
+        long now = System.currentTimeMillis();
+        loan.setDefaultedAtMs(now);
+        long cooldownHours = Math.max(0L, plugin.getConfig().getLong("loans.default_cooldown_hours", 48L));
+        loan.setCooldownUntilMs(now + cooldownHours * 3600000L);
+        loan.setNextChargeAtMs(0L);
+        if (stillOwed <= 1.0E-9) {
+            loan.setRemaining(0.0);
+            loan.setInstallmentsLeft(0);
+            loan.setStatus(LoanStatus.PAID);
+        } else {
+            loan.setStatus(LoanStatus.DEFAULTED);
+        }
+        persist();
+        notifyDefaulted(uuid, stillOwed, reclaimed, loan.getCooldownUntilMs());
+        plugin.getLogger().info("Loan default for " + uuid + ": owed=" + owed
+                + " reclaimed=" + reclaimed + " remaining=" + stillOwed
+                + " cooldownUntil=" + loan.getCooldownUntilMs());
+    }
+
+    /** Seize from wallet first, then bank. Returns amount successfully reclaimed. */
+    private double clawbackFunds(UUID uuid, double amount) {
+        if (amount <= 1.0E-9) return 0.0;
+        double remaining = amount;
+        double taken = 0.0;
+        OfflinePlayer op = Bukkit.getOfflinePlayer(uuid);
+        try {
+            economy.createPlayerAccount(op);
+            double wallet = Math.max(0.0, economy.getBalance(op));
+            double fromWallet = Math.min(wallet, remaining);
+            if (fromWallet > 1.0E-9) {
+                EconomyResponse r = economy.withdrawPlayer(op, fromWallet);
+                if (r != null && r.transactionSuccess()) {
+                    taken += fromWallet;
+                    remaining -= fromWallet;
+                }
+            }
+        } catch (Throwable t) {
+            plugin.getLogger().warning("Loan clawback wallet failed for " + uuid + ": " + t.getMessage());
+        }
+        if (remaining > 1.0E-9 && bankService != null) {
+            try {
+                double fromBank = bankService.seizeBank(uuid, remaining);
+                if (fromBank > 0) {
+                    taken += fromBank;
+                    remaining -= fromBank;
+                }
+            } catch (Throwable t) {
+                plugin.getLogger().warning("Loan clawback bank failed for " + uuid + ": " + t.getMessage());
+            }
+        }
+        return taken;
+    }
+
+    private boolean isPayableLoan(Loan loan) {
+        if (loan == null) return false;
+        if (loan.getRemaining() <= 1.0E-9) return false;
+        return loan.getStatus() == LoanStatus.ACTIVE || loan.getStatus() == LoanStatus.DEFAULTED;
+    }
+
+    /** True if this player is allowed to open/start a new loan request. */
+    public boolean canStartNewLoan(Player player) {
+        if (player == null) return false;
+        Loan existing = loans.get(player.getUniqueId());
+        if (existing == null) return true;
+        if (existing.getStatus() == LoanStatus.ACTIVE) return false;
+        if (existing.getStatus() == LoanStatus.DEFAULTED && existing.getRemaining() > 1.0E-9) return false;
+        return existing.getCooldownUntilMs() <= System.currentTimeMillis();
+    }
+
+    /**
+     * @return true if the player may start a new loan (and any deny message was already sent when false)
+     */
+    public boolean assertCanStartNewLoan(Player player) {
+        Loan existing = loans.get(player.getUniqueId());
+        if (existing == null) return true;
+        if (existing.getStatus() == LoanStatus.ACTIVE) {
+            player.sendMessage(messages.chat("loan.already_active"));
+            return false;
+        }
+        if (existing.getStatus() == LoanStatus.DEFAULTED && existing.getRemaining() > 1.0E-9) {
+            Map<String, String> m = new java.util.HashMap<>();
+            m.put("remaining", economy.format(existing.getRemaining()));
+            player.sendMessage(messages.formatChat("loan.defaulted_must_pay", m));
+            return false;
+        }
+        long cdLeft = existing.getCooldownUntilMs() - System.currentTimeMillis();
+        if (cdLeft > 0) {
+            Map<String, String> m = new java.util.HashMap<>();
+            m.put("time_left", formatDurationLeft(cdLeft));
+            player.sendMessage(messages.formatChat("loan.cooldown", m));
+            return false;
+        }
+        return true;
+    }
+
+    /** Remaining cooldown text for GUI lore, or null if none. */
+    public String getCooldownLeftLabel(Player player) {
+        if (player == null) return null;
+        Loan existing = loans.get(player.getUniqueId());
+        if (existing == null) return null;
+        long cdLeft = existing.getCooldownUntilMs() - System.currentTimeMillis();
+        if (cdLeft <= 0) return null;
+        return formatDurationLeft(cdLeft);
+    }
+
+    /** Returns clamped delay, or -1 if the player was told the delay is too short (caller should abort). */
+    private long enforceMinFirstDelay(Player player, long firstDelayMs) {
+        long minHours = Math.max(0L, plugin.getConfig().getLong("loans.min_first_delay_hours", 6L));
+        if (minHours <= 0) return Math.max(60000L, firstDelayMs);
+        long minMs = minHours * 3600000L;
+        if (firstDelayMs + 1L < minMs) {
+            Map<String, String> m = new java.util.HashMap<>();
+            m.put("min_hours", String.valueOf(minHours));
+            player.sendMessage(messages.formatChat("loan.error.first_delay_too_short", m));
+            return -1L;
+        }
+        return Math.max(minMs, firstDelayMs);
+    }
+
+    private String formatDurationLeft(long ms) {
+        long totalMin = Math.max(1L, (ms + 59999L) / 60000L);
+        long hours = totalMin / 60L;
+        long mins = totalMin % 60L;
+        if (hours > 48) {
+            long days = hours / 24L;
+            long remH = hours % 24L;
+            return days + "d " + remH + "h";
+        }
+        if (hours > 0) return hours + "h " + mins + "m";
+        return mins + "m";
     }
 
     private void notifyPaid(UUID uuid) {
@@ -634,7 +787,9 @@ public class LoanService implements Listener {
                 player.sendMessage(messages.chat("loan.error.invalid_number"));
                 return;
             }
-            createLoan(player, c.amount, 1, c.amount, configIntervalMs(), hours * 3600000L);
+            long firstDelayMs = enforceMinFirstDelay(player, hours * 3600000L);
+            if (firstDelayMs < 0) return;
+            createLoan(player, c.amount, 1, c.amount, configIntervalMs(), firstDelayMs);
             conversations.remove(player.getUniqueId());
             return;
         }
@@ -725,7 +880,7 @@ public class LoanService implements Listener {
 
         if (c.state == ConversationState.ASK_PAY_AMOUNT) {
             Loan loan = loans.get(player.getUniqueId());
-            if (loan == null || loan.getStatus() != LoanStatus.ACTIVE) {
+            if (!isPayableLoan(loan)) {
                 conversations.remove(player.getUniqueId());
                 player.sendMessage(messages.chat("loan.none"));
                 return;
@@ -746,35 +901,24 @@ public class LoanService implements Listener {
                 player.sendMessage(messages.chat("loan.error.invalid_number"));
                 return;
             }
-            EconomyResponse r = economy.withdrawPlayer(player, toPay);
-            if (r == null || !r.transactionSuccess()) {
-                player.sendMessage(messages.chat("loan.error.not_enough_money"));
-                return;
-            }
-            loan.setRemaining(Math.max(0.0, loan.getRemaining() - toPay));
-            if (loan.getRemaining() <= 0.0) {
-                loan.setStatus(LoanStatus.PAID);
-                loan.setNextChargeAtMs(0L);
-                loan.setInstallmentsLeft(0);
-            }
-            persist();
-            Map<String, String> m = new java.util.HashMap<>();
-            m.put("amount", economy.format(toPay));
-            m.put("remaining", economy.format(loan.getRemaining()));
-            player.sendMessage(messages.formatChat("loan.pay.success", m));
+            // Reuse payLoan so defaulted + cooldown messaging stays consistent.
+            payLoan(player, toPay);
             conversations.remove(player.getUniqueId());
             return;
         }
     }
 
     private void createLoan(Player player, double amount, int installments, double installmentAmount, long intervalMs, long firstDelayMs) {
-        Loan existing = loans.get(player.getUniqueId());
-        if (existing != null && existing.getStatus() == LoanStatus.ACTIVE) {
-            player.sendMessage(messages.chat("loan.already_active"));
-            return;
-        }
+        if (!assertCanStartNewLoan(player)) return;
         if (!validateInstallmentAmount(player, amount, installmentAmount)) {
             return;
+        }
+        long delay = firstDelayMs;
+        if (delay < 0) return;
+        // Central clamp if callers already validated; still enforce floor here.
+        long minHours = Math.max(0L, plugin.getConfig().getLong("loans.min_first_delay_hours", 6L));
+        if (minHours > 0) {
+            delay = Math.max(delay, minHours * 3600000L);
         }
         EconomyResponse r = economy.depositPlayer(player, amount);
         if (r == null || !r.transactionSuccess()) {
@@ -787,9 +931,11 @@ public class LoanService implements Listener {
         loan.setInstallmentAmount(Math.max(0.01, installmentAmount));
         loan.setIntervalMs(Math.max(60000L, intervalMs));
         loan.setInstallmentsLeft(Math.max(1, installments));
-        loan.setNextChargeAtMs(System.currentTimeMillis() + Math.max(60000L, firstDelayMs));
+        loan.setNextChargeAtMs(System.currentTimeMillis() + Math.max(60000L, delay));
         loan.setStatus(LoanStatus.ACTIVE);
         loan.setMissedPayments(0);
+        loan.setDefaultedAtMs(0L);
+        loan.setCooldownUntilMs(0L);
         loans.put(player.getUniqueId(), loan);
         persist();
 

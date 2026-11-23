@@ -12,6 +12,8 @@ public class Loan {
     private int installmentsLeft;
     private int missedPayments;
     private long createdAtMs;
+    private long defaultedAtMs;
+    private long cooldownUntilMs;
     private LoanStatus status;
 
     public Loan(UUID borrower) {
@@ -86,6 +88,22 @@ public class Loan {
 
     public void setCreatedAtMs(long createdAtMs) {
         this.createdAtMs = createdAtMs;
+    }
+
+    public long getDefaultedAtMs() {
+        return defaultedAtMs;
+    }
+
+    public void setDefaultedAtMs(long defaultedAtMs) {
+        this.defaultedAtMs = defaultedAtMs;
+    }
+
+    public long getCooldownUntilMs() {
+        return cooldownUntilMs;
+    }
+
+    public void setCooldownUntilMs(long cooldownUntilMs) {
+        this.cooldownUntilMs = cooldownUntilMs;
     }
 
     public LoanStatus getStatus() {

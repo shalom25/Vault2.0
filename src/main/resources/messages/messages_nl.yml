@@ -5,6 +5,7 @@ pay:
   no_permission: "&cJe hebt geen toestemming om /pay te gebruiken."
   invalid_amount: "&cOngeldig bedrag."
   player_offline: "&cSpeler &f%player% is offline; verzoek niet afgeleverd."
+  player_not_found: "&cSpeler niet gevonden: &f%player%"
   amount_too_small: "&cBedrag moet minstens &6%min% zijn"
   amount_too_large: "&cBedrag mag maximaal &6%max% zijn"
   not_enough_money: "&cOnvoldoende saldo."
@@ -119,6 +120,8 @@ plugin:
   enabled: "Interne economie geregistreerd zonder afhankelijkheid van Vault.jar"
   disabled: "Vault (interne economie) uitgeschakeld."
   reloaded: "Configuratie en berichten herladen (taal: %lang%)."
+  update_available: "&eEr is een nieuwe Vault 2.0 update (%version%) beschikbaar. &bDownload: "
+  version_unknown: "onbekend"
 
 prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
 
@@ -132,6 +135,16 @@ vaultop:
   no_data: "&7Nog geen saldo-gegevens."
 
 vault:
+  usage: |
+    &eVault-subcommandos:
+    &7  /vault (menu)
+    &7  /vault top [page] [currency]
+    &7  /vault withdraw <amount> [currency]
+    &7  /vault history [page]
+    &7  /vault offlinepay [list|refund <id>]
+    &7  /vault bank [balance|deposit|withdraw|top|menu]
+    &7  /vault loan [request|pay|status]
+    &7  /vault reload | update | resetbalances confirm
   menu:
     title: "&bVault-menu"
     item:
@@ -311,6 +324,13 @@ loan:
     pay:
       usage: "&eGebruik: &f/%label% pay <bedrag> &7(betaal een specifiek bedrag, of typ &fall&7 / &ftodo&7 om het resterende te betalen)"
     invalid_duration: "&cOngeldige duur &f%value%&c. Gebruik &f30m&c, &f1h&c, &f1d&c, &f2w&c."
+    help: |
+      &6===== &e/loan Hulp&6 =====
+      &f/%label%                  &7Open leningmenu (GUI)
+      &f/%label% apply <total> <betaling> [dur] &7Vraag een lening aan. Dur: 30m/1h/1d/2w
+      &f/%label% pay <amount|all>   &7Betaal een deel (of alles) van je lening
+      &f/%label% status            &7Status van je lening
+      &f/%label% cancel            &7Actieve chatconversatie annuleren
   charge:
     success: "&cTermijn afgeschreven: &6%amount%. Resterend: &e%remaining%."
     missed: "&cTermijn kon niet worden afgeschreven (&6%amount%). Mislukkingen &e%missed%/%max_missed%."
@@ -499,6 +519,7 @@ bank:
     self_interest: "&7Volgende rente: &a+%interest_next% &7(%interest_pct%% elke %interest_min%m)"
     self_tax: "&7Volgende belasting: &c-%tax_next% &7(%tax_pct%% op > %tax_threshold% elke %tax_min%m)"
     self_no_tax: "&7Volgende belasting: &aGeen (je saldo ligt onder de drempel)"
+    interest_disabled: "&aUitgeschakeld"
     other_header: "&6=== &aBanksaldo van &e%player% &6==="
     other_wallet: "&7Portemonnee: &f%wallet%"
     other_bank: "&7Op de bank: &f%bank%"
@@ -517,6 +538,10 @@ bank:
     line: "&7#%pos% &e%player% &8- &bBank: &f%bank% &8| &7Totaal: &6%total%"
     footer: "&7Gebruik /vault bank top 2 om de volgende pagina te zien."
   gui:
+    tax_disabled: "&aUitgeschakeld"
+    tax_under_threshold: "&7Onder drempel"
+    tax_over_threshold: "%tax_next% &7(%tax_pct%% over het overschot)"
+    interest_disabled: "&aUitgeschakeld"
     title: "&8🏦 Bank"
     wallet_name: "&6💳 Je Portemonnee"
     wallet_lore:

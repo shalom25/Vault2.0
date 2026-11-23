@@ -5,6 +5,7 @@ pay:
   no_permission: "&c/pay komutunu kullanma izniniz yok."
   invalid_amount: "&cGeçersiz miktar."
   player_offline: "&cOyuncu &f%player% çevrimdışı; istek iletilemedi."
+  player_not_found: "&cOyuncu bulunamadı: &f%player%"
   amount_too_small: "&cMiktar en az &6%min% olmalı"
   amount_too_large: "&cMiktar en fazla &6%max% olmalı"
   not_enough_money: "&cYetersiz bakiye."
@@ -119,6 +120,8 @@ plugin:
   enabled: "Dahili ekonomi, Vault.jar'a bağımlı olmadan kaydedildi"
   disabled: "Vault (dahili ekonomi) devre dışı."
   reloaded: "Yapılandırma ve mesajlar yeniden yüklendi (dil: %lang%)."
+  update_available: "&eYeni bir Vault 2.0 güncellemesi (%version%) mevcut. &bİndir: "
+  version_unknown: "bilinmiyor"
 
 prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
 
@@ -132,6 +135,16 @@ vaultop:
   no_data: "&7Henüz bakiye verisi yok."
 
 vault:
+  usage: |
+    &eVault alt komutları:
+    &7  /vault (menü)
+    &7  /vault top [page] [currency]
+    &7  /vault withdraw <amount> [currency]
+    &7  /vault history [page]
+    &7  /vault offlinepay [list|refund <id>]
+    &7  /vault bank [balance|deposit|withdraw|top|menu]
+    &7  /vault loan [request|pay|status]
+    &7  /vault reload | update | resetbalances confirm
   menu:
     title: "&bVault Menüsü"
     item:
@@ -311,6 +324,13 @@ loan:
     pay:
       usage: "&eKullanım: &f/%label% pay <tutar> &7(belli bir tutar öde, ya da kalan için &ftamam&7 / &ftüm&7 yaz)"
     invalid_duration: "&cGeçersiz süre: &f%value%&c. Kullan: &f30d&c, &f1s&c, &f1g&c, &f2h&c."
+    help: |
+      &6===== &e/loan Yardım&6 =====
+      &f/%label%                  &7Kredi menüsünü aç (GUI)
+      &f/%label% apply <total> <ödeme> [dur] &7Kredi iste. Dur: 30m/1h/1d/2w
+      &f/%label% pay <amount|all>   &7Kredinin bir kısmını (veya tamamını) öde
+      &f/%label% status            &7Kredi durumun
+      &f/%label% cancel            &7Aktif sohbet konuşmasını iptal et
   charge:
     success: "&cTaksit tahsil edildi: &6%amount%. Kalan: &e%remaining%."
     missed: "&cTaksit tahsil edilemedi (&6%amount%&c). Kaçırılan &e%missed%/%max_missed%."
@@ -499,6 +519,7 @@ bank:
     self_interest: "&7Sonraki faiz: &a+%interest_next% &7(her %interest_min% dakikada %interest_pct%%)"
     self_tax: "&7Sonraki vergi: &c-%tax_next% &7(%tax_threshold% üzerindeki kısımdan her %tax_min% dakikada %tax_pct%%)"
     self_no_tax: "&7Sonraki vergi: &aYok &7(bakiyen eşiğin altında)"
+    interest_disabled: "&aKapalı"
     other_header: "&6=== &e%player% &aadlı oyuncunun Banka Bakiyesi &6==="
     other_wallet: "&7Cüzdan: &f%wallet%"
     other_bank: "&7Bankada: &f%bank%"
@@ -517,6 +538,10 @@ bank:
     line: "&7#%pos% &e%player% &8- &bBanka: &f%bank% &8| &7Toplam: &6%total%"
     footer: "&7Sonraki sayfayı görmek için /vault bank top 2 kullan."
   gui:
+    tax_disabled: "&aKapalı"
+    tax_under_threshold: "&7Eşik altında"
+    tax_over_threshold: "%tax_next% &7(%tax_pct%% fazla kısım üzerinden)"
+    interest_disabled: "&aKapalı"
     title: "&8🏦 Banka"
     wallet_name: "&6💳 Cüzdanın"
     wallet_lore:

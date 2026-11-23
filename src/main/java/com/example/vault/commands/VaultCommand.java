@@ -94,7 +94,8 @@ public class VaultCommand implements CommandExecutor {
             return true;
         }
         if ("resetbalances".equals(sub) || "clearbalances".equals(sub)) {
-            if (!hasAny(sender, "vault.admin")) return deny(sender, "vault.admin");
+            // Must be admin/OP — hasAny() also accepts vault.use (default true for all players).
+            if (!hasAnyAdmin(sender, "vault.admin")) return deny(sender, "vault.admin");
             if (args.length < 2 || !"confirm".equalsIgnoreCase(args[1])) {
                 sender.sendMessage(messages.prefixed("This will delete ALL balances. Use: /vault " + sub + " confirm"));
                 return true;
@@ -479,7 +480,7 @@ public class VaultCommand implements CommandExecutor {
                 String interestNextFmt;
                 if (!interestOn || irate <= 0) {
                     String t = messages.getOptional("bank.balance.interest_disabled");
-                    interestNextFmt = messages.colorize(t == null || t.isEmpty() ? "&aDesactivado" : t);
+                    interestNextFmt = messages.colorize(t == null || t.isEmpty() ? "&aDisabled" : t);
                 } else {
                     interestNextFmt = se.format(cid, interestNext);
                 }
@@ -661,7 +662,7 @@ public class VaultCommand implements CommandExecutor {
             // No matched sub-action
             String usageRaw = messages.getOptional("bank.usage");
             if (usageRaw == null || usageRaw.isEmpty()) {
-                sender.sendMessage(messages.prefixed(ChatColor.RED + "Uso: /vault bank [balance|deposit|withdraw|top|menu]"));
+                sender.sendMessage(messages.prefixed(ChatColor.RED + "Usage: /vault bank [balance|deposit|withdraw|top|menu]"));
                 return true;
             }
             for (String line : usageRaw.split("\\r?\\n")) {
@@ -674,17 +675,24 @@ public class VaultCommand implements CommandExecutor {
     }
 
     private String usage() {
-        String p = messages.prefix();
-        String pfix = p.isEmpty() ? "" : (p + " ");
-        return pfix + ChatColor.YELLOW + "Subcomandos Vault:\n" +
-                pfix + ChatColor.GRAY + "  /vault (menú)\n" +
-                pfix + ChatColor.GRAY + "  /vault top [page] [currency]\n" +
-                pfix + ChatColor.GRAY + "  /vault withdraw <amount> [currency]\n" +
-                pfix + ChatColor.GRAY + "  /vault history [page]\n" +
-                pfix + ChatColor.GRAY + "  /vault offlinepay [list|refund <id>]\n" +
-                pfix + ChatColor.GRAY + "  /vault bank [balance|deposit|withdraw|top|menu]\n" +
-                pfix + ChatColor.GRAY + "  /vault loan [request|pay|status]\n" +
-                pfix + ChatColor.GRAY + "  /vault reload | update | resetbalances confirm";
+        String usageRaw = messages.getOptional("vault.usage");
+        if (usageRaw == null || usageRaw.isEmpty()) {
+            usageRaw = "&eVault subcommands:\n"
+                    + "&7  /vault (menu)\n"
+                    + "&7  /vault top [page] [currency]\n"
+                    + "&7  /vault withdraw <amount> [currency]\n"
+                    + "&7  /vault history [page]\n"
+                    + "&7  /vault offlinepay [list|refund <id>]\n"
+                    + "&7  /vault bank [balance|deposit|withdraw|top|menu]\n"
+                    + "&7  /vault loan [request|pay|status]\n"
+                    + "&7  /vault reload | update | resetbalances confirm";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (String line : usageRaw.split("\\r?\\n")) {
+            if (sb.length() > 0) sb.append('\n');
+            sb.append(messages.prefixed(messages.colorize(line)));
+        }
+        return sb.toString();
     }
 
     private static String formatTime(long ms) {

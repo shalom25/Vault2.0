@@ -5,6 +5,7 @@ pay:
   no_permission: "&cआपके पास /pay का उपयोग करने की अनुमति नहीं है।"
   invalid_amount: "&cअमान्य राशि।"
   player_offline: "&cखिलाड़ी &f%player% ऑफ़लाइन है; अनुरोध वितरित नहीं किया गया।"
+  player_not_found: "&cखिलाड़ी नहीं मिला: &f%player%"
   amount_too_small: "&cराशि कम से कम &6%min% होनी चाहिए"
   amount_too_large: "&cराशि अधिकतम &6%max% होनी चाहिए"
   not_enough_money: "&cअपर्याप्त धनराशि।"
@@ -119,6 +120,8 @@ plugin:
   enabled: "आंतरिक अर्थव्यवस्था Vault.jar पर निर्भर किए बिना पंजीकृत है"
   disabled: "Vault (आंतरिक अर्थव्यवस्था) अक्षम है।"
   reloaded: "कॉन्फ़िगरेशन और संदेश फिर से लोड किए गए (भाषा: %lang%)।"
+  update_available: "&eVault 2.0 का नया अपडेट (%version%) उपलब्ध है। &bडाउनलोड: "
+  version_unknown: "अज्ञात"
 
 prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
 
@@ -132,6 +135,16 @@ vaultop:
   no_data: "&7अभी तक बैलेंस डेटा नहीं है।"
 
 vault:
+  usage: |
+    &eVault उपकमांड:
+    &7  /vault (menu)
+    &7  /vault top [page] [currency]
+    &7  /vault withdraw <amount> [currency]
+    &7  /vault history [page]
+    &7  /vault offlinepay [list|refund <id>]
+    &7  /vault bank [balance|deposit|withdraw|top|menu]
+    &7  /vault loan [request|pay|status]
+    &7  /vault reload | update | resetbalances confirm
   menu:
     title: "&bVault Menu"
     item:
@@ -311,6 +324,13 @@ loan:
     pay:
       usage: "&eउपयोग: &f/%label% pay <राशि> &7(एक विशिष्ट राशि का भुगतान करें, या शेष भुगतान करने के लिए &fall&7 / &ftodo&7 टाइप करें)"
     invalid_duration: "&cअमान्य अवधि &f%value%&c। &f30m&c, &f1h&c, &f1d&c, &f2w&c का प्रयोग करें।"
+    help: |
+      &6===== &e/loan सहायता&6 =====
+      &f/%label%                  &7ऋण मेनू खोलें (GUI)
+      &f/%label% apply <total> <payment> [dur] &7ऋण का अनुरोध करें। Dur: 30m/1h/1d/2w
+      &f/%label% pay <amount|all>   &7ऋण का भाग (या सब) चुकाएँ
+      &f/%label% status            &7आपके ऋण की स्थिति
+      &f/%label% cancel            &7सक्रिय चैट वार्तालाप रद्द करें
   charge:
     success: "&cकिस्त वसूल की गई: &6%amount%. शेष: &e%remaining%."
     missed: "&cकिस्त वसूल नहीं की जा सकी (&6%amount%). चूक &e%missed%/%max_missed%."
@@ -499,6 +519,7 @@ bank:
     self_interest: "&7अगला ब्याज: &a+%interest_next% &7(%interest_pct%% हर %interest_min%m)"
     self_tax: "&7अगला कर: &c-%tax_next% &7(%tax_pct%% %tax_threshold% से ऊपर हर %tax_min%m)"
     self_no_tax: "&7अगला कर: &aकोई नहीं (आपकी शेष राशि सीमा से कम है)"
+    interest_disabled: "&aअक्षम"
     other_header: "&6=== &a%player% की बैंक शेष राशि &6==="
     other_wallet: "&7बटुआ: &f%wallet%"
     other_bank: "&7बैंक में: &f%bank%"
@@ -517,6 +538,10 @@ bank:
     line: "&7#%pos% &e%player% &8- &bबैंक: &f%bank% &8| &7कुल: &6%total%"
     footer: "&7अगला पृष्ठ देखने के लिए /vault bank top 2 का उपयोग करें।"
   gui:
+    tax_disabled: "&aअक्षम"
+    tax_under_threshold: "&7सीमा से नीचे"
+    tax_over_threshold: "%tax_next% &7(अधिक राशि पर %tax_pct%%)"
+    interest_disabled: "&aअक्षम"
     title: "&8🏦 बैंक"
     wallet_name: "&6💳 आपका बटुआ"
     wallet_lore:

@@ -5,6 +5,7 @@ pay:
   no_permission: "&cУ вас нет прав для использования /pay."
   invalid_amount: "&cНеверная сумма."
   player_offline: "&cИгрок &f%player% оффлайн; запрос не доставлен."
+  player_not_found: "&cИгрок не найден: &f%player%"
   amount_too_small: "&cСумма должна быть не менее &6%min%"
   amount_too_large: "&cСумма должна быть не более &6%max%"
   not_enough_money: "&cНедостаточно средств."
@@ -119,6 +120,8 @@ plugin:
   enabled: "Внутренняя экономика зарегистрирована без зависимости от Vault.jar"
   disabled: "Vault (внутренняя экономика) отключен."
   reloaded: "Конфигурация и сообщения перезагружены (язык: %lang%)."
+  update_available: "&eДоступно новое обновление Vault 2.0 (%version%). &bСкачать: "
+  version_unknown: "неизвестна"
 
 prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
 
@@ -132,6 +135,16 @@ vaultop:
   no_data: "&7Пока нет данных о балансах."
 
 vault:
+  usage: |
+    &eПодкоманды Vault:
+    &7  /vault (меню)
+    &7  /vault top [page] [currency]
+    &7  /vault withdraw <amount> [currency]
+    &7  /vault history [page]
+    &7  /vault offlinepay [list|refund <id>]
+    &7  /vault bank [balance|deposit|withdraw|top|menu]
+    &7  /vault loan [request|pay|status]
+    &7  /vault reload | update | resetbalances confirm
   menu:
     title: "&bМеню Vault"
     item:
@@ -311,6 +324,13 @@ loan:
     pay:
       usage: "&eИспользование: &f/%label% pay <сумма> &7(оплатить конкретную сумму, или напишите &fall&7 / &ftodo&7 чтобы оплатить остаток)"
     invalid_duration: "&cНеверный срок &f%value%&c. Используйте &f30m&c, &f1h&c, &f1d&c, &f2w&c."
+    help: |
+      &6===== &eСправка /loan&6 =====
+      &f/%label%                  &7Открыть меню займов (GUI)
+      &f/%label% apply <total> <платёж> [dur] &7Запросить займ. Dur: 30m/1h/1d/2w
+      &f/%label% pay <amount|all>   &7Оплатить часть (или весь) займ
+      &f/%label% status            &7Статус вашего займа
+      &f/%label% cancel            &7Отменить активный чат-диалог
   charge:
     success: "&cПлатеж списан: &6%amount%. Осталось: &e%remaining%."
     missed: "&cНе удалось списать платеж (&6%amount%). Пропуски &e%missed%/%max_missed%."

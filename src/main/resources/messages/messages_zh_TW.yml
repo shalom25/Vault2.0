@@ -5,6 +5,7 @@ pay:
   no_permission: "&c你沒有權限使用 /pay。"
   invalid_amount: "&c無效的金額。"
   player_offline: "&c玩家 &f%player% 不在線；請求未發送。"
+  player_not_found: "&c找不到玩家: &f%player%"
   amount_too_small: "&c金額必須至少為 &6%min%"
   amount_too_large: "&c金額必須至多為 &6%max%"
   not_enough_money: "&c餘額不足。"
@@ -119,6 +120,8 @@ plugin:
   enabled: "內部經濟系統已註冊，不依賴 Vault.jar"
   disabled: "Vault (內部經濟) 已禁用。"
   reloaded: "配置和訊息已重新加載 (語言: %lang%)。"
+  update_available: "&eVault 2.0 有新更新 (%version%) 可用。&b下載: "
+  version_unknown: "未知"
 
 prefix: "&#1fc9ff&lV&#4bd7fe&la&#76e4fc&lu&#a2f2fb&ll&#cdfff9&lt"
 
@@ -132,6 +135,16 @@ vaultop:
   no_data: "&7目前還沒有餘額資料。"
 
 vault:
+  usage: |
+    &eVault 子指令:
+    &7  /vault (選單)
+    &7  /vault top [page] [currency]
+    &7  /vault withdraw <amount> [currency]
+    &7  /vault history [page]
+    &7  /vault offlinepay [list|refund <id>]
+    &7  /vault bank [balance|deposit|withdraw|top|menu]
+    &7  /vault loan [request|pay|status]
+    &7  /vault reload | update | resetbalances confirm
   menu:
     title: "&bVault 選單"
     item:
@@ -311,6 +324,13 @@ loan:
     pay:
       usage: "&e用法: &f/%label% pay <金額> &7(償還特定金額，或輸入 &fall&7 / &ftodo&7 繳清餘額)"
     invalid_duration: "&c無效的期限 &f%value%&c。請使用 &f30m&c、&f1h&c、&f1d&c、&f2w&c。"
+    help: |
+      &6===== &e/loan 說明&6 =====
+      &f/%label%                  &7開啟貸款選單 (GUI)
+      &f/%label% apply <total> <payment> [dur] &7申請貸款。Dur: 30m/1h/1d/2w
+      &f/%label% pay <amount|all>   &7償還部分（或全部）貸款
+      &f/%label% status            &7查看貸款狀態
+      &f/%label% cancel            &7取消目前聊天對話
   charge:
     success: "&c已收取分期款：&6%amount%。剩餘：&e%remaining%。"
     missed: "&c無法收取分期款（&6%amount%）。失敗次數 &e%missed%/%max_missed%。"
@@ -499,6 +519,7 @@ bank:
     self_interest: "&7下次利息：&a+%interest_next% &7（每 %interest_min% 分鐘 %interest_pct%%）"
     self_tax: "&7下次稅收：&c-%tax_next% &7（超過 %tax_threshold% 的部分收取 %tax_pct%%，每 %tax_min% 分鐘一次）"
     self_no_tax: "&7下次稅收：&a無（你的餘額低於稅收閾值）"
+    interest_disabled: "&a已停用"
     other_header: "&6=== &a%player% 的銀行餘額 &6==="
     other_wallet: "&7錢包：&f%wallet%"
     other_bank: "&7銀行中：&f%bank%"
@@ -517,6 +538,10 @@ bank:
     line: "&7#%pos% &e%player% &8- &b銀行：&f%bank% &8| &7總計：&6%total%"
     footer: "&7使用 /vault bank top 2 查看下一頁。"
   gui:
+    tax_disabled: "&a已停用"
+    tax_under_threshold: "&7未達門檻"
+    tax_over_threshold: "%tax_next% &7(超出部分的 %tax_pct%%)"
+    interest_disabled: "&a已停用"
     title: "&8🏦 銀行"
     wallet_name: "&6💳 你的錢包"
     wallet_lore:

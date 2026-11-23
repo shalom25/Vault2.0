@@ -106,6 +106,33 @@ public final class BankService {
         return true;
     }
 
+    /**
+     * Remove up to {@code amount} from the bank without depositing to the wallet
+     * (used for loan-default clawback). Returns the amount actually seized.
+     */
+    public double seizeBank(UUID uuid, double amount) {
+        if (uuid == null || !Double.isFinite(amount) || amount <= 0) return 0.0;
+        double bal = getBankBalance(uuid);
+        double take = Math.min(bal, amount);
+        if (take <= 0) return 0.0;
+        bankBalances.merge(uuid, -take, (a, b) -> sanitize(a + b));
+        save();
+        if (economy.getTransactionLogService() != null) {
+            try {
+                TxRecord.Builder b = TxRecord.builder()
+                        .txType(TxType.LOAN_DEFAULT)
+                        .currencyId(economy.getDefaultCurrencyId())
+                        .amount(take)
+                        .fromUuid(uuid)
+                        .toUuid(uuid)
+                        .putMeta("bank_seize", "true")
+                        .putMeta("bank_after", String.valueOf(getBankBalance(uuid)));
+                economy.getTransactionLogService().record(b);
+            } catch (Throwable ignored) {}
+        }
+        return take;
+    }
+
     public boolean isInterestEnabled() {
         return plugin.getConfig().getBoolean("bank.interest.enabled", true);
     }

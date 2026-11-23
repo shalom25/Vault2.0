@@ -178,7 +178,8 @@ loans:
   # Minimum amount a player can request as a loan.
   min_amount: 1
   # Maximum amount a player can request as a loan.
-  max_amount: 100000
+  # Lowered to reduce alt-farm impact if someone still defaults after transferring funds.
+  max_amount: 25000
   # Minimum installment allowed for any loan.
   min_installment: 1
   # Raises the minimum installment based on the total loan amount.
@@ -190,10 +191,16 @@ loans:
   max_installments: 60
   # Default time between installments in hours.
   default_interval_hours: 24
+  # Minimum hours before the first automatic charge (also applies to one-payment "total delay").
+  # Prevents short-cycle borrow → transfer → default farms.
+  min_first_delay_hours: 6
   # How often the plugin checks if an installment should be charged.
   charge_check_seconds: 60
   # Maximum failed automatic charges before the loan is marked as defaulted.
-  max_missed_payments: 3
+  # 1 = default on the first missed installment.
+  max_missed_payments: 1
+  # After a default, block new loans for this many hours (even if remaining debt is paid / clawed back).
+  default_cooldown_hours: 48
   # Effects applied to players whose loan is DEFAULTED (mora). Refreshed periodically so it persists.
   defaulted_effects:
     enabled: true
