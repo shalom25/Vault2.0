@@ -623,10 +623,20 @@ public class LoanService implements Listener {
         return loan.getStatus() == LoanStatus.ACTIVE || loan.getStatus() == LoanStatus.DEFAULTED;
     }
 
+    /** True if this player is allowed to open/start a new loan request. */
+    public boolean canStartNewLoan(Player player) {
+        if (player == null) return false;
+        Loan existing = loans.get(player.getUniqueId());
+        if (existing == null) return true;
+        if (existing.getStatus() == LoanStatus.ACTIVE) return false;
+        if (existing.getStatus() == LoanStatus.DEFAULTED && existing.getRemaining() > 1.0E-9) return false;
+        return existing.getCooldownUntilMs() <= System.currentTimeMillis();
+    }
+
     /**
-     * @return true if the player may start a new loan (and any deny message was already sent)
+     * @return true if the player may start a new loan (and any deny message was already sent when false)
      */
-    private boolean assertCanStartNewLoan(Player player) {
+    public boolean assertCanStartNewLoan(Player player) {
         Loan existing = loans.get(player.getUniqueId());
         if (existing == null) return true;
         if (existing.getStatus() == LoanStatus.ACTIVE) {
@@ -647,6 +657,16 @@ public class LoanService implements Listener {
             return false;
         }
         return true;
+    }
+
+    /** Remaining cooldown text for GUI lore, or null if none. */
+    public String getCooldownLeftLabel(Player player) {
+        if (player == null) return null;
+        Loan existing = loans.get(player.getUniqueId());
+        if (existing == null) return null;
+        long cdLeft = existing.getCooldownUntilMs() - System.currentTimeMillis();
+        if (cdLeft <= 0) return null;
+        return formatDurationLeft(cdLeft);
     }
 
     /** Returns clamped delay, or -1 if the player was told the delay is too short (caller should abort). */

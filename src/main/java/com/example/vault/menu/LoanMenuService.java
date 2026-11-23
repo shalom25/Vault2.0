@@ -50,7 +50,35 @@ public class LoanMenuService implements Listener {
 
     public void openLoanMenu(Player player) {
         Inventory inv = Bukkit.createInventory(null, 9, title());
-        inv.setItem(2, item(Material.EMERALD, display("loan.menu.item.request", "&aRequest"), lore("loan.menu.lore.request")));
+        if (loanService.canStartNewLoan(player)) {
+            inv.setItem(2, item(Material.EMERALD, display("loan.menu.item.request", "&aRequest"), lore("loan.menu.lore.request")));
+        } else {
+            Material blocked = Material.matchMaterial("BARRIER");
+            if (blocked == null) blocked = Material.matchMaterial("REDSTONE_BLOCK");
+            if (blocked == null) blocked = Material.REDSTONE_BLOCK;
+            java.util.List<String> blockedLore = lore("loan.menu.lore.request_blocked");
+            // If debt is cleared but cooldown remains, show cooldown lore instead.
+            com.example.vault.loans.Loan existing = loanService.getLoan(player.getUniqueId());
+            boolean hasUnpaidLoan = existing != null
+                    && existing.getRemaining() > 1.0E-9
+                    && (existing.getStatus() == com.example.vault.loans.LoanStatus.ACTIVE
+                    || existing.getStatus() == com.example.vault.loans.LoanStatus.DEFAULTED);
+            if (!hasUnpaidLoan) {
+                String cd = loanService.getCooldownLeftLabel(player);
+                if (cd != null && !cd.isEmpty()) {
+                    java.util.List<String> cooldownLore = lore("loan.menu.lore.request_cooldown");
+                    if (!cooldownLore.isEmpty()) {
+                        blockedLore = new java.util.ArrayList<>(cooldownLore.size());
+                        for (String line : cooldownLore) {
+                            blockedLore.add(line == null ? "" : line.replace("%time_left%", cd));
+                        }
+                    }
+                }
+            }
+            inv.setItem(2, item(blocked,
+                    display("loan.menu.item.request_blocked", "&cRequest unavailable"),
+                    blockedLore));
+        }
         inv.setItem(4, item(Material.PAPER, display("loan.menu.item.status", "&eStatus"), lore("loan.menu.lore.status")));
         inv.setItem(6, item(Material.GOLD_INGOT, display("loan.menu.item.pay", "&6Pay"), lore("loan.menu.lore.pay")));
         fillEmptyWithGreenGlass(inv);
@@ -80,7 +108,16 @@ public class LoanMenuService implements Listener {
 
         if (isMain) {
             if (name.equals(display("loan.menu.item.request", "&aRequest"))) {
+                if (!loanService.assertCanStartNewLoan(player)) {
+                    player.closeInventory();
+                    return;
+                }
                 startWizard(player);
+                return;
+            }
+            if (name.equals(display("loan.menu.item.request_blocked", "&cRequest unavailable"))) {
+                loanService.assertCanStartNewLoan(player);
+                player.closeInventory();
                 return;
             }
             if (name.equals(display("loan.menu.item.status", "&eStatus"))) {

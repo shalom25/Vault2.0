@@ -230,7 +230,7 @@ settings:
 loan:
   no_permission: "&cYou do not have permission to use loans."
   none: "&aYou do not have an active loan."
-  already_active: "&aYou already have an active loan."
+  already_active: "&cYou can only have one loan at a time. Fully repay your current loan before requesting another."
   defaulted_must_pay: "&cYour loan is in default. Pay the remaining &e%remaining% &cbefore requesting a new loan."
   cooldown: "&cYou cannot request a new loan yet. Cooldown remaining: &e%time_left%&c."
   cooldown_status: "&7Loan cooldown remaining: &e%time_left%&7."
@@ -244,12 +244,21 @@ loan:
     title: "&aLoan"
     item:
       request: "&aRequest"
+      request_blocked: "&cRequest unavailable"
       status: "&eStatus"
       pay: "&6Pay"
       settings: "&cSettings"
     lore:
       request:
         - "&7Request a new loan."
+      request_blocked:
+        - "&cYou can only have one loan at a time."
+        - "&7Fully repay your current loan"
+        - "&7before you can request another."
+      request_cooldown:
+        - "&cNew loan unavailable."
+        - "&7Cooldown remaining: &e%time_left%"
+        - "&7You must wait before borrowing again."
       status:
         - "&7View your current loan status."
       pay:
